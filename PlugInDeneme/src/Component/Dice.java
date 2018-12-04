@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Dice extends GamePieces {
+	//ELÝFY
+	
 	private ArrayList<Integer> faces = new ArrayList<Integer>();
 	
 	public Dice(int id) {
