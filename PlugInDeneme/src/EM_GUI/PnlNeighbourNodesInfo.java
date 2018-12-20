@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -18,57 +19,55 @@ import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
-import javax.swing.SpinnerModel;
-import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.xml.transform.TransformerException;
 
 import EM_Config.ConfigWriter;
 
-public class PnlFeatureSelection extends JPanel {
+public class PnlNeighbourNodesInfo extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private String name;
 	private JButton btnAdd;
 	private JButton btnDelete;
 	private JButton btnSubmit;
-	private JSpinner spinner;
-	private JTextField featureType;
-	private JComboBox comboBox;
+	private JComboBox<Vector<String>> nodeCombo;
+	private JComboBox<Vector<String>> neighbourCombo;
 	private DefaultTableModel model;
 	private JTable table;
-	private JTextPane info;
 	private Color color;
 	private Font font;
 	private ConfigWriter cnfgModel;
+	private Vector  nodes;
+	private JTextPane info;
 	
 	
-	public PnlFeatureSelection(String name,ConfigWriter cnfgModel) {
+	public PnlNeighbourNodesInfo(Vector  nodes, ConfigWriter cnfgModel) {
+		setNodes(nodes);
 		setName(name);
 		setCnfgModel(cnfgModel);
 		this.color = new Color(153, 0, 0);
 		this.font = new Font("jdIcoMoonFree", Font.PLAIN, 13);
 		this.setBackground(Color.WHITE);
 		this.setLayout(null);
-		String[] array = new String[30];
 		this.addTable();
-		this.addInputFields();
-		this.addComboBox(array);
+		this.addComboBox();
 		this.addButtons();
 		this.addPanes();
+		
+		
 	}
-	public ConfigWriter getCnfgModel() {
+	private void setNodes(Vector  nodes) {
+		this.nodes = nodes;
+	}
+	
+	private ConfigWriter getCnfgModel() {
 		return cnfgModel;
 	}
-	public void setCnfgModel(ConfigWriter cnfgModel) {
+	private void setCnfgModel(ConfigWriter cnfgModel) {
 		this.cnfgModel = cnfgModel;
 	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}		
+
 	private void addButtons() {
 		this.btnAdd = new JButton("ADD");
 		btnAdd.setBounds(411, 84, 300, 25);
@@ -96,11 +95,11 @@ public class PnlFeatureSelection extends JPanel {
 		ActionListener addAction = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String fType =featureType.getText() ;
-				String selectedFeature = (String)comboBox.getSelectedItem();
-				String spinnerValue = Integer.toString((Integer)spinner.getValue())	;
 				
-				String[] aRow = {selectedFeature, fType, spinnerValue};
+				String node = (String)nodeCombo.getSelectedItem();
+				String neighbour = (String)neighbourCombo.getSelectedItem();
+				
+				String[] aRow = {node, neighbour};
 				 model = (DefaultTableModel) table.getModel();
 				 model.addRow(aRow);
 				 btnSubmit.setEnabled(true);
@@ -129,66 +128,57 @@ public class PnlFeatureSelection extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				model = (DefaultTableModel) table.getModel();
 			    Vector data = model.getDataVector();
-		        try {
-					cnfgModel.writeFeatures(data);
-				} catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (TransformerException e1) {
+			    Vector result = cnfgModel.getBoardNodes(data);
+			    try {
+					cnfgModel.writeBoardNodes(result);
+				} catch (FileNotFoundException | TransformerException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-		        btnSubmit.setEnabled(false);
+			 
+		        info.setText("NODES ARE CREATED!");
 		        btnAdd.setEnabled(false);
 		        btnDelete.setEnabled(false);
-		        info.setText("FEATURES ARE SELECTED!");
+		        btnSubmit.setEnabled(false);
 			}
 			
 		};
 		btnSubmit.addActionListener(submitAction);
 	}
-	private void addInputFields() {
-		this.featureType = new JTextField();
-		featureType.setBounds(545, 49, 105, 22);
-		this.add(featureType);
-		featureType.setColumns(10);
-		
-        SpinnerModel sModel = new SpinnerNumberModel(0, 0, 100, 1);
 
-		this.spinner = new JSpinner(sModel);
-		spinner.setBounds(654, 49, 57, 22);
-		this.add(spinner);
-	}
-	private void addComboBox(String[] array) {
-		 this.comboBox = new JComboBox();
-		this.comboBox.setBounds(411, 49, 130, 22);
-		this.comboBox.setModel(new DefaultComboBoxModel(new String[] {"Player","Role Card" ,"Reference Card", "Event Card", "State Card", "Pawn","Tokens","Dice","Move Timer", "Game Timer"}));
-		comboBox.setBackground(Color.WHITE);
-		comboBox.setForeground(color);
-		comboBox.setFont(font);
+	private void addComboBox() {
+		 this.nodeCombo = new JComboBox();
+		this.nodeCombo.setBounds(411, 49, 147, 22);
+		this.nodeCombo.setModel(new DefaultComboBoxModel(nodes.toArray()));
+		this.nodeCombo.setBackground(Color.WHITE);
+		this.nodeCombo.setForeground(color);
+		this.nodeCombo.setFont(font);
+		this.add(this.nodeCombo);
 		
-		this.add(this.comboBox);
+		this.neighbourCombo = new JComboBox();
+		this.neighbourCombo.setBounds(564, 49, 147, 22);
+		this.neighbourCombo.setBackground(Color.WHITE);
+		this.neighbourCombo.setForeground(color);
+		this.neighbourCombo.setFont(font);
+		this.add(this.neighbourCombo);
 		
 		ItemListener itemListener = new ItemListener() {
-		      public void itemStateChanged(ItemEvent itemEvent) {
-		    	  
+		      public void itemStateChanged(ItemEvent itemEvent) {	 
 		    	  int state = itemEvent.getStateChange();
-		    	 if(state == ItemEvent.SELECTED) {
-		    		 ItemSelectable is = itemEvent.getItemSelectable();
-		    		 
-		    		 switch ((String)itemEvent.getItem()) {
-					case "Feature 2" :
-						info.setText("BÝR FIRELAMA ÝÞLEMÝ YAPILDI ");
-						info.setVisible(true);
-						break;
-		
-					default:
-						break;
+		    	  if(state == ItemEvent.SELECTED) {
+		    		 Vector temp = new Vector<>();
+		    		  for (int i = 0; i < nodes.size(); i++) {
+		    			  if (!nodes.get(i).equals(itemEvent.getItem())) {
+							temp.add(nodes.get(i));
+						}
 					}
+		    		 neighbourCombo.setModel(new DefaultComboBoxModel(temp.toArray()));
 		    	 }
 		      }
 		    };
-		comboBox.addItemListener(itemListener);
+		nodeCombo.addItemListener(itemListener);
+		
+		
 	}
 	private void addTable() {
 		table = new JTable();
@@ -207,10 +197,10 @@ public class PnlFeatureSelection extends JPanel {
 				new Object[][] {
 				},
 				new String[] {
-					"FEATURE NAME ", "FEATURE TYPE", "AMOUNT"
+					"NODE ", "NEIGHBOUR"
 				}
 			) {
-		
+
 				private static final long serialVersionUID = 1L;
 				boolean[] columnEditables = new boolean[] {
 					false, false, false
@@ -223,8 +213,7 @@ public class PnlFeatureSelection extends JPanel {
 			table.getColumnModel().getColumn(0).setPreferredWidth(120);
 			table.getColumnModel().getColumn(1).setResizable(false);
 			table.getColumnModel().getColumn(1).setPreferredWidth(200);
-			table.getColumnModel().getColumn(2).setResizable(false);
-			table.getColumnModel().getColumn(2).setPreferredWidth(120);
+
 			
 			JScrollPane scrollPane = new JScrollPane(table);
 			// Force the scrollbars to always be displayed
@@ -236,32 +225,23 @@ public class PnlFeatureSelection extends JPanel {
 			this.add(scrollPane);
 	}
 	private void addPanes() {
-		JTextPane txtpnFeature = new JTextPane();
-		txtpnFeature.setBounds(411, 27, 120, 22);
-		txtpnFeature.setText("FEATURE NAME");
-		txtpnFeature.setEnabled(true);
-		txtpnFeature.setEditable(false);
-		txtpnFeature.setForeground(color);
-		txtpnFeature.setFont(font);
-		this.add(txtpnFeature);
+		JTextPane txtpnNode = new JTextPane();
+		txtpnNode.setBounds(411, 27, 94, 22);
+		txtpnNode.setText("NODE");
+		txtpnNode.setEnabled(true);
+		txtpnNode.setEditable(false);
+		txtpnNode.setForeground(color);
+		txtpnNode.setFont(font);
+		this.add(txtpnNode);
 		
-		JTextPane txtpnFeatureType = new JTextPane();
-		txtpnFeatureType.setBounds(545, 27, 110, 22);
-		txtpnFeatureType.setEnabled(true);
-		txtpnFeatureType.setEditable(false);
-		txtpnFeatureType.setText("FEATURE TYPE");
-		txtpnFeatureType.setForeground(color);
-		txtpnFeatureType.setFont(font);
-		this.add(txtpnFeatureType);
-		
-		JTextPane txtpnAmount = new JTextPane();
-		txtpnAmount.setBounds(654, 27, 58, 22);
-		txtpnAmount.setEnabled(true);
-		txtpnAmount.setEditable(false);
-		txtpnAmount.setText("AMOUNT");
-		txtpnAmount.setForeground(color);
-		txtpnAmount.setFont(font);
-		this.add(txtpnAmount);
+		JTextPane txtpnNeighbour = new JTextPane();
+		txtpnNeighbour.setBounds(557, 27, 116, 22);
+		txtpnNeighbour.setEnabled(true);
+		txtpnNeighbour.setEditable(false);
+		txtpnNeighbour.setText("NEIGHBOUR");
+		txtpnNeighbour.setForeground(color);
+		txtpnNeighbour.setFont(font);
+		this.add(txtpnNeighbour);	
 		
 		info = new JTextPane();
 		info.setBounds(411, 191, 276, 120);
@@ -271,5 +251,4 @@ public class PnlFeatureSelection extends JPanel {
 		info.setEnabled(true);
 		this.add(info);
 	}
-	
 }

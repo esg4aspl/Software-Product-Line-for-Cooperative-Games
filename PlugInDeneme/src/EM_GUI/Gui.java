@@ -1,11 +1,19 @@
 package EM_GUI;
 
+import EM_Config.ConfigWriter;
+
 import java.awt.EventQueue;
+
 import javax.swing.JFrame;
 import java.awt.Font;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+
 import java.awt.Color;
+import java.awt.Component;
+
 import javax.swing.SwingConstants;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import java.awt.Window.Type;
@@ -20,6 +28,7 @@ import java.awt.SystemColor;
 public class Gui {
 
 	private JFrame frame;
+	private ConfigWriter cnfgModel; 
 
 	/**
 	 * Launch the application.
@@ -40,9 +49,12 @@ public class Gui {
 	/**
 	 * Create the application.
 	 * @throws IOException 
+	 * @throws ParserConfigurationException 
 	 */
-	public Gui() throws IOException {
+	public Gui() throws IOException, ParserConfigurationException {
+		cnfgModel = new ConfigWriter();
 		initialize();
+		
 	}
 
 	/**
@@ -82,10 +94,10 @@ public class Gui {
 		frame.getContentPane().add(headerPanel);
 		
 		
-		JPanel featureSelectionPanel = new PnlFeatureSelection("Feature Selection");
-		JPanel boardInfoPanel = new PnlBoardInfo("Board Info");
-		JPanel ruleInfoPanel = new PnlRuleInfo("Rule Info");
-		ArrayList<JPanel> tabbedPanelList = new ArrayList<JPanel>();
+		JPanel featureSelectionPanel = new PnlFeatureSelection("Feature Selection",cnfgModel);
+		JPanel boardInfoPanel = new PnlBoardInfo("Board Info",cnfgModel);
+		JTabbedPane ruleInfoPanel = new PnlRuleInfo("Rule Info",cnfgModel);
+		ArrayList<Component> tabbedPanelList = new ArrayList<Component>();
 		tabbedPanelList.add(featureSelectionPanel);
 		tabbedPanelList.add(boardInfoPanel);
 		tabbedPanelList.add(ruleInfoPanel);
