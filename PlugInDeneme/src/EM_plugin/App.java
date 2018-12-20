@@ -29,7 +29,7 @@ public class App {
 		game.start();*/
 		
 		ConfigWriter configWriter = new ConfigWriter();
-		configWriter.write("Features.txt");
+		//configWriter.write("Features.txt");
 		
 	
 		
