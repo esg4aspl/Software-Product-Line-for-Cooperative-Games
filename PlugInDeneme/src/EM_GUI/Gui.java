@@ -77,7 +77,7 @@ public class Gui {
 		
 		BufferedImage myPicture = ImageIO.read(new File("boardGame.png"));
 		
-		JLabel lblDesc = new JLabel("SPL for Cooperative Board Game");
+		JLabel lblDesc = new JLabel("SPL for Pandemic Game Versions");
 		lblDesc.setForeground(new Color(153, 0, 0));
 		lblDesc.setBounds(186, 200, 624, 37);
 		lblDesc.setFont(new Font("jdIcoMoonFree", Font.BOLD, 28));
@@ -97,10 +97,15 @@ public class Gui {
 		JPanel featureSelectionPanel = new PnlFeatureSelection("Feature Selection",cnfgModel);
 		JPanel boardInfoPanel = new PnlBoardInfo("Board Info",cnfgModel);
 		JTabbedPane ruleInfoPanel = new PnlRuleInfo("Rule Info",cnfgModel);
+		JPanel meterInfoPanel = new PnlMeterInfo("Meter Info",cnfgModel);
+		JPanel readFromXMLPanel = new PnlReadXML("Read From File",cnfgModel);
+
 		ArrayList<Component> tabbedPanelList = new ArrayList<Component>();
 		tabbedPanelList.add(featureSelectionPanel);
 		tabbedPanelList.add(boardInfoPanel);
 		tabbedPanelList.add(ruleInfoPanel);
+		tabbedPanelList.add(meterInfoPanel);
+		tabbedPanelList.add(readFromXMLPanel);
 		ContentTabbedPane contentTabbedPane = new ContentTabbedPane(tabbedPanelList);
 		frame.getContentPane().add(contentTabbedPane);
 		

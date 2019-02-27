@@ -2,6 +2,14 @@
 <Features>
 <Feature>
 <featureName>Role Card</featureName>
+<<<<<<< HEAD
+<type>epidemic</type>
+<amount>2</amount>
+</Feature>
+<Board>
+<nodeName>paris</nodeName>
+<neighbours>istanbul  </neighbours>
+=======
 <type>scientist</type>
 <amount>1</amount>
 </Feature>
@@ -22,5 +30,6 @@
 <Board>
 <nodeName>milan</nodeName>
 <neighbours>london  </neighbours>
+>>>>>>> refs/remotes/origin/EM-20190228
 </Board>
 </Features>

@@ -62,6 +62,11 @@ public class PnlRuleInfo extends JTabbedPane {
 		tabbedPanelList.add(pnlMovementInfo);
 		tabbedPanelList.add(pnlGameEnd);
 		setPanelList(tabbedPanelList);
+
+		//this.pnlGameRuleInfo = new PnlGameRuleInfo(this,cnfgWriter);
+		//this.add(pnlGameRuleInfo,"GAME RULE INFO");
+		
+
 		
 }
 	
