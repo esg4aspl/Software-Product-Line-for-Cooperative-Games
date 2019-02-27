@@ -28,9 +28,11 @@ public class App {
 		game.registerPlugIn(figures);
 		game.start();*/
 		
+
+		/*
 		ConfigWriter configWriter = new ConfigWriter();
 		configWriter.write("Features.txt");
-		
+		*/
 	
 		
 	}
