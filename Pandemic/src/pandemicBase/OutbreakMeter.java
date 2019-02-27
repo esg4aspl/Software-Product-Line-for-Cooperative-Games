@@ -2,9 +2,9 @@ package pandemicBase;
 
 import common.AbstractMeter;
 
-public class Outbreakmeter extends AbstractMeter{
+public class OutbreakMeter extends AbstractMeter{
 
-	public Outbreakmeter(int range) {
+	public OutbreakMeter(int range) {
 		super(range);
 		setMeterArray(generateMeterArray());
 		// TODO Auto-generated constructor stub
