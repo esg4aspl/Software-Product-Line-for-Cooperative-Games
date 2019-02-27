@@ -99,6 +99,7 @@ public class Gui {
 		JTabbedPane ruleInfoPanel = new PnlRuleInfo("Rule Info",cnfgModel);
 		JPanel meterInfoPanel = new PnlMeterInfo("Meter Info",cnfgModel);
 		JPanel readFromXMLPanel = new PnlReadXML("Read From File",cnfgModel);
+
 		ArrayList<Component> tabbedPanelList = new ArrayList<Component>();
 		tabbedPanelList.add(featureSelectionPanel);
 		tabbedPanelList.add(boardInfoPanel);

@@ -2,11 +2,34 @@
 <Features>
 <Feature>
 <featureName>Role Card</featureName>
+<<<<<<< HEAD
 <type>epidemic</type>
 <amount>2</amount>
 </Feature>
 <Board>
 <nodeName>paris</nodeName>
 <neighbours>istanbul  </neighbours>
+=======
+<type>scientist</type>
+<amount>1</amount>
+</Feature>
+<Feature>
+<featureName>Role Card</featureName>
+<type>dispatcher</type>
+<amount>1</amount>
+</Feature>
+<Feature>
+<featureName>Player</featureName>
+<type>null</type>
+<amount>4</amount>
+</Feature>
+<Board>
+<nodeName>london</nodeName>
+<neighbours>milan  istanbul  </neighbours>
+</Board>
+<Board>
+<nodeName>milan</nodeName>
+<neighbours>london  </neighbours>
+>>>>>>> refs/remotes/origin/EM-20190228
 </Board>
 </Features>

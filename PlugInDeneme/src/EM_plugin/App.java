@@ -31,8 +31,12 @@ public class App {
 
 		/*
 		ConfigWriter configWriter = new ConfigWriter();
+<<<<<<< HEAD
 		configWriter.write("Features.txt");
 		*/
+
+		//configWriter.write("Features.txt");
+		
 	
 		
 	}
