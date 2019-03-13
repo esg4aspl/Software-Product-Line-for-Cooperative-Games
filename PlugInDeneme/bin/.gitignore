@@ -1,9 +1,4 @@
-/EM_GUI/
-<<<<<<< HEAD
-/EM_Config/
-/EM_plugin/
 /Component/
-=======
-/EM_plugin/
 /EM_Config/
->>>>>>> refs/remotes/origin/EM-20190228
+/EM_GUI/
+/EM_plugin/

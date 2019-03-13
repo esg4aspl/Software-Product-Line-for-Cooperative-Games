@@ -24,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.xml.transform.TransformerException;
 
 import EM_Config.ConfigWriter;
+import EM_Config.ConfigWriterTemplate;
 
 public class PnlNeighbourNodesInfo extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -37,12 +38,12 @@ public class PnlNeighbourNodesInfo extends JPanel {
 	private JTable table;
 	private Color color;
 	private Font font;
-	private ConfigWriter cnfgModel;
+	private ConfigWriterTemplate cnfgModel;
 	private Vector  nodes;
 	private JTextPane info;
 	
 	
-	public PnlNeighbourNodesInfo(Vector  nodes, ConfigWriter cnfgModel) {
+	public PnlNeighbourNodesInfo(Vector  nodes, ConfigWriterTemplate cnfgModel) {
 		setNodes(nodes);
 		setName(name);
 		setCnfgModel(cnfgModel);
@@ -61,10 +62,10 @@ public class PnlNeighbourNodesInfo extends JPanel {
 		this.nodes = nodes;
 	}
 	
-	private ConfigWriter getCnfgModel() {
+	private ConfigWriterTemplate getCnfgModel() {
 		return cnfgModel;
 	}
-	private void setCnfgModel(ConfigWriter cnfgModel) {
+	private void setCnfgModel(ConfigWriterTemplate cnfgModel) {
 		this.cnfgModel = cnfgModel;
 	}
 
@@ -128,10 +129,10 @@ public class PnlNeighbourNodesInfo extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				model = (DefaultTableModel) table.getModel();
 			    Vector data = model.getDataVector();
-			    Vector result = cnfgModel.getBoardNodes(data);
+			    
 			    try {
-					cnfgModel.writeBoardNodes(result);
-				} catch (FileNotFoundException | TransformerException e1) {
+					cnfgModel.write(data);
+				} catch (TransformerException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}

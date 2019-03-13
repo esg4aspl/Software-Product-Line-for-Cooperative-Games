@@ -1,6 +1,9 @@
 package EM_GUI;
 
+import EM_Config.BoardNodeSelectionWriter;
 import EM_Config.ConfigWriter;
+import EM_Config.ConfigWriterTemplate;
+import EM_Config.FeatureSelectionWriter;
 
 import java.awt.EventQueue;
 
@@ -60,8 +63,9 @@ public class Gui {
 	/**
 	 * Initialize the contents of the frame.
 	 * @throws IOException 
+	 * @throws ParserConfigurationException 
 	 */
-	private void initialize() throws IOException {
+	private void initialize() throws IOException, ParserConfigurationException {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(SystemColor.window);
 		frame.setBackground(new Color(51, 51, 51));
@@ -93,9 +97,10 @@ public class Gui {
 		PnlHeader headerPanel = new PnlHeader(imgholderPanel, lblDesc );
 		frame.getContentPane().add(headerPanel);
 		
-		
-		JPanel featureSelectionPanel = new PnlFeatureSelection("Feature Selection",cnfgModel);
-		JPanel boardInfoPanel = new PnlBoardInfo("Board Info",cnfgModel);
+		ConfigWriterTemplate cnfgPnl = new FeatureSelectionWriter("Features");
+		JPanel featureSelectionPanel = new PnlFeatureSelection("Feature Selection",cnfgPnl);
+		ConfigWriterTemplate cnfgBoard = new BoardNodeSelectionWriter("Board");
+		JPanel boardInfoPanel = new PnlBoardInfo("Board Info",cnfgBoard);
 		JTabbedPane ruleInfoPanel = new PnlRuleInfo("Rule Info",cnfgModel);
 		JPanel meterInfoPanel = new PnlMeterInfo("Meter Info",cnfgModel);
 		JPanel readFromXMLPanel = new PnlReadXML("Read From File",cnfgModel);

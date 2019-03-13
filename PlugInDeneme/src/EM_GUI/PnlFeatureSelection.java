@@ -25,6 +25,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.xml.transform.TransformerException;
 
 import EM_Config.ConfigWriter;
+import EM_Config.ConfigWriterTemplate;
 
 public class PnlFeatureSelection extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -40,10 +41,10 @@ public class PnlFeatureSelection extends JPanel {
 	private JTextPane info;
 	private Color color;
 	private Font font;
-	private ConfigWriter cnfgModel;
+	private ConfigWriterTemplate cnfgModel;
 	
 	
-	public PnlFeatureSelection(String name,ConfigWriter cnfgModel) {
+	public PnlFeatureSelection(String name,ConfigWriterTemplate cnfgModel) {
 		setName(name);
 		setCnfgModel(cnfgModel);
 		this.color = new Color(153, 0, 0);
@@ -57,10 +58,10 @@ public class PnlFeatureSelection extends JPanel {
 		this.addButtons();
 		this.addPanes();
 	}
-	public ConfigWriter getCnfgModel() {
+	public ConfigWriterTemplate getCnfgModel() {
 		return cnfgModel;
 	}
-	public void setCnfgModel(ConfigWriter cnfgModel) {
+	public void setCnfgModel(ConfigWriterTemplate cnfgModel) {
 		this.cnfgModel = cnfgModel;
 	}
 	public String getName() {
@@ -130,10 +131,7 @@ public class PnlFeatureSelection extends JPanel {
 				model = (DefaultTableModel) table.getModel();
 			    Vector data = model.getDataVector();
 		        try {
-					cnfgModel.writeFeatures(data);
-				} catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					cnfgModel.write(data);
 				} catch (TransformerException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
