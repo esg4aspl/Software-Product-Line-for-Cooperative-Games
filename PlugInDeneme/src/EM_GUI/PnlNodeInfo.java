@@ -25,6 +25,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableModel;
 
 import EM_Config.ConfigWriter;
+import EM_Config.ConfigWriterTemplate;
 
 public class PnlNodeInfo extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -39,10 +40,10 @@ public class PnlNodeInfo extends JPanel {
 	private Font font;
 	private JPanel pnlCard;
 	private Vector data;
-	private ConfigWriter cnfgModel;
+	private ConfigWriterTemplate cnfgModel;
 	
 	
-	public PnlNodeInfo(JPanel pnlCard,ConfigWriter cnfgModel) {
+	public PnlNodeInfo(JPanel pnlCard,ConfigWriterTemplate cnfgModel) {
 		setPnlCard(pnlCard);
 		setCnfgModel(cnfgModel);
 		this.color = new Color(153, 0, 0);
@@ -54,10 +55,10 @@ public class PnlNodeInfo extends JPanel {
 		this.addButtons();
 		this.addPanes();
 	}
-	private ConfigWriter getCnfgModel() {
+	private ConfigWriterTemplate getCnfgModel() {
 		return cnfgModel;
 	}
-	private void setCnfgModel(ConfigWriter cnfgModel) {
+	private void setCnfgModel(ConfigWriterTemplate cnfgModel) {
 		this.cnfgModel = cnfgModel;
 	}
 	public Vector getNodes() {

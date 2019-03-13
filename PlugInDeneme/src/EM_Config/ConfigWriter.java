@@ -113,13 +113,12 @@ public class ConfigWriter {
     
     
     public static Vector<Vector<String>> getBoardNodes(Vector<Vector<String>> data){
-		String parentNode = data.get(0).get(0); //a þu an
+    	String parentNode = data.get(0).get(0); //a þu an
 		String childNodes = ""; //þu an boþ
 		Vector<Vector<String>> result = new Vector<Vector<String>>();
 		for(int i=0;i<data.size();i++) {
 			if(data.get(i).get(0).equals(parentNode)) {
 			childNodes = childNodes + data.get(i).get(1) + "  ";
-			//System.out.println("if "+i);
 			}
 			else {
 				
@@ -130,7 +129,6 @@ public class ConfigWriter {
 				childNodes="";
 				
 				childNodes = childNodes + data.get(i).get(1) + "  ";
-				//System.out.println("else " +i);
 				
 				parentNode=data.get(i).get(0);
 			}	
