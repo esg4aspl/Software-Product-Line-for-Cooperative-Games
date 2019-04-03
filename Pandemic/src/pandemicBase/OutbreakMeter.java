@@ -1,6 +1,6 @@
 package pandemicBase;
 
-import common.AbstractMeter;
+import core.AbstractMeter;
 
 public class OutbreakMeter extends AbstractMeter{
 
