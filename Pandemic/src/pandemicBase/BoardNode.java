@@ -2,9 +2,10 @@ package pandemicBase;
 
 import java.util.ArrayList;
 
+import core.AbstractBoardNode;
 import core.AbstractGamePieces;
 
-public class BoardNode {
+public class BoardNode extends AbstractBoardNode{
 
 	private String name;
 	private ArrayList<BoardNode> neighborList  = new ArrayList<BoardNode>();

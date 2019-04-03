@@ -2,7 +2,9 @@ package pandemicBase;
 
 import java.util.ArrayList;
 
-public class Board {
+import core.AbstractBoard;
+
+public class Board extends AbstractBoard{
 	private ArrayList<BoardNode> nodeList;
 	public Board(ArrayList<BoardNode> nodeList) {
 		setNodeList(nodeList);
