@@ -2,6 +2,8 @@ package core;
 
 import java.util.List;
 
+import pandemicBase.BoardNode;
+
 public abstract class AbstractReferee {
 	protected AbstractGameConfiguration gameConfiguration;
 	protected int  numberOfPlayers, numberOfCardsPerPlayer,numberOfNodes,numberOfDiseaseCubes;
@@ -13,6 +15,7 @@ public abstract class AbstractReferee {
 	protected AbstractMove currentMove;
 	protected AbstractBoardNode currentNode;
 	protected AbstractBoard board;
+	
 	
 	public AbstractReferee(AbstractGameConfiguration gameConfiguration) {
 		setGameConfiguration(gameConfiguration);
@@ -34,6 +37,7 @@ public abstract class AbstractReferee {
 		this.numberOfPlayers = numberOfPlayers;
 	}
 
+	
 	public int getNumberOfCardsPerPlayer() {
 		return numberOfCardsPerPlayer;
 	}

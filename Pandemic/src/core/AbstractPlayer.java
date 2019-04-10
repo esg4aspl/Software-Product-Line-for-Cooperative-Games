@@ -6,13 +6,23 @@ public abstract class AbstractPlayer {
 	private Color color;
 	private AbstractRole role;
 	private AbstractDeck deck;
+	private AbstractGamePieces pawn;
 	
-	public AbstractPlayer(AbstractDeck deck,AbstractRole role, Color color) {
+	public AbstractPlayer(AbstractDeck deck,AbstractRole role, Color color,AbstractGamePieces pawn) {
 		setDeck(deck);
 		setRole(role);
 		setColor(color);
-		
+		setPawn(pawn);
 	}
+	
+	public AbstractGamePieces getPawn() {
+		return pawn;
+	}
+
+	public void setPawn(AbstractGamePieces pawn) {
+		this.pawn = pawn;
+	}
+
 	protected AbstractDeck getDeck() {
 		return deck;
 	}

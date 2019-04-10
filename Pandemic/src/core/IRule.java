@@ -1,5 +1,5 @@
 package core;
 
 public interface IRule {
-	public boolean evaluate(AbstractReferee r);
+	public boolean evaluate(AbstractReferee referee);
 }
