@@ -1,17 +1,17 @@
-package rules;
+package constraints;
 
 import core.AbstractCard;
 import core.AbstractReferee;
-import core.IRule;
+import core.IConstraint;
 import pandemicBase.EpidemicCard;
 
-public class RuleIsCurrentPlayerDrawnCardNotEpidemicCard implements IRule{
+public class ConstraintIsCurrentPlayerDrawnCardNotEpidemicCard implements IConstraint{
 
-	public RuleIsCurrentPlayerDrawnCardNotEpidemicCard() {	
+	public ConstraintIsCurrentPlayerDrawnCardNotEpidemicCard() {	
 	}
 	
 	@Override
-	public boolean evaluate(AbstractReferee referee) {
+	public boolean check(AbstractReferee referee) {
 		//Çekilen kart epidemic mi deðil mi bunun kontrolü yapýlýr. 
 		AbstractCard card = referee.getCurrentPlayerDrawnCard();
 		if(card instanceof EpidemicCard) {

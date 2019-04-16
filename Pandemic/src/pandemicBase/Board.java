@@ -6,6 +6,7 @@ import core.AbstractBoard;
 
 public class Board extends AbstractBoard{
 	private ArrayList<BoardNode> nodeList;
+	
 	public Board(ArrayList<BoardNode> nodeList) {
 		setNodeList(nodeList);
 	}
