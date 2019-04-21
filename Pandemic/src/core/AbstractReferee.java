@@ -1,20 +1,24 @@
 package core;
 
-import java.util.List;
-
-import pandemicBase.BoardNode;
-
 public abstract class AbstractReferee {
 	protected AbstractGameConfiguration gameConfiguration;
-	protected int  numberOfPlayers, numberOfCardsPerPlayer,numberOfNodes,numberOfDiseaseCubes;
-	protected List<Integer> valuesOfInfectionRate;
+	protected int  numberOfPlayers, numberOfCardsPerPlayer,numberOfNodes,numberOfDiseaseCubeTypes,numberOfDiseaseCubesPerType,numberOfEpidemicCards;
 	protected IPlayerList playerList;
-	protected Color currentPlayerColor;
+	protected ICubeList cubeList;
+	protected AbstractStackDeck playerDeck;
+	protected AbstractStackDeck infectionDeck;
+	protected AbstractDeck playerDiscardPile; // deck for discarded card. It is useful for an event card. 
+	protected AbstractDeck infectionDiscardPile;
+	protected AbstractTrack infectionTrack;
+	protected AbstractTrack outbreakTrack;
+	protected AbstractBoardNode initialNode;
+	protected AbstractBoard board;
+	
 	protected AbstractPlayer currentPlayer;
 	protected AbstractCard currentPlayerDrawnCard;
 	protected AbstractMove currentMove;
 	protected AbstractBoardNode currentNode;
-	protected AbstractBoard board;
+	
 	
 	
 	public AbstractReferee(AbstractGameConfiguration gameConfiguration) {
@@ -46,13 +50,6 @@ public abstract class AbstractReferee {
 		this.numberOfCardsPerPlayer = numberOfCardsPerPlayer;
 	}
 
-	public Color getCurrentPlayerColor() {
-		return currentPlayerColor;
-	}
-
-	public void setCurrentPlayerColor(Color currentPlayerColor) {
-		this.currentPlayerColor = currentPlayerColor;
-	}
 
 	public IPlayerList getPlayerList() {
 		return playerList;
@@ -102,21 +99,6 @@ public abstract class AbstractReferee {
 		this.numberOfNodes = numberOfNodes;
 	}
 
-	public int getNumberOfDiseaseCubes() {
-		return numberOfDiseaseCubes;
-	}
-
-	public void setNumberOfDiseaseCubes(int numberOfDiseaseCubes) {
-		this.numberOfDiseaseCubes = numberOfDiseaseCubes;
-	}
-
-	public List<Integer> getValuesOfInfectionRate() {
-		return valuesOfInfectionRate;
-	}
-
-	public void setValuesOfInfectionRate(List<Integer> valuesOfInfectionRate) {
-		this.valuesOfInfectionRate = valuesOfInfectionRate;
-	}
 
 	public AbstractCard getCurrentPlayerDrawnCard() {
 		return currentPlayerDrawnCard;
@@ -125,12 +107,9 @@ public abstract class AbstractReferee {
 	public void setCurrentPlayerDrawnCard(AbstractCard currentPlayerDrawnCard) {
 		this.currentPlayerDrawnCard = currentPlayerDrawnCard;
 	}
-
-	public abstract void setUp();
+	
+	public abstract void setup();
 	public abstract void startGame();
-	
-
-	
 	
 	
 

@@ -8,14 +8,9 @@ public class MoveToAnotherCity extends AbstractMovementAction {
 
 	@Override
 	public void doAction(AbstractReferee referee) {
-		AbstractMovementAction move = (AbstractMovementAction)referee.getCurrentMove(); //down casting ?
+		AbstractMovementAction move = (AbstractMovementAction)referee.getCurrentMove(); 
 		BoardNode destinationNode = (BoardNode) move.getDestinationBoardNode();
-		BoardNode currentNode = (BoardNode) referee.getCurrentNode();
 		AbstractPlayer currentPlayer = referee.getCurrentPlayer();
-		currentNode.removePieceOnTheNode(currentPlayer.getPawn());
-		destinationNode.addPieceOnTheNode(currentPlayer.getPawn());
-		
+		currentPlayer.setCurrentNode(destinationNode);
 	}
-	
-
 }

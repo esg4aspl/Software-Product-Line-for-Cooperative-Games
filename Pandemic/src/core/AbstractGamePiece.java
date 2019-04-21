@@ -1,7 +1,7 @@
 package core;
-public abstract class AbstractGamePieces {
+public abstract class AbstractGamePiece {
 	private int ID;
-	public AbstractGamePieces(int id) {
+	public AbstractGamePiece(int id) {
 		setID(id);
 	}
 	private void setID(int id) {

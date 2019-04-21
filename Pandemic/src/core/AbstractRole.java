@@ -1,12 +1,20 @@
 package core;
 
-public abstract class AbstractRole {
-	private Color color;
-	protected Color getColor() {
-		return color;
+public abstract class AbstractRole implements IRole{
+	private Role role;
+	
+	public AbstractRole(Role role) {
+		setRole(role);
 	}
-	protected void setColor(Color color) {
-		this.color = color;
+	protected void setRole(Role role) {
+		this.role = role;
 	}
-	public abstract void doSpecialMove();
+	public String getRoleName() {
+		return role.getName();
+	}
+	public String toString() {
+		return role.toString();
+	}
+	
+	
 }

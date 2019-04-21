@@ -9,6 +9,6 @@ public interface IPlayerList {
 	public List<AbstractPlayer> getPlayers();
 	public void addPlayer(AbstractPlayer player);
 	public void removePlayer(AbstractPlayer player);
-	public String getPlayerStatus(); // ne için gerekli?
+	public String getPlayerStatus(); 
 
 }
