@@ -3,11 +3,10 @@ package core;
 import java.util.List;
 
 public abstract class AbstractGameConfiguration {
-	//buraya db ya da xml dosyasýndan okumamýzý saðlayacak tatlý bir deðiþken gelecek !!!
-	//TODO ICONFIGFILE gibi bir deðiþken yaaaaz!!!
+	//TODO We are going to write ICONFIG variable, that's why this class is abstract. 
 	public AbstractGameConfiguration() {
 	}
-	//DiseaseCubeTypelar alýnýnca, dolaylý olarak cure marker sayýsýný ve tipini de almýþ oluyoruz.
+	//When we get the Disease Cube types, we automatically get number of cure markers and type of markers.
 	public abstract int getNumberOfDiseaseCubeTypes();
 	public abstract int getNumberOfDiseaseCubePerCubeType();
 	public abstract int getOutbreakRange();
@@ -16,12 +15,11 @@ public abstract class AbstractGameConfiguration {
 	public abstract int[] getValuesOfInfectionRateNumber();
 	public abstract int getNumberOfNodes();
 	public abstract String getInitialBoardNode();
-	//Node'larýn ismini alýnca, otomatik olarak city card ve infection card isimlerini de almýþ oluyoruz.
+	//When we getNodes we automatically have cityCard names and InfectionCard names. 
 	public abstract List<AbstractBoardNode> getNodes();
 	public abstract int getNumberOfEpidemicCardsInGame();
-	// kart isimleri alýnacak, isimlerin objelere map edilmesi referee sayesinde olacak.
+	// We get the name of cards and description, the mapping these informations to objects is referee's job.
 	public abstract List<String> getNameOfEventCards(); 
-	public abstract List<String> getNameOfRoleCards();
-	
+	public abstract List<String> getNameOfRoles();
 
 }

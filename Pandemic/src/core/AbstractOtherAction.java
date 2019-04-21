@@ -1,6 +1,6 @@
 package core;
 
-public class AbstractOtherActions extends AbstractMove {
+public class AbstractOtherAction extends AbstractMove {
 
 	@Override
 	public void doAction(AbstractReferee referee) {
