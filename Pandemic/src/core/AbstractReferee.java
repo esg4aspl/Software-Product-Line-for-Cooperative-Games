@@ -16,9 +16,9 @@ public abstract class AbstractReferee {
 	
 	protected AbstractPlayer currentPlayer;
 	protected AbstractCard currentPlayerDrawnCard;
-	protected AbstractMove currentMove;
+	protected AbstractAction currentAction;
 	protected AbstractBoardNode currentNode;
-	
+		
 	
 	
 	public AbstractReferee(AbstractGameConfiguration gameConfiguration) {
@@ -67,12 +67,12 @@ public abstract class AbstractReferee {
 		this.currentPlayer = currentPlayer;
 	}
 
-	public AbstractMove getCurrentMove() {
-		return currentMove;
+	public AbstractAction getCurrentAction() {
+		return currentAction;
 	}
 
-	public void setCurrentMove(AbstractMove currentMove) {
-		this.currentMove = currentMove;
+	public void setCurrentAction(AbstractAction currentAction) {
+		this.currentAction = currentAction;
 	}
 
 	public AbstractBoardNode getCurrentNode() {
@@ -107,7 +107,10 @@ public abstract class AbstractReferee {
 	public void setCurrentPlayerDrawnCard(AbstractCard currentPlayerDrawnCard) {
 		this.currentPlayerDrawnCard = currentPlayerDrawnCard;
 	}
-	
+	public boolean isSatisfied(IRule rule, AbstractReferee referee) {
+    	return rule.evaluate(referee);
+    }
+
 	public abstract void setup();
 	public abstract void startGame();
 	

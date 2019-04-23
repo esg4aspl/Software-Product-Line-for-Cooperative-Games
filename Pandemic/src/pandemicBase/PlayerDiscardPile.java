@@ -1,12 +1,12 @@
-package pandemicVol1;
+package pandemicBase;
 
 import java.util.ArrayList;
 
 import core.AbstractCard;
 import core.AbstractDeck;
 
-public class InfectionDiscardPile extends AbstractDeck {
-	public InfectionDiscardPile() {
+public class PlayerDiscardPile extends AbstractDeck {
+	public PlayerDiscardPile() {
 		super(new ArrayList<AbstractCard>());
 	}
 }

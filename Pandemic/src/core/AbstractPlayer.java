@@ -15,7 +15,7 @@ public abstract class AbstractPlayer {
 		setCurrentNode(currentNode);
 	}
 	
-	protected AbstractDeck getHand() {
+	public AbstractDeck getHand() {
 		return hand;
 	}
 	private void setHand(AbstractDeck hand) {
@@ -44,7 +44,7 @@ public abstract class AbstractPlayer {
 		this.currentNode = currentNode;
 	}
 
-	public void addCardToDeck(AbstractCard card) { // Add player card to her hand.
+	public void addCardToHand(AbstractCard card) { // Add player card to her hand.
 		hand.addCardToDeck(card);
 	}
 	public AbstractCard discardCard(AbstractCard card) { //Discard card from her hand.

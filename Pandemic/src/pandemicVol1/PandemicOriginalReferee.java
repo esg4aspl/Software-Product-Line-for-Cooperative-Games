@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import core.AbstractAction;
 import core.AbstractBoardNode;
 import core.AbstractCard;
 import core.AbstractDeck;
@@ -26,15 +27,21 @@ import pandemicBase.EpidemicCard;
 import pandemicBase.EventCard;
 import pandemicBase.InfectionCard;
 import pandemicBase.InfectionDeck;
+import pandemicBase.InfectionDiscardPile;
 import pandemicBase.InfectionTrack;
 import pandemicBase.OutbreakTrack;
 import pandemicBase.Player;
 import pandemicBase.PlayerDeck;
+import pandemicBase.PlayerDiscardPile;
 import pandemicBase.PlayerHand;
 import pandemicBase.PlayerList;
 import pandemicBaseEventCards.Airlift;
 import pandemicBaseRoleCards.Dispatcher;
 import pandemicBaseRoleCards.Medic;
+import rules.RuleDestinationCityMustBeNeighborOfCurrentCity;
+import rules.RuleDestionationAndSourceCitiesMustHaveResearchStation;
+import rules.RuleThereMustBeCityCardAtHand;
+import rules.RuleThereMustBeCityCardMatchesCityPlayerIn;
 
 public class PandemicOriginalReferee extends AbstractReferee {
 	public PandemicOriginalReferee(AbstractGameConfiguration gameConfiguration) {
@@ -51,13 +58,58 @@ public class PandemicOriginalReferee extends AbstractReferee {
 		setupCubes();
 		setupInfection();
 		
-		System.out.println("SETUP Edildiiii");
+		System.out.println("Game Set-Up ");
 	}
 
 	@Override
 	public void startGame() {
 		
 	}
+	
+	private void conductMove() {
+		checkAction(currentAction);
+		// Preparing... 
+	}
+	private boolean checkAction(AbstractAction currentAction) {
+		boolean possiblity = false;
+		switch (currentAction.getType()) {
+		case DriveOrFerry:
+			possiblity= isSatisfied(new RuleDestinationCityMustBeNeighborOfCurrentCity(),this);
+			break;
+		case DirectFlight:
+			possiblity= isSatisfied(new RuleThereMustBeCityCardAtHand(),this);
+			break;
+			
+		case CharterFlight:
+			possiblity= isSatisfied(new RuleThereMustBeCityCardMatchesCityPlayerIn(),this);
+			break;
+
+		case ShuttleFlight:
+			possiblity= isSatisfied(new RuleDestionationAndSourceCitiesMustHaveResearchStation(),this);
+			break;
+
+		case BuildResearchStation:
+			possiblity= false; //not implemented yet.
+			break;
+
+		case TreatDisease:
+			possiblity= false; //not implemented yet.
+			break;
+
+		case ShareKnowledge:
+			possiblity= false; //not implemented yet.
+			break;
+
+		case DiscoverCure:
+			possiblity= false; //not implemented yet.
+			break;
+
+		default:
+			break;
+		}
+		return possiblity;
+	}
+	
 	private void setupBoardMVC() {
 		List<AbstractBoardNode> boardNodes = gameConfiguration.getNodes();
 		board = new Board(boardNodes);
@@ -111,8 +163,7 @@ public class PandemicOriginalReferee extends AbstractReferee {
 			AbstractCard epidemicCard = new EpidemicCard();
 			((PlayerDeck) playerDeck).insertEpidemicCard(indexToAdd,epidemicCard);
 			indexToAdd = indexToAdd * i;
-		}
-		
+		}	
 	}
 	private void setupTracks() {
 		infectionTrack = new InfectionTrack(gameConfiguration.getValuesOfInfectionRateNumber());
