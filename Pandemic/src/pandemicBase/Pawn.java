@@ -1,9 +1,9 @@
 package pandemicBase;
 
-import core.AbstractGamePieces;
+import core.AbstractGamePiece;
 import core.Color;
 
-public class Pawn extends AbstractGamePieces {
+public class Pawn extends AbstractGamePiece {
 	Color color;
 	public Pawn(int ID,Color color) {
 		super(ID);

@@ -1,6 +1,10 @@
 package core;
-
 import java.util.*;
+
+/* 
+ * Hand, player and infection decks have different signature for remove method.  
+ * That's why the classes which extend this class will write their own method.
+*/
 
 public abstract class AbstractDeck {
 	private List<AbstractCard> deck;
@@ -10,13 +14,26 @@ public abstract class AbstractDeck {
 	protected List<AbstractCard> getDeck() {
 		return deck;
 	}
-	private void createDeck(List<AbstractCard> deck) {// Stack, Queue kullanýmý için. 
+	private void createDeck(List<AbstractCard> deck) {
 		this.deck = deck;
 	}
-	public void addCardToTheDeck(AbstractCard c) {
+	public void addCardToDeck(AbstractCard c) {
 		this.deck.add(c);
 	}
-	/* Play, player ve infection decklerin remove iþlemi için signaturelarý farklý olduðu için 
-	 * bu classý extend eden classlar remove methodunu kendileri yazacak. 
-	*/
+	public void shuffle() {
+        Collections.shuffle(deck);
+	}
+	public int size() {
+		return deck.size();
+	}
+	
+	public boolean doesHave(String cardName) {
+		for ( AbstractCard cardInDeck : this.getDeck() ) {
+			if(cardInDeck.getName().equals(cardName)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 }

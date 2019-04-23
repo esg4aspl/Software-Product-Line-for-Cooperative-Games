@@ -5,29 +5,24 @@ import java.util.HashSet;
 import java.util.Set;
 
 import core.AbstractBoardNode;
-import core.AbstractGamePieces;
+import core.AbstractGamePiece;
 import core.Color;
 
 public class BoardNode extends AbstractBoardNode{
 
-	private String name;
+	
 	private Color color;
 	private int population;
 	private Set<AbstractBoardNode> neighborList  = new HashSet<AbstractBoardNode>();
-	private ArrayList<AbstractGamePieces> piecesOnTheNode = new ArrayList<AbstractGamePieces>();
+	private ArrayList<AbstractGamePiece> piecesOnTheNode = new ArrayList<AbstractGamePiece>();
 	public BoardNode(String name,Color color, int population) {
+		super(name);
 		setColor(color);
-		setName(name);
 		setPopulation(population);
 		//setNeighborList(neighborList);
 		}
 	
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
+	
 	public Set<AbstractBoardNode> getNeighborList() {
 		return neighborList;
 	}
@@ -35,10 +30,10 @@ public class BoardNode extends AbstractBoardNode{
 		this.neighborList = neighborList;
 	}
 	
-	public void addPieceOnTheNode(AbstractGamePieces piece) {
+	public void addPieceOnTheNode(AbstractGamePiece piece) {
 		piecesOnTheNode.add(piece);
 	}
-	public void removePieceOnTheNode(AbstractGamePieces piece) {
+	public void removePieceOnTheNode(AbstractGamePiece piece) {
 		piecesOnTheNode.remove(piece);
 	}
 	
@@ -60,6 +55,20 @@ public class BoardNode extends AbstractBoardNode{
 
 	public void setPopulation(int population) {
 		this.population = population;
+	}
+	public boolean isNeighbor(AbstractBoardNode boardNode) {
+		for (AbstractBoardNode boardNodeInList : neighborList) {
+			if(boardNodeInList.equals(boardNode)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+
+	public ArrayList<AbstractGamePiece> getPiecesOnTheNode() {
+		
+		return piecesOnTheNode;
 	}
 	
 }

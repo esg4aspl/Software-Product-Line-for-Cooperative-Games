@@ -1,53 +1,64 @@
 package core;
 
-import pandemicBase.PlayerDeck;
-
 public abstract class AbstractPlayer {
-	private Color color;
+	private int ID;
 	private AbstractRole role;
-	private AbstractDeck deck;
-	private AbstractGamePieces pawn;
+	private AbstractDeck hand;
+	private AbstractBoardNode currentNode;
 	
-	public AbstractPlayer(AbstractDeck deck,AbstractRole role, Color color,AbstractGamePieces pawn) {
-		setDeck(deck);
+	
+	public AbstractPlayer(AbstractDeck deck,AbstractRole role, int id,
+		AbstractBoardNode currentNode) {
+		setHand(deck);
 		setRole(role);
-		setColor(color);
-		setPawn(pawn);
+		setID(id);
+		setCurrentNode(currentNode);
 	}
 	
-	public AbstractGamePieces getPawn() {
-		return pawn;
+	public AbstractDeck getHand() {
+		return hand;
 	}
-
-	public void setPawn(AbstractGamePieces pawn) {
-		this.pawn = pawn;
+	private void setHand(AbstractDeck hand) {
+		this.hand = hand;
 	}
-
-	protected AbstractDeck getDeck() {
-		return deck;
+	
+	public int getID() {
+		return ID;
 	}
-	private void setDeck(AbstractDeck deck) {
-		this.deck = deck;
+	protected void setID(int id) {
+		this.ID = id;
 	}
-	public Color getColor() {
-		return color;
-	}
-	protected void setColor(Color color) {
-		this.color = color;
-	}
+	
 	public AbstractRole getRole() {
 		return role;
 	}
 	protected void setRole(AbstractRole role) {
 		this.role = role;
 	}
-	public AbstractCard drawCard(AbstractStackDeck deck) { // Baþka bir listeden kart çekme...
-		return deck.drawTheCardOnTopFromTheDeck();
+
+	// Player must know where she is because she has to give her location info to referee.
+	public AbstractBoardNode getCurrentNode() {
+		return currentNode;
 	}
-	public void addCardToTheDeck(AbstractCard c) { // Kendi listesine kart ekleme...
-		this.deck.addCardToTheDeck(c);
+	public void setCurrentNode(AbstractBoardNode currentNode) {
+		this.currentNode = currentNode;
 	}
-	public AbstractCard discardCard(AbstractCard c) { // Baþka bir listeden kart çekme...
-		return ((PlayerDeck)deck).removeTheCardFromTheDeck(c); // Abstract Deck iki tip mi olsun? Base'den core'a import yapmak mantýklý mý?
+
+	public void addCardToHand(AbstractCard card) { // Add player card to her hand.
+		hand.addCardToDeck(card);
 	}
+	public AbstractCard discardCard(AbstractCard card) { //Discard card from her hand.
+		return ((AbstractHandDeck)hand).removeCardFromDeck(card); 
+	}
+	@Override
+	public String toString() {
+		String handToString = " ";
+		for (int i = 1; i <= hand.getDeck().size(); i++) {
+			handToString = handToString + i + ")" + hand.getDeck().get(i-1);
+		}
+		return ID + ".player with role: " + role.getRoleName() 
+				+ " is in " + currentNode.getName() + "\n Cards in hand: " + handToString ;
+		
+	}
+	
 }

@@ -37,7 +37,6 @@ public class PandemicOriginalGameConfiguration extends AbstractGameConfiguration
 
 	@Override
 	public int[] getValuesOfInfectionRateNumber() {
-		//Arrayin size'ý kullanýcý tarafýndan da biliniyor sadece valuelarý bilinecek.
 		int[] values = new int[]{2,2,2,3,3,4,4};
 		return values;
 	}
@@ -99,7 +98,7 @@ public class PandemicOriginalGameConfiguration extends AbstractGameConfiguration
 		nodeList.add(nodeT);
 		nodeList.add(nodeU);
 		
-		//komþular ekleniyor
+		//The neighbors
 		nodeA.addNeighbor(nodeB);
 		
 		nodeB.addNeighbor(nodeA);
@@ -173,21 +172,22 @@ public class PandemicOriginalGameConfiguration extends AbstractGameConfiguration
 
 	@Override
 	public int getNumberOfEpidemicCardsInGame() {
-		return 5;
+		return 4;
 	}
 
 	@Override
 	public List<String> getNameOfEventCards() {
-		List<String> eventNames = new ArrayList<String>();
-		//Event cardlar herhangi bir zaman diliminde oynanabilir. 
-		eventNames.add("Airlift"); // Bir kiþiyi, kiþinin izni dahilinde baþka bir node'a taþýmak.
-		return eventNames;
+		List<String> eventCardList = new ArrayList<String>();
+		String eventAirlift = "Airlift";
+		eventCardList.add(eventAirlift);
+		return eventCardList;
 	}
 
 	@Override
-	public List<String> getNameOfRoleCards() {
-		List<String> roleNames = new ArrayList<String>();
-		roleNames.add("Medic"); 
-		return roleNames;
+	public List<String> getNameOfRoles() {
+		List<String> roleList = new ArrayList<String>();
+		roleList.add("Medic");
+		roleList.add("Researcher");
+		return roleList;
 	}
 }
