@@ -27,4 +27,13 @@ public abstract class AbstractDeck {
 		return deck.size();
 	}
 	
+	public boolean doesHave(String cardName) {
+		for ( AbstractCard cardInDeck : this.getDeck() ) {
+			if(cardInDeck.getName().equals(cardName)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 }

@@ -56,5 +56,19 @@ public class BoardNode extends AbstractBoardNode{
 	public void setPopulation(int population) {
 		this.population = population;
 	}
+	public boolean isNeighbor(AbstractBoardNode boardNode) {
+		for (AbstractBoardNode boardNodeInList : neighborList) {
+			if(boardNodeInList.equals(boardNode)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+
+	public ArrayList<AbstractGamePiece> getPiecesOnTheNode() {
+		
+		return piecesOnTheNode;
+	}
 	
 }

@@ -15,4 +15,5 @@ public class AbstractHandDeck extends AbstractDeck {
 		this.getDeck().remove(c);
 		return c;
 	}
+	
 }

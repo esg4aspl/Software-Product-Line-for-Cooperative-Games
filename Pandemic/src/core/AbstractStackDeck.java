@@ -1,7 +1,6 @@
 package core;
 
 import java.util.List;
-import java.util.Stack;
 
 public abstract class AbstractStackDeck extends AbstractDeck{
 

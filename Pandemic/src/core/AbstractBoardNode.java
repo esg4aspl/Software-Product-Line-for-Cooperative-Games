@@ -6,7 +6,7 @@ public abstract class AbstractBoardNode {
 		setName(name);
 	}
 	public abstract void addNeighbor(AbstractBoardNode node);
-	
+	public abstract boolean isNeighbor(AbstractBoardNode boardNode);
 	public String getName() {
 		return name;
 	}
