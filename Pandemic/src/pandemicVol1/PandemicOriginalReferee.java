@@ -36,12 +36,9 @@ import pandemicBase.PlayerDiscardPile;
 import pandemicBase.PlayerHand;
 import pandemicBase.PlayerList;
 import pandemicBaseEventCards.Airlift;
-import pandemicBaseRoleCards.Dispatcher;
-import pandemicBaseRoleCards.Medic;
-import rules.RuleDestinationCityMustBeNeighborOfCurrentCity;
-import rules.RuleDestionationAndSourceCitiesMustHaveResearchStation;
-import rules.RuleThereMustBeCityCardAtHand;
-import rules.RuleThereMustBeCityCardMatchesCityPlayerIn;
+import pandemicBaseRoles.Dispatcher;
+import pandemicBaseRoles.Medic;
+
 
 public class PandemicOriginalReferee extends AbstractReferee {
 	public PandemicOriginalReferee(AbstractGameConfiguration gameConfiguration) {

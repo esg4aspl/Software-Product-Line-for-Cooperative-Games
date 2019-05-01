@@ -3,7 +3,7 @@ package constraints;
 import core.AbstractPlayer;
 import core.AbstractReferee;
 import core.IConstraint;
-import pandemicBaseRoleCards.Medic;
+import pandemicBaseRoles.Medic;
 
 public class ConstraintIsCurrentPlayerMedic implements IConstraint {
 
