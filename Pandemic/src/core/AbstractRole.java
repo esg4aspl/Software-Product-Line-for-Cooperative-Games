@@ -1,20 +1,34 @@
 package core;
 
-public abstract class AbstractRole implements IRole{
-	private Role role;
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class AbstractRole {
 	
-	public AbstractRole(Role role) {
-		setRole(role);
+	private String name;
+	private String text;
+	private List<IRule> ruleList;
+		
+	public AbstractRole(String name, String text) {
+		this.name = name;
+		this.text = text;
+		this.ruleList = new ArrayList<IRule>();
+		  
 	}
-	protected void setRole(Role role) {
-		this.role = role;
+	protected void addRule(IRule rule) {
+		ruleList.add(rule);
 	}
-	public String getRoleName() {
-		return role.getName();
+	public String getText() {
+		return text;
+	}
+	public String getName() {
+		return name;
+	}
+	public List<IRule> getRuleList() {
+		return ruleList;
 	}
 	public String toString() {
-		return role.toString();
+		return "You are " + name + "! " + 
+				"Don't forget your special abilities:"  + text;
 	}
-	
-	
 }
