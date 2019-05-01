@@ -5,6 +5,7 @@ import core.AbstractBoardNode;
 import core.AbstractPlayer;
 import core.AbstractReferee;
 import core.IRule;
+import pandemicBase.ActionDriveFerry;
 
 public class RuleDestinationCityMustBeNeighborOfCurrentCity implements IRule{
 
@@ -12,9 +13,8 @@ public class RuleDestinationCityMustBeNeighborOfCurrentCity implements IRule{
 	public boolean evaluate(AbstractReferee referee) {
 		AbstractAction currentAction = referee.getCurrentAction();
 		AbstractPlayer player = referee.getCurrentPlayer();
-		AbstractBoardNode destinationNode = currentAction.getDestinationNode();
+		AbstractBoardNode destinationNode = ((ActionDriveFerry) currentAction).getDestinationNode();
 		AbstractBoardNode currentNode = player.getCurrentNode();
-		
 		return destinationNode.isNeighbor(currentNode);
 	}
 
