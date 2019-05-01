@@ -8,6 +8,7 @@ import core.AbstractGamePiece;
 import core.AbstractPlayer;
 import core.AbstractReferee;
 import core.IRule;
+import pandemicBase.ActionShuttleFlight;
 import pandemicBase.BoardNode;
 import pandemicBase.ResearchStation;
 
@@ -20,7 +21,7 @@ public class RuleDestionationAndSourceCitiesMustHaveResearchStation implements I
 		AbstractBoardNode currentNode = player.getCurrentNode();
 		ArrayList<AbstractGamePiece> piecesOnTheCurrentNode =  ((BoardNode) currentNode).getPiecesOnTheNode() ;
 		
-		AbstractBoardNode destinationNode = currentAction.getDestinationNode();
+		AbstractBoardNode destinationNode = ((ActionShuttleFlight) currentAction).getDestinationNode();
 		ArrayList<AbstractGamePiece> piecesOnTheDestinationNode =  ((BoardNode) destinationNode).getPiecesOnTheNode() ;
 		
 		for(AbstractGamePiece gamePiece : piecesOnTheCurrentNode ) {	
