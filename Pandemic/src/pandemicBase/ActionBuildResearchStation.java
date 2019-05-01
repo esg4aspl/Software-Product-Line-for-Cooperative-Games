@@ -3,6 +3,9 @@ package pandemicBase;
 import java.util.List;
 
 import core.AbstractAction;
+import core.AbstractBoardNode;
+import core.AbstractCard;
+import core.AbstractDeck;
 import core.AbstractPlayer;
 import core.AbstractReferee;
 import core.IRule;
@@ -20,8 +23,13 @@ public class ActionBuildResearchStation  extends AbstractAction {
 
 	@Override
 	public void takeAction() {
-
-		
+		AbstractPlayer currentPlayer = referee.getCurrentPlayer();
+		AbstractBoardNode currentNode = currentPlayer.getCurrentNode();
+		((BoardNode)currentNode).addPieceOnTheNode(new ResearchStation());
+		if(!(currentPlayer.getRole() instanceof OperationsExpert)) {
+			AbstractCard discardedCard=((Player)currentPlayer).discardCard(currentNode.getName());
+			referee.getPlayerDiscardPile().addCardToDeck(discardedCard);
+		} 
 	}
 
 	@Override

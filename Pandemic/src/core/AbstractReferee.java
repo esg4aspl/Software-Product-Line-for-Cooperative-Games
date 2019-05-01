@@ -110,6 +110,9 @@ public abstract class AbstractReferee {
 		this.currentPlayerDrawnCard = currentPlayerDrawnCard;
 	}
 	
+	public AbstractDeck getPlayerDiscardPile() {
+		return playerDiscardPile;
+	}
 	public abstract void setup();
 	public abstract void startGame();
 	
