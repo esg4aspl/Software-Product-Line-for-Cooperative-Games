@@ -99,7 +99,7 @@ public class PandemicOriginalReferee extends AbstractReferee {
 		}
 		
 		playerDeck = new PlayerDeck(cityCardList);
-		playerDiscardPile = new PlayerDiscardPile();
+		playerDiscardPile=new PlayerDiscardPile();
 		infectionDeck = new InfectionDeck(infectionCardList);
 		infectionDiscardPile = new InfectionDiscardPile();
 		

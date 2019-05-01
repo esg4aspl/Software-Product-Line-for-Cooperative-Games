@@ -9,6 +9,7 @@ public class Scientist extends AbstractRole {
 		super("Scientist","-You need only 4 cards of the same color to do the Discover a Cure action");
 		this.addRule(new RuleThereMustBeResearchStationAtCurrentCity());
 		this.addRule(new RuleThereMustBeFourCardsOfSameColor());
+		
 	}
 	
 }

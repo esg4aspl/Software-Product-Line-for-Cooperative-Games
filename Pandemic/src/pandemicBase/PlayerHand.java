@@ -38,4 +38,5 @@ public class PlayerHand extends AbstractHandDeck {
 		}
 		return false;
 	}
+
 }

@@ -1,12 +1,10 @@
 package core;
 public abstract class AbstractGamePiece {
-	private int ID;
-	public AbstractGamePiece(int id) {
-		setID(id);
+	private static int ID = 0;
+	public AbstractGamePiece() {
+		ID++;
 	}
-	private void setID(int id) {
-		this.ID = id;
-	}
+	
 	public int getID() {
 		return this.ID;
 	}
