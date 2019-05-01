@@ -6,7 +6,7 @@ import core.AbstractAction;
 import core.AbstractPlayer;
 import core.AbstractReferee;
 import core.IRule;
-import pandemicBaseRoleCards.Scientist;
+import pandemicBaseRoles.Scientist;
 import rules.RuleThereMustBeFiveCardsOfSameColor;
 import rules.RuleThereMustBeResearchStationAtCurrentCity;
 

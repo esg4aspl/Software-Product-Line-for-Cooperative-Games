@@ -1,13 +1,12 @@
 package rules;
 
-import core.AbstractAction;
 import core.AbstractBoardNode;
 import core.AbstractHandDeck;
 import core.AbstractPlayer;
 import core.AbstractReferee;
 import core.IRule;
 
-public class RuleThereMustBeCityCardMatchesCityPlayerIn implements IRule {
+public class RuleThereMustBeCityCardMatchesCurrentCity implements IRule {
 
 	@Override
 	public boolean evaluate(AbstractReferee referee) {

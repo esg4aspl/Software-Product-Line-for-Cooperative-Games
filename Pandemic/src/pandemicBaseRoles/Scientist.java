@@ -1,4 +1,4 @@
-package pandemicBaseRoleCards;
+package pandemicBaseRoles;
 
 import core.AbstractRole;
 import rules.RuleThereMustBeFourCardsOfSameColor;
