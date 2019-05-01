@@ -71,43 +71,7 @@ public class PandemicOriginalReferee extends AbstractReferee {
 		// Preparing... 
 	}
 	private boolean checkAction(AbstractAction currentAction) {
-		boolean possiblity = false;
-		switch (currentAction.getType()) {
-		case DriveOrFerry:
-			possiblity= isSatisfied(new RuleDestinationCityMustBeNeighborOfCurrentCity(),this);
-			break;
-		case DirectFlight:
-			possiblity= isSatisfied(new RuleThereMustBeCityCardAtHand(),this);
-			break;
-			
-		case CharterFlight:
-			possiblity= isSatisfied(new RuleThereMustBeCityCardMatchesCityPlayerIn(),this);
-			break;
-
-		case ShuttleFlight:
-			possiblity= isSatisfied(new RuleDestionationAndSourceCitiesMustHaveResearchStation(),this);
-			break;
-
-		case BuildResearchStation:
-			possiblity= false; //not implemented yet.
-			break;
-
-		case TreatDisease:
-			possiblity= false; //not implemented yet.
-			break;
-
-		case ShareKnowledge:
-			possiblity= false; //not implemented yet.
-			break;
-
-		case DiscoverCure:
-			possiblity= false; //not implemented yet.
-			break;
-
-		default:
-			break;
-		}
-		return possiblity;
+		return currentAction.isSatisfied();
 	}
 	
 	private void setupBoardMVC() {
@@ -131,7 +95,7 @@ public class PandemicOriginalReferee extends AbstractReferee {
 		List<AbstractCard> cityCardList = new ArrayList<AbstractCard>(); 
 		List<AbstractCard> infectionCardList = new ArrayList<AbstractCard>(); 
 		for (AbstractBoardNode boardNode : boardNodes) {
-			CityCard cityCard = new CityCard(boardNode.getName(), ((BoardNode)boardNode).getPopulation());
+			CityCard cityCard = new CityCard(boardNode.getName(), ((BoardNode)boardNode).getPopulation(),((BoardNode)boardNode).getColor());
 			cityCardList.add(cityCard);
 			InfectionCard infectionCard = new InfectionCard(boardNode.getName());
 			infectionCardList.add(infectionCard);

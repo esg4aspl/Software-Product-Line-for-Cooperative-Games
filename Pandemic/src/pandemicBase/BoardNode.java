@@ -2,25 +2,30 @@ package pandemicBase;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import core.AbstractBoardNode;
 import core.AbstractGamePiece;
+import core.AbstractPlayer;
 import core.Color;
 
 public class BoardNode extends AbstractBoardNode{
 
-	
+	private List<AbstractPlayer> playersOnTheNode;
 	private Color color;
 	private int population;
-	private Set<AbstractBoardNode> neighborList  = new HashSet<AbstractBoardNode>();
-	private ArrayList<AbstractGamePiece> piecesOnTheNode = new ArrayList<AbstractGamePiece>();
+	private Set<AbstractBoardNode> neighborList;
+	private ArrayList<AbstractGamePiece> piecesOnTheNode;
 	public BoardNode(String name,Color color, int population) {
 		super(name);
-		setColor(color);
-		setPopulation(population);
-		//setNeighborList(neighborList);
-		}
+		
+		this.color = color;
+		this.population = population;
+		neighborList  = new HashSet<AbstractBoardNode>();
+		piecesOnTheNode = new ArrayList<AbstractGamePiece>();
+		playersOnTheNode = new ArrayList<AbstractPlayer>();
+	}
 	
 	
 	public Set<AbstractBoardNode> getNeighborList() {
@@ -67,8 +72,17 @@ public class BoardNode extends AbstractBoardNode{
 
 
 	public ArrayList<AbstractGamePiece> getPiecesOnTheNode() {
-		
 		return piecesOnTheNode;
+	}
+
+
+	public List<AbstractPlayer> getPlayersOnTheNode() {
+		return playersOnTheNode;
+	}
+
+
+	public void addPlayersOnTheNode(AbstractPlayer player) {
+		playersOnTheNode.add(player);
 	}
 	
 }

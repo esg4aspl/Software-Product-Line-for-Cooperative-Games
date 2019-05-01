@@ -11,7 +11,7 @@ public abstract class AbstractDeck {
 	public AbstractDeck(List<AbstractCard> deck) {
 		createDeck(deck);
 	}
-	protected List<AbstractCard> getDeck() {
+	public List<AbstractCard> getDeck() {
 		return deck;
 	}
 	private void createDeck(List<AbstractCard> deck) {

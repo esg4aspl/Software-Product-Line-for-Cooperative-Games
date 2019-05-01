@@ -1,5 +1,7 @@
 package core;
 
+import java.util.List;
+
 public abstract class AbstractReferee {
 	protected AbstractGameConfiguration gameConfiguration;
 	protected int  numberOfPlayers, numberOfCardsPerPlayer,numberOfNodes,numberOfDiseaseCubeTypes,numberOfDiseaseCubesPerType,numberOfEpidemicCards;
@@ -107,10 +109,7 @@ public abstract class AbstractReferee {
 	public void setCurrentPlayerDrawnCard(AbstractCard currentPlayerDrawnCard) {
 		this.currentPlayerDrawnCard = currentPlayerDrawnCard;
 	}
-	public boolean isSatisfied(IRule rule, AbstractReferee referee) {
-    	return rule.evaluate(referee);
-    }
-
+	
 	public abstract void setup();
 	public abstract void startGame();
 	
