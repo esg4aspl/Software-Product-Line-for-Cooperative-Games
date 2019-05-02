@@ -1,5 +1,4 @@
 package rules;
-import core.AbstractAction;
 import core.AbstractDeck;
 import core.AbstractPlayer;
 import core.AbstractReferee;

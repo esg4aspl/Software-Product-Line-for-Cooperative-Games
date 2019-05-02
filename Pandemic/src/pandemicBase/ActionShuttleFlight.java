@@ -4,6 +4,7 @@ import java.util.List;
 
 import core.AbstractAction;
 import core.AbstractBoardNode;
+import core.AbstractPlayer;
 import core.AbstractReferee;
 import core.IRule;
 import rules.RuleDestionationAndSourceCitiesMustHaveResearchStation;
@@ -19,8 +20,9 @@ public class ActionShuttleFlight  extends AbstractAction {
 
 	@Override
 	public void takeAction() {
-		// TODO Auto-generated method stub
-		
+		AbstractPlayer currentPlayer = referee.getCurrentPlayer();
+		currentPlayer.setCurrentNode(destinationNode);
+		destinationNode.addPlayersOnTheNode(currentPlayer);
 	}
 
 	@Override

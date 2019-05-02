@@ -3,6 +3,7 @@ package pandemicBase;
 import java.util.List;
 
 import core.AbstractAction;
+import core.AbstractPlayer;
 import core.AbstractReferee;
 import core.IRule;
 import rules.RuleDestinationCityMustBeNeighborOfCurrentCity;
@@ -19,6 +20,9 @@ public class ActionDriveFerry extends AbstractAction {
 	
 	@Override
 	public void takeAction() {
+		AbstractPlayer currentPlayer = referee.getCurrentPlayer();
+		currentPlayer.setCurrentNode(destinationNode);
+		destinationNode.addPlayersOnTheNode(currentPlayer);
 
 	}
 

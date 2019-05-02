@@ -21,6 +21,7 @@ public class ActionDiscoverCure extends AbstractAction {
 
 	@Override
 	public void takeAction() {
+		AbstractPlayer currentPlayer = referee.getCurrentPlayer();
 	}
 
 	@Override

@@ -4,6 +4,10 @@ import java.util.List;
 
 import core.AbstractAction;
 import core.AbstractBoardNode;
+import core.AbstractCard;
+import core.AbstractDeck;
+import core.AbstractHandDeck;
+import core.AbstractPlayer;
 import core.AbstractReferee;
 import core.IRule;
 import rules.RuleThereMustBeCityCardAtHand;
@@ -18,6 +22,11 @@ public class ActionDirectFlight extends AbstractAction {
 	}
 	@Override
 	public void takeAction() {
+		AbstractPlayer currentPlayer = referee.getCurrentPlayer();
+		currentPlayer.setCurrentNode(destinationNode);
+		destinationNode.addPlayersOnTheNode(currentPlayer);
+		AbstractCard discardedCard=currentPlayer.discardCard(destinationNode.getName());
+		referee.getPlayerDiscardPile().addCardToDeck(discardedCard);
 		
 	}
 	@Override
