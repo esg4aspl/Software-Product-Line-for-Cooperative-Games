@@ -16,14 +16,14 @@ public class BoardNode extends AbstractBoardNode{
 	private Color color;
 	private int population;
 	private Set<AbstractBoardNode> neighborList;
-	private ArrayList<AbstractGamePiece> piecesOnTheNode;
+	private ArrayList<AbstractGamePiece> piecesOnNode;
 	public BoardNode(String name,Color color, int population) {
 		super(name);
 		
 		this.color = color;
 		this.population = population;
 		neighborList  = new HashSet<AbstractBoardNode>();
-		piecesOnTheNode = new ArrayList<AbstractGamePiece>();
+		piecesOnNode = new ArrayList<AbstractGamePiece>();
 		playersOnTheNode = new ArrayList<AbstractPlayer>();
 	}
 	
@@ -35,11 +35,37 @@ public class BoardNode extends AbstractBoardNode{
 		this.neighborList = neighborList;
 	}
 	
-	public void addPieceOnTheNode(AbstractGamePiece piece) {
-		piecesOnTheNode.add(piece);
+	public void addPieceOnNode(AbstractGamePiece piece) {
+		piecesOnNode.add(piece);
 	}
-	public void removePieceOnTheNode(AbstractGamePiece piece) {
-		piecesOnTheNode.remove(piece);
+	public List<AbstractGamePiece> removeCubesFromNode(Color cubeColor,int numOfCubesToBeRemoved) {
+		List<AbstractGamePiece> cubesToBeRemoved = new ArrayList<AbstractGamePiece>();
+		for (AbstractGamePiece piece : piecesOnNode) {
+			if(piece instanceof Cube && ((Cube)piece).getColor().equals(cubeColor)&& numOfCubesToBeRemoved>0) {
+				numOfCubesToBeRemoved--;
+				piecesOnNode.remove(piece);
+				cubesToBeRemoved.add(piece);
+			}
+		}
+		return cubesToBeRemoved;
+	}
+	
+	public boolean doesHaveSpecificColoredCube(Color cubeColor) {
+		for (AbstractGamePiece piece : piecesOnNode) {
+			if(piece instanceof Cube && ((Cube)piece).getColor().equals(cubeColor)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean doesHaveResearchStation() {
+		for (AbstractGamePiece piece : piecesOnNode) {
+			if(piece instanceof ResearchStation) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public void addNeighbor(AbstractBoardNode node) {
@@ -71,8 +97,8 @@ public class BoardNode extends AbstractBoardNode{
 	}
 
 
-	public ArrayList<AbstractGamePiece> getPiecesOnTheNode() {
-		return piecesOnTheNode;
+	public ArrayList<AbstractGamePiece> getPiecesOnNode() {
+		return piecesOnNode;
 	}
 
 

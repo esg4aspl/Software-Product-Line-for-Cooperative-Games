@@ -1,12 +1,11 @@
 package core;
 
-import java.util.List;
-
 public abstract class AbstractReferee {
 	protected AbstractGameConfiguration gameConfiguration;
 	protected int  numberOfPlayers, numberOfCardsPerPlayer,numberOfNodes,numberOfDiseaseCubeTypes,numberOfDiseaseCubesPerType,numberOfEpidemicCards;
 	protected IPlayerList playerList;
 	protected ICubeList cubeList;
+	protected ICureMarkerList cureMarkerList;
 	protected AbstractStackDeck playerDeck;
 	protected AbstractStackDeck infectionDeck;
 	protected AbstractDeck playerDiscardPile; // deck for discarded card. It is useful for an event card. 
@@ -17,6 +16,9 @@ public abstract class AbstractReferee {
 	protected AbstractBoard board;
 	
 	protected AbstractPlayer currentPlayer;
+	public ICubeList getCubeList() {
+		return cubeList;
+	}
 	protected AbstractCard currentPlayerDrawnCard;
 	protected AbstractAction currentAction;
 	protected AbstractBoardNode currentNode;
@@ -26,6 +28,7 @@ public abstract class AbstractReferee {
 	public AbstractReferee(AbstractGameConfiguration gameConfiguration) {
 		setGameConfiguration(gameConfiguration);
 	}
+	
 
 	public AbstractGameConfiguration getGameConfiguration() {
 		return gameConfiguration;
@@ -57,10 +60,10 @@ public abstract class AbstractReferee {
 		return playerList;
 	}
 
-	public void setPlayerList(IPlayerList playerList) {
-		this.playerList = playerList;
+	public ICureMarkerList getCureMarkerList() {
+		return cureMarkerList;
 	}
-
+	
 	public AbstractPlayer getCurrentPlayer() {
 		return currentPlayer;
 	}

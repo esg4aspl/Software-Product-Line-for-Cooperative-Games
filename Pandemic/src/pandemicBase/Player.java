@@ -15,7 +15,8 @@ public class Player extends AbstractPlayer{
 			 AbstractBoardNode currentNode) {
 		super(deck,role,id,currentNode);
 	}
-	public List<AbstractCard> discardCard(Color color, int numOfCardsOfSameColor){
+	public List<AbstractCard> discardCard(Color color ,int numOfCardsOfSameColor){
+			
 		List<AbstractCard> discardedCardList = new ArrayList<AbstractCard>();
 		for (AbstractCard card : getHand().getDeck()) {
 			if(((CityCard)card).getColor().equals(color)) {

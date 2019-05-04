@@ -14,7 +14,7 @@ import rules.RuleThereMustBeCityCardAtHand;
 
 public class ActionDirectFlight extends AbstractAction {
 	private BoardNode destinationNode;
-	public ActionDirectFlight(String name, String text,BoardNode destinationNode, AbstractReferee referee) {
+	public ActionDirectFlight(AbstractReferee referee,BoardNode destinationNode) {
 		super("DirectFlight","Discard a City card to move to the city named on the card.", referee);
 		this.destinationNode = destinationNode;
 		addRule(new RuleThereMustBeCityCardAtHand());

@@ -10,7 +10,7 @@ import core.IRule;
 import pandemicBase.BoardNode;
 import pandemicBase.ResearchStation;
 
-public class RuleThereMustBeResearchStationAtCurrentCity implements IRule {
+public class RuleThereMustNotBeResearchStationAtCurrentCity implements IRule {
 
 	@Override
 	public boolean evaluate(AbstractReferee referee) {
@@ -19,11 +19,11 @@ public class RuleThereMustBeResearchStationAtCurrentCity implements IRule {
 		ArrayList<AbstractGamePiece> piecesOnTheCurrentNode =  ((BoardNode) currentNode).getPiecesOnNode() ;
 		for(AbstractGamePiece gamePiece : piecesOnTheCurrentNode ) {	
 			if(gamePiece instanceof ResearchStation ) {
-				return true;
+				return false;
 			}
 		}
 			
-		return false;
+		return true;
 	}
 
 }

@@ -38,4 +38,22 @@ public class PlayerHand extends AbstractHandDeck {
 		}
 		return false;
 	}
+	
+	public Color getColorOfCardsNeededToFindCure(int numOfCardsOfSameColor) {
+		Set<Color> colorSet = findColorSet();
+		if(colorSet.size() != 0) {
+			for (Color color : colorSet) {
+				int count = 0;
+				for (AbstractCard card : this.getDeck()) {
+					if(((CityCard)card).getColor().equals(color)){
+						count++;
+					}
+				}
+				if(count >= numOfCardsOfSameColor) {
+					return color;
+				}
+			}
+		}
+		return null;
+	}
 }
