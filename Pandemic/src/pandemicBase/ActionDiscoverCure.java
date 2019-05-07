@@ -9,7 +9,7 @@ import core.Color;
 import core.ICureMarkerList;
 import core.IRule;
 import pandemicBaseRoles.Scientist;
-import rules.RuleDiseaseMustNotBeCuredYet;
+import rules.RuleDiseaseMustBeNotCuredYet;
 import rules.RuleThereMustBeFiveCardsOfSameColor;
 import rules.RuleThereMustBeResearchStationAtCurrentCity;
 
@@ -21,7 +21,7 @@ public class ActionDiscoverCure extends AbstractAction {
 		this.diseaseColor = diseaseColor;
 		addRule(new RuleThereMustBeResearchStationAtCurrentCity());
 		addRule(new RuleThereMustBeFiveCardsOfSameColor());
-		addRule(new RuleDiseaseMustNotBeCuredYet(diseaseColor));
+		addRule(new RuleDiseaseMustBeNotCuredYet(diseaseColor));
 
 	}
 
@@ -48,7 +48,7 @@ public class ActionDiscoverCure extends AbstractAction {
 	public List<IRule> getRuleList() {
 		AbstractPlayer player = referee.getCurrentPlayer();
 		if(player.getRole() instanceof Scientist) {
-			player.getRole().getRuleList().add(new RuleDiseaseMustNotBeCuredYet(diseaseColor));
+			player.getRole().getRuleList().add(new RuleDiseaseMustBeNotCuredYet(diseaseColor));
 			return  player.getRole().getRuleList();
 		}
 		return ruleList;

@@ -29,13 +29,26 @@ public class CubeList implements ICubeList{
 	//Find the right cube according to the color and remove it from the list to put it on the board.
 	public AbstractGamePiece takeCubeFromCubeList(Color colorOfCube) {
 		AbstractGamePiece cube = null;
-		for (List<AbstractGamePiece> listOfSameColorCube : cubeList) {
-			if(colorOfCube.equals(((Cube) listOfSameColorCube.get(0)).getColor())) {
-				cube = listOfSameColorCube.remove(0);
+		for (List<AbstractGamePiece> listOfCubesOfSameColor : cubeList) {
+			Cube sampleCube = (Cube) listOfCubesOfSameColor.get(0);
+			Color colorOfSampleCube = sampleCube.getColor();
+			if(colorOfCube.equals(colorOfSampleCube)) {
+				cube = listOfCubesOfSameColor.remove(0);
 			}
 		}
 		return cube;
 		
+	}
+	//Check if there are enough cubes of specific color 
+	public boolean areThereEnoughCubesOfSpecificColor(Color colorOfCube) {
+		for (List<AbstractGamePiece> listOfCubesOfSameColor : cubeList) {
+			Cube sampleCube = (Cube) listOfCubesOfSameColor.get(0);
+			Color colorOfSampleCube = sampleCube.getColor();
+			if(colorOfCube.equals(colorOfSampleCube)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override

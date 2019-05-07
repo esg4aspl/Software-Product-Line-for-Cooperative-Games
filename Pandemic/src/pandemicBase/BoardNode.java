@@ -12,7 +12,7 @@ import core.Color;
 
 public class BoardNode extends AbstractBoardNode{
 
-	private List<AbstractPlayer> playersOnTheNode;
+	private List<AbstractPlayer> playersOnNode;
 	private Color color;
 	private int population;
 	private Set<AbstractBoardNode> neighborList;
@@ -24,7 +24,7 @@ public class BoardNode extends AbstractBoardNode{
 		this.population = population;
 		neighborList  = new HashSet<AbstractBoardNode>();
 		piecesOnNode = new ArrayList<AbstractGamePiece>();
-		playersOnTheNode = new ArrayList<AbstractPlayer>();
+		playersOnNode = new ArrayList<AbstractPlayer>();
 	}
 	
 	
@@ -67,6 +67,15 @@ public class BoardNode extends AbstractBoardNode{
 		}
 		return false;
 	}
+	public int howManyCubesDoesHave() {
+		int count = 0;
+		for(AbstractGamePiece piece: piecesOnNode) {
+			if(piece instanceof Cube) {
+				count ++;
+			}
+		}
+		return count;
+	}
 	
 	public void addNeighbor(AbstractBoardNode node) {
 		neighborList.add(node);
@@ -76,9 +85,6 @@ public class BoardNode extends AbstractBoardNode{
 		return color;
 	}
 
-	public void setColor(Color color) {
-		this.color = color;
-	}
 
 	public int getPopulation() {
 		return population;
@@ -102,13 +108,13 @@ public class BoardNode extends AbstractBoardNode{
 	}
 
 
-	public List<AbstractPlayer> getPlayersOnTheNode() {
-		return playersOnTheNode;
+	public List<AbstractPlayer> getPlayersOnNode() {
+		return playersOnNode;
 	}
 
 
 	public void addPlayersOnTheNode(AbstractPlayer player) {
-		playersOnTheNode.add(player);
+		playersOnNode.add(player);
 	}
 	
 }

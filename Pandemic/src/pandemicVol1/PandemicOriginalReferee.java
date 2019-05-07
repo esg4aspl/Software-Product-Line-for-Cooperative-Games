@@ -96,7 +96,7 @@ public class PandemicOriginalReferee extends AbstractReferee {
 		for (AbstractBoardNode boardNode : boardNodes) {
 			CityCard cityCard = new CityCard(boardNode.getName(), ((BoardNode)boardNode).getPopulation(),((BoardNode)boardNode).getColor());
 			cityCardList.add(cityCard);
-			InfectionCard infectionCard = new InfectionCard(boardNode.getName());
+			InfectionCard infectionCard = new InfectionCard(boardNode.getName(),((BoardNode)boardNode).getColor());
 			infectionCardList.add(infectionCard);
 		}
 		

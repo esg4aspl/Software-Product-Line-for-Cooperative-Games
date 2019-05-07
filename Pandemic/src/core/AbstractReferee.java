@@ -100,6 +100,11 @@ public abstract class AbstractReferee {
 		return numberOfNodes;
 	}
 
+	public AbstractStackDeck getInfectionDeck() {
+		return infectionDeck;
+	}
+
+
 	public void setNumberOfNodes(int numberOfNodes) {
 		this.numberOfNodes = numberOfNodes;
 	}
@@ -118,6 +123,16 @@ public abstract class AbstractReferee {
 	}
 	public abstract void setup();
 	public abstract void startGame();
+
+
+	public AbstractDeck getInfectionDiscardPile() {
+		return infectionDiscardPile;
+	}
+
+
+	public AbstractTrack getInfectionTrack() {
+		return infectionTrack;
+	}
 	
 	
 

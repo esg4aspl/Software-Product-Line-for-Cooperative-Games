@@ -7,7 +7,7 @@ import java.util.*;
 */
 
 public abstract class AbstractDeck {
-	private List<AbstractCard> deck;
+	protected List<AbstractCard> deck;
 	public AbstractDeck(List<AbstractCard> deck) {
 		createDeck(deck);
 	}

@@ -1,10 +1,13 @@
 package core;
 
+import java.util.Set;
+
 public abstract class AbstractBoardNode {
 	private String name;
 	public AbstractBoardNode(String name) {
 		setName(name);
 	}
+	public abstract Set<AbstractBoardNode> getNeighborList();
 	public abstract void addNeighbor(AbstractBoardNode node);
 	public abstract boolean isNeighbor(AbstractBoardNode boardNode);
 	public String getName() {
