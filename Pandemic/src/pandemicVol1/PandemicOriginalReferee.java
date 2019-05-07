@@ -23,6 +23,8 @@ import pandemicBase.BoardNode;
 import pandemicBase.CityCard;
 import pandemicBase.Cube;
 import pandemicBase.CubeList;
+import pandemicBase.CureMarker;
+import pandemicBase.CureMarkerList;
 import pandemicBase.EpidemicCard;
 import pandemicBase.EventCard;
 import pandemicBase.InfectionCard;
@@ -52,7 +54,7 @@ public class PandemicOriginalReferee extends AbstractReferee {
 		setupPlayers();
 		addEpidemicCardsToPlayerDeck();
 		setupTracks();
-		setupCubes();
+		setupCubesAndMarkers();
 		setupInfection();
 		
 		System.out.println("Game Set-Up ");
@@ -130,18 +132,18 @@ public class PandemicOriginalReferee extends AbstractReferee {
 		infectionTrack = new InfectionTrack(gameConfiguration.getValuesOfInfectionRateNumber());
 		outbreakTrack = new OutbreakTrack(gameConfiguration.getOutbreakRange());
 	}
-	private void setupCubes() {
+	private void setupCubesAndMarkers() {
 		Set<Color> colorSet = new HashSet<Color>();
 		for (AbstractBoardNode node : board.getNodeList()) {
 			colorSet.add(((BoardNode) node).getColor());
 		}
-		
-		Object[] colorArray = colorSet.toArray();
 		numberOfDiseaseCubesPerType = gameConfiguration.getNumberOfDiseaseCubePerCubeType();
 		cubeList = new CubeList();
-		for (int i = 0; i < colorArray.length; i++) {
+		cureMarkerList = new CureMarkerList();
+		for (Color color : colorSet) {
+			cureMarkerList.addCureMarker(new CureMarker(color));
 			for (int j = 0; j < numberOfDiseaseCubesPerType; j++) {
-				AbstractGamePiece cube = new Cube( (Color) colorArray[i]);
+				AbstractGamePiece cube = new Cube( color);
 				cubeList.addCubeToCubeList(cube);
 			}
 		}
@@ -156,7 +158,7 @@ public class PandemicOriginalReferee extends AbstractReferee {
 			Color cubeColor = infectedWithThreeCubesCityNode.getColor();
 			for (int j = 0; j < 3; j++) {
 				Cube cube = (Cube) cubeList.takeCubeFromCubeList(cubeColor);
-				infectedWithThreeCubesCityNode.addPieceOnTheNode(cube);
+				infectedWithThreeCubesCityNode.addPieceOnNode(cube);
 			}
 		}
 		// infect cities with 2 cubes
@@ -168,7 +170,7 @@ public class PandemicOriginalReferee extends AbstractReferee {
 			Color cubeColor = infectedWithTwoCubesCityNode.getColor();
 			for (int j = 0; j < 2; j++) {
 				Cube cube = (Cube) cubeList.takeCubeFromCubeList(cubeColor);
-				infectedWithTwoCubesCityNode.addPieceOnTheNode(cube);
+				infectedWithTwoCubesCityNode.addPieceOnNode(cube);
 			}
 		}
 		// infect cities with 1 cube
@@ -179,7 +181,7 @@ public class PandemicOriginalReferee extends AbstractReferee {
 			BoardNode infectedWithOneCubeCityNode = (BoardNode) board.getBoardNode(cityName);
 			Color cubeColor = infectedWithOneCubeCityNode.getColor();
 			Cube cube = (Cube) cubeList.takeCubeFromCubeList(cubeColor);
-			infectedWithOneCubeCityNode.addPieceOnTheNode(cube);	
+			infectedWithOneCubeCityNode.addPieceOnNode(cube);	
 		}
 	}
 	

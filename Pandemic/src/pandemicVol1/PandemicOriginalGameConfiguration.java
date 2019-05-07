@@ -13,6 +13,7 @@ public class PandemicOriginalGameConfiguration extends AbstractGameConfiguration
 	@Override
 	public int getNumberOfDiseaseCubeTypes() {
 		return 4;
+
 	}
 
 	@Override

@@ -13,4 +13,5 @@ public abstract class AbstractCard {
 	private void setName(String name) {
 		this.name = name;
 	}
+	
 }

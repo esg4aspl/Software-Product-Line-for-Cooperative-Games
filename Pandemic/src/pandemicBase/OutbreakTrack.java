@@ -6,14 +6,14 @@ public class OutbreakTrack extends AbstractTrack {
 	private int outbreakTrackRange;
 	public OutbreakTrack(int range) {
 		super();
-		setOutbreakTrackRange(range);
+		this.outbreakTrackRange = range;
 	}
 	public int getOutbreakTrackRange() {
 		return outbreakTrackRange;
 	}
-	private void setOutbreakTrackRange(int outbreakTrackRange) {
-		this.outbreakTrackRange = outbreakTrackRange;
+	public boolean doesOutbreakMarkerReachedLastSpace() {
+		if(markerIndex == (outbreakTrackRange-1)) return true;
+		return false;
 	}
-	
-	
+
 }

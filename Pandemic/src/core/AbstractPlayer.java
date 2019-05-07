@@ -51,6 +51,15 @@ public abstract class AbstractPlayer {
 		return ((AbstractHandDeck)hand).removeCardFromDeck(card); 
 	}
 	
+	public AbstractCard discardCard(String cardName) { 
+		for ( AbstractCard cardInDeck : hand.getDeck() ) {
+			if(cardInDeck.getName().equals(cardName)) {
+				return ((AbstractHandDeck)hand).removeCardFromDeck(cardInDeck);
+			}
+		}
+		return null;
+	}
+	
 	@Override
 	public String toString() {
 		String handToString = " ";

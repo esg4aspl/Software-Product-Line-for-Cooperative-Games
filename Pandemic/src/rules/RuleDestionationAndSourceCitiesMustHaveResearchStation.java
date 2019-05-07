@@ -19,10 +19,10 @@ public class RuleDestionationAndSourceCitiesMustHaveResearchStation implements I
 		AbstractAction currentAction = referee.getCurrentAction();
 		AbstractPlayer player = referee.getCurrentPlayer();
 		AbstractBoardNode currentNode = player.getCurrentNode();
-		ArrayList<AbstractGamePiece> piecesOnTheCurrentNode =  ((BoardNode) currentNode).getPiecesOnTheNode() ;
+		ArrayList<AbstractGamePiece> piecesOnTheCurrentNode =  ((BoardNode) currentNode).getPiecesOnNode() ;
 		
 		AbstractBoardNode destinationNode = ((ActionShuttleFlight) currentAction).getDestinationNode();
-		ArrayList<AbstractGamePiece> piecesOnTheDestinationNode =  ((BoardNode) destinationNode).getPiecesOnTheNode() ;
+		ArrayList<AbstractGamePiece> piecesOnTheDestinationNode =  ((BoardNode) destinationNode).getPiecesOnNode() ;
 		
 		for(AbstractGamePiece gamePiece : piecesOnTheCurrentNode ) {	
 			if(gamePiece instanceof ResearchStation ) {
