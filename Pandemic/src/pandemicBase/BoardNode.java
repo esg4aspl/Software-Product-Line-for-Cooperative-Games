@@ -67,10 +67,10 @@ public class BoardNode extends AbstractBoardNode{
 		}
 		return false;
 	}
-	public int howManyCubesDoesHave() {
+	public int howManyCubesDoesHave(Color cubeColor) {
 		int count = 0;
-		for(AbstractGamePiece piece: piecesOnNode) {
-			if(piece instanceof Cube) {
+		for(AbstractGamePiece piece: piecesOnNode ) {
+			if(piece instanceof Cube &&((Cube)piece).getColor().equals(cubeColor)) {
 				count ++;
 			}
 		}

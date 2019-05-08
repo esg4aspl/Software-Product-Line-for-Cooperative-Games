@@ -133,6 +133,11 @@ public abstract class AbstractReferee {
 	public AbstractTrack getInfectionTrack() {
 		return infectionTrack;
 	}
+
+
+	public AbstractTrack getOutbreakTrack() {
+		return outbreakTrack;
+	}
 	
 	
 

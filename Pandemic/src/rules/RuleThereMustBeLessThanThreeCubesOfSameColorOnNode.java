@@ -5,14 +5,14 @@ import core.AbstractReferee;
 import core.IRule;
 import pandemicBase.BoardNode;
 
-public class RuleThereMustBeLessThanThreeCubesOnNode implements IRule {
+public class RuleThereMustBeLessThanThreeCubesOfSameColorOnNode implements IRule {
 	AbstractBoardNode boardNode;
-	public RuleThereMustBeLessThanThreeCubesOnNode(AbstractBoardNode boardNode) {
+	public RuleThereMustBeLessThanThreeCubesOfSameColorOnNode(AbstractBoardNode boardNode) {
 		this.boardNode = boardNode;
 	}
 	@Override
 	public boolean evaluate(AbstractReferee referee) {
-		if(((BoardNode)boardNode).howManyCubesDoesHave() < 3) {
+		if(((BoardNode)boardNode).howManyCubesDoesHave(((BoardNode)boardNode).getColor()) < 3) {
 			return true;
 		}
 		return false;
