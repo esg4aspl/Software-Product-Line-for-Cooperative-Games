@@ -36,4 +36,12 @@ public abstract class AbstractDeck {
 		return false;
 	}
 	
+	public String showDeck() {
+		String output = "";
+		for (AbstractCard card : deck) {
+			output = card.toString() + " \n";
+		}
+		return output;
+	}
+	
 }

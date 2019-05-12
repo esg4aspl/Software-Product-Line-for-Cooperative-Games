@@ -7,4 +7,5 @@ public interface ICubeList {
 	public AbstractGamePiece takeCubeFromCubeList(Color colorOfCube);
 	public List<List<AbstractGamePiece>> getCubes();
 	public boolean areThereEnoughCubesOfSpecificColor(Color colorOfCube);
+	public void addSameColorCubeList(List<AbstractGamePiece> sameColorCubeList);
 }

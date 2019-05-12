@@ -4,9 +4,6 @@ import java.util.List;
 
 import core.AbstractAction;
 import core.AbstractBoardNode;
-import core.AbstractCard;
-import core.AbstractDeck;
-import core.AbstractHandDeck;
 import core.AbstractPlayer;
 import core.AbstractReferee;
 import core.IRule;
@@ -25,8 +22,7 @@ public class ActionDirectFlight extends AbstractAction {
 		AbstractPlayer currentPlayer = referee.getCurrentPlayer();
 		currentPlayer.setCurrentNode(destinationNode);
 		destinationNode.addPlayersOnTheNode(currentPlayer);
-		AbstractCard discardedCard=currentPlayer.discardCard(destinationNode.getName());
-		referee.getPlayerDiscardPile().addCardToDeck(discardedCard);
+		currentPlayer.discardCard(destinationNode.getName());
 		
 	}
 	@Override

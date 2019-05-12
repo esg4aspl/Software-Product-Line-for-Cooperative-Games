@@ -3,8 +3,6 @@ package pandemicBase;
 import java.util.List;
 
 import core.AbstractAction;
-import core.AbstractCard;
-import core.AbstractDeck;
 import core.AbstractPlayer;
 import core.AbstractReferee;
 import core.IRule;
@@ -29,8 +27,7 @@ public class ActionCharterFlight extends AbstractAction {
 		AbstractPlayer currentPlayer = referee.getCurrentPlayer();
 		currentPlayer.setCurrentNode(destinationNode);
 		destinationNode.addPlayersOnTheNode(currentPlayer);
-		AbstractCard discardedCard=currentPlayer.discardCard(destinationNode.getName());
-		referee.getPlayerDiscardPile().addCardToDeck(discardedCard);
+		currentPlayer.discardCard(destinationNode.getName());
 	}
 
 	@Override

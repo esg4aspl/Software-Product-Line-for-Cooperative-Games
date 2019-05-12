@@ -5,6 +5,6 @@ import core.AbstractCard;
 public class EpidemicCard extends AbstractCard {
 	
 	public EpidemicCard() {
-		super("Epidemic");
+		super("Epidemic",0);
 	}
 }

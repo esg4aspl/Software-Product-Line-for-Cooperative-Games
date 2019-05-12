@@ -14,6 +14,7 @@ public abstract class AbstractAction {
 		this.referee = referee;
 		this.name = name;
 		this.text=text;
+		
 		this.ruleList = new ArrayList<IRule>();
 	}
 	
@@ -24,7 +25,7 @@ public abstract class AbstractAction {
 	public String getText() {
 		return text;
 	}
-
+	
 	public boolean isSatisfied() {
 		boolean isSatisfied = false;
     	for (IRule rule : getRuleList()) {

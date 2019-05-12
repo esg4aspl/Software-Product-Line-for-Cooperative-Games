@@ -26,4 +26,15 @@ public class CureMarkerList implements ICureMarkerList {
 		}
 		return null;
 	}
+
+	@Override
+	public boolean areAllMarkersCured() {
+		boolean curedMarkerFlag= true;
+		for (AbstractGamePiece marker : cureMarkerList) {
+			curedMarkerFlag = curedMarkerFlag && ((CureMarker)marker).isCured();
+			
+		}
+		return curedMarkerFlag;
+	}
+	
 }

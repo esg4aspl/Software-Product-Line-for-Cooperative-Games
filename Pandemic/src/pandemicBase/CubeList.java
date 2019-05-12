@@ -55,4 +55,10 @@ public class CubeList implements ICubeList{
 	public List<List<AbstractGamePiece>> getCubes() {
 		return cubeList;
 	}
+
+	@Override
+	public void addSameColorCubeList(List<AbstractGamePiece> sameColorCubeList) {
+		cubeList.add(sameColorCubeList);
+		
+	}
 }

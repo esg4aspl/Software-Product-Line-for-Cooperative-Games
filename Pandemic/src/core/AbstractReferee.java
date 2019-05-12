@@ -8,7 +8,6 @@ public abstract class AbstractReferee {
 	protected ICureMarkerList cureMarkerList;
 	protected AbstractStackDeck playerDeck;
 	protected AbstractStackDeck infectionDeck;
-	protected AbstractDeck playerDiscardPile; // deck for discarded card. It is useful for an event card. 
 	protected AbstractDeck infectionDiscardPile;
 	protected AbstractTrack infectionTrack;
 	protected AbstractTrack outbreakTrack;
@@ -16,15 +15,14 @@ public abstract class AbstractReferee {
 	protected AbstractBoard board;
 	
 	protected AbstractPlayer currentPlayer;
-	public ICubeList getCubeList() {
-		return cubeList;
-	}
 	protected AbstractCard currentPlayerDrawnCard;
 	protected AbstractAction currentAction;
 	protected AbstractBoardNode currentNode;
-		
 	
+	protected IView view;
 	
+	protected boolean endGame;
+
 	public AbstractReferee(AbstractGameConfiguration gameConfiguration) {
 		setGameConfiguration(gameConfiguration);
 	}
@@ -55,7 +53,7 @@ public abstract class AbstractReferee {
 		this.numberOfCardsPerPlayer = numberOfCardsPerPlayer;
 	}
 
-
+	
 	public IPlayerList getPlayerList() {
 		return playerList;
 	}
@@ -118,13 +116,6 @@ public abstract class AbstractReferee {
 		this.currentPlayerDrawnCard = currentPlayerDrawnCard;
 	}
 	
-	public AbstractDeck getPlayerDiscardPile() {
-		return playerDiscardPile;
-	}
-	public abstract void setup();
-	public abstract void startGame();
-
-
 	public AbstractDeck getInfectionDiscardPile() {
 		return infectionDiscardPile;
 	}
@@ -138,6 +129,33 @@ public abstract class AbstractReferee {
 	public AbstractTrack getOutbreakTrack() {
 		return outbreakTrack;
 	}
+
+	public  AbstractDeck getPlayerDeck() {
+		return playerDeck;
+	}
+	
+	public ICubeList getCubeList() {
+		return cubeList;
+	}
+
+	public IView getView() {
+		return view;
+	}
+
+
+	public void setView(IView view) {
+		this.view = view;
+	}
+	
+	public void setEndGame(boolean endGame) {
+		this.endGame = endGame;
+	}
+
+	
+	public abstract void setup();
+	public abstract void startGame();
+
+
 	
 	
 

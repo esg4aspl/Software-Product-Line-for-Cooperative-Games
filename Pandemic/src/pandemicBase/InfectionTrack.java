@@ -10,7 +10,16 @@ public class InfectionTrack extends AbstractTrack {
 		this.infectionTrackValues = infectionTrackValues;
 	}
 	public int getNumberOfCitiesWillBeInfected() {
-		return infectionTrackValues[markerIndex];
+		if(!didMarkerReachedLastSpace()) {
+			return infectionTrackValues[markerIndex];
+		}
+		return infectionTrackValues[infectionTrackValues.length-1];
 	}
+	@Override
+	public boolean didMarkerReachedLastSpace() {
+		if(markerIndex < infectionTrackValues.length) return false;
+		return true;
+	}
+	
 	
 }

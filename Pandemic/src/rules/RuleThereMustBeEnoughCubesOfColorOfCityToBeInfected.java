@@ -16,7 +16,9 @@ public class RuleThereMustBeEnoughCubesOfColorOfCityToBeInfected implements IRul
 	public boolean evaluate(AbstractReferee referee) {
 		Color colorOfCityToBeInfected = ((BoardNode)cityToBeInfected).getColor();
 		ICubeList cubeList = referee.getCubeList();
-		return cubeList.areThereEnoughCubesOfSpecificColor(colorOfCityToBeInfected);		
+		boolean areThereEnoughCubesOfSpecificColor = cubeList.areThereEnoughCubesOfSpecificColor(colorOfCityToBeInfected);	
+		referee.setEndGame(areThereEnoughCubesOfSpecificColor);
+		return areThereEnoughCubesOfSpecificColor;
 	}
 
 }

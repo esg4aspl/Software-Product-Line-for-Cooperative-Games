@@ -42,6 +42,7 @@ public class ActionDiscoverCure extends AbstractAction {
 		ICureMarkerList cureMarkerList = referee.getCureMarkerList();
 		CureMarker cureMarker= (CureMarker) cureMarkerList.getMarkerByColor(colorOfCards);
 		cureMarker.cureDisease();
+		referee.setEndGame(cureMarkerList.areAllMarkersCured());
 	}
 
 	@Override

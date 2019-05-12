@@ -47,8 +47,8 @@ public abstract class AbstractPlayer {
 	public void addCardToHand(AbstractCard card) { // Add player card to her hand.
 		hand.addCardToDeck(card);
 	}
-	public AbstractCard discardCard(AbstractCard card) { //Discard card from her hand.
-		return ((AbstractHandDeck)hand).removeCardFromDeck(card); 
+	public void discardCard(AbstractCard card) { //Discard card from her hand.
+		 ((AbstractHandDeck)hand).removeCardFromDeck(card); 
 	}
 	
 	public AbstractCard discardCard(String cardName) { 

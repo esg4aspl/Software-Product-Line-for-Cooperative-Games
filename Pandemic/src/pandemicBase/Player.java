@@ -1,8 +1,5 @@
 package pandemicBase;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import core.AbstractBoardNode;
 import core.AbstractCard;
 import core.AbstractDeck;
@@ -15,20 +12,16 @@ public class Player extends AbstractPlayer{
 			 AbstractBoardNode currentNode) {
 		super(deck,role,id,currentNode);
 	}
-	public List<AbstractCard> discardCard(Color color ,int numOfCardsOfSameColor){
-			
-		List<AbstractCard> discardedCardList = new ArrayList<AbstractCard>();
+	public void discardCard(Color color ,int numOfCardsOfSameColor){
 		for (AbstractCard card : getHand().getDeck()) {
 			if(((CityCard)card).getColor().equals(color)) {
-				discardedCardList.add(discardCard(card));
+				discardCard(card);
 				numOfCardsOfSameColor--;
 				if(numOfCardsOfSameColor == 0) {
 					break;
 				}
 			}
 			
-		}
-		return discardedCardList;
-			
+		}			
 	}
 }

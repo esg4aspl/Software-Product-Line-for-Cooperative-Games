@@ -15,5 +15,8 @@ public abstract class AbstractStackDeck extends AbstractDeck{
 		int lastIndex = getDeck().size()-1;
 		return deck.get(lastIndex);
 	}
+	public void drawCardOnTopFromDeck(AbstractCard card) { // This method is necessary for drawing a card from Infection or Play Deck.
+		this.getDeck().remove(card);
+	}
 
 }
