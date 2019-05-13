@@ -1,5 +1,7 @@
 package core;
 
+import java.util.List;
+
 import pandemicBase.BoardNode;
 import rules.RuleDiseaseMustBeNotEradicatedYet;
 import rules.RuleThereMustBeEnoughCubesOfColorOfCityToBeInfected;
@@ -13,16 +15,17 @@ public abstract class AbstractInfection {
 	public AbstractInfection(AbstractReferee referee) {
 		this.referee = referee;
 	}
-	protected void infectCity(AbstractBoardNode cityToBeInfected,ICubeList cubeList,Color color,AbstractTrack outbreakTrack) {
+	protected void infectCity(AbstractBoardNode cityToBeInfected,ICubeList cubeList,Color color,AbstractTrack outbreakTrack,List<AbstractBoardNode> newlyInfectedNodeList) {
 		if(isSatisfied(cityToBeInfected)) {
 			if(!didOutbreakOccur(cityToBeInfected)) {
 				putDiseaseCubesToNode(cityToBeInfected,cubeList,color);
+				newlyInfectedNodeList.add(cityToBeInfected);
 			}
 			else {
 				outbreakTrack.moveMarker();
 				referee.setEndGame(outbreakTrack.didMarkerReachedLastSpace());
 				for (AbstractBoardNode neighborNode: cityToBeInfected.getNeighborList()) {
-					infectCity(neighborNode,cubeList,color,outbreakTrack);
+					infectCity(neighborNode,cubeList,color,outbreakTrack,newlyInfectedNodeList);
 				}
 			}
 		}	

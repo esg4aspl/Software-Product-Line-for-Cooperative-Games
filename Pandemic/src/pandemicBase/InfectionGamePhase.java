@@ -1,5 +1,8 @@
 package pandemicBase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import core.AbstractBoard;
 import core.AbstractBoardNode;
 import core.AbstractCard;
@@ -27,6 +30,9 @@ public class InfectionGamePhase extends AbstractInfection {
 		Color colorOfCityToBeInfected = ((BoardNode) cityToBeInfected).getColor();
 		ICubeList cubeList = referee.getCubeList();
 		AbstractTrack outbreakTrack = referee.getOutbreakTrack();
-		infectCity(cityToBeInfected,cubeList,colorOfCityToBeInfected,outbreakTrack);
+		List<AbstractBoardNode> newlyInfectedNodeList = new ArrayList<AbstractBoardNode>();
+		infectCity(cityToBeInfected,cubeList,colorOfCityToBeInfected,outbreakTrack,newlyInfectedNodeList);
+		referee.setNewlyInfectedNodeList(newlyInfectedNodeList);
+		
 	}
 }

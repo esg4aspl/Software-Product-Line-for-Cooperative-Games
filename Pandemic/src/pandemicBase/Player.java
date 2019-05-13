@@ -24,4 +24,16 @@ public class Player extends AbstractPlayer{
 			
 		}			
 	}
+	@Override
+	protected void setOrder() {
+		int maxPopulation = 0;
+		for (AbstractCard card : getHand().getDeck()) {
+			if(maxPopulation < ((CityCard)card).getPopulation()) {
+				maxPopulation = ((CityCard)card).getPopulation();
+			}
+		
+		}
+		this.order = maxPopulation;
+	}
+	
 }

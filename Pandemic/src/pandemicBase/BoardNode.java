@@ -116,5 +116,34 @@ public class BoardNode extends AbstractBoardNode{
 	public void addPlayersOnTheNode(AbstractPlayer player) {
 		playersOnNode.add(player);
 	}
-	
+	private Set<Color> findDistinctColorSet(){
+		Set<Color> colorSet = new HashSet<Color>();
+		for (AbstractGamePiece piece : piecesOnNode) {
+			if(piece instanceof Cube) {
+				Color cubeColor = ((Cube)piece).getColor();
+				colorSet.add(cubeColor);
+			}	
+		}
+		return colorSet;
+	}
+	public String toString() {
+		String cubes = " ";
+		String researchStation = " ";
+		String players = " ";
+		if(doesHaveResearchStation()) {
+			researchStation = "1 RESEARCH STATION ";
+		}
+		else {
+			researchStation = "0 RESEARCH STATION";
+		}
+		for (Color cubeColor : findDistinctColorSet()) {
+			int numOfSameColoredCube = howManyCubesDoesHave(cubeColor);
+			cubes = cubes + numOfSameColoredCube + " CUBES ";
+		}
+		for(AbstractPlayer player : playersOnNode) {
+			players = players + "PLAYER WITH ID: " + player.getID();
+		}
+		String output = researchStation + cubes + players + " ON CITY " + name;
+		return output;
+	}
 }

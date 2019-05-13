@@ -4,8 +4,8 @@ public abstract class AbstractPlayer {
 	private int ID;
 	private AbstractRole role;
 	private AbstractDeck hand;
-	private AbstractBoardNode currentNode;
-	
+	private AbstractBoardNode currentNode;	
+	protected int order;
 	
 	public AbstractPlayer(AbstractDeck deck,AbstractRole role, int id,
 		AbstractBoardNode currentNode) {
@@ -13,6 +13,7 @@ public abstract class AbstractPlayer {
 		setRole(role);
 		setID(id);
 		setCurrentNode(currentNode);
+		setOrder();
 	}
 	
 	public AbstractDeck getHand() {
@@ -59,6 +60,12 @@ public abstract class AbstractPlayer {
 		}
 		return null;
 	}
+	public int getOrder() {
+		return order;
+	}
+	protected abstract void setOrder();
+	
+	
 	
 	@Override
 	public String toString() {

@@ -1,5 +1,8 @@
 package pandemicBase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import core.AbstractBoard;
 import core.AbstractBoardNode;
 import core.AbstractCard;
@@ -35,13 +38,15 @@ public class InfectionEpidemic extends AbstractInfection {
 		Color colorOfCityToBeInfected = ((BoardNode) cityToBeInfected).getColor();
 		ICubeList cubeList = referee.getCubeList();
 		AbstractTrack outbreakTrack = referee.getOutbreakTrack();
+		List<AbstractBoardNode> newlyInfectedNodeList = new ArrayList<AbstractBoardNode>();
 		if(!didEpidemicCauseOutbreak(cityToBeInfected)) {
-			infectUntilNodeHasThreeCubesOfSameColor(cityToBeInfected,cubeList,colorOfCityToBeInfected);
+			infectUntilNodeHasThreeCubesOfSameColor(cityToBeInfected,cubeList,colorOfCityToBeInfected,newlyInfectedNodeList);
 		}
 		else {
-			infectUntilNodeHasThreeCubesOfSameColor(cityToBeInfected,cubeList,colorOfCityToBeInfected);
-			infectCity(cityToBeInfected,cubeList,colorOfCityToBeInfected,outbreakTrack);
+			infectUntilNodeHasThreeCubesOfSameColor(cityToBeInfected,cubeList,colorOfCityToBeInfected,newlyInfectedNodeList);
+			infectCity(cityToBeInfected,cubeList,colorOfCityToBeInfected,outbreakTrack,newlyInfectedNodeList);
 		}
+		referee.setNewlyInfectedNodeList(newlyInfectedNodeList);
 		
 	}
 
@@ -49,8 +54,9 @@ public class InfectionEpidemic extends AbstractInfection {
 		IRule rule = new RuleThereMustBeNoCubeOfSameColorOnNodeForEpidemic(cityToBeInfected);
 		return !rule.evaluate(referee);
 	}
-	private void infectUntilNodeHasThreeCubesOfSameColor(AbstractBoardNode cityToBeInfected, ICubeList cubeList,Color color) {
+	private void infectUntilNodeHasThreeCubesOfSameColor(AbstractBoardNode cityToBeInfected, ICubeList cubeList,Color color,List<AbstractBoardNode> newlyInfectedNodeList) {
 		if(isSatisfied(cityToBeInfected)) {
+			newlyInfectedNodeList.add(cityToBeInfected);
 			while(((BoardNode)cityToBeInfected).howManyCubesDoesHave(color)<3) {
 				AbstractGamePiece cube = cubeList.takeCubeFromCubeList(color);
 				((BoardNode)cityToBeInfected).addPieceOnNode(cube);

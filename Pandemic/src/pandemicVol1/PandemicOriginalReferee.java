@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import core.AbstractAction;
 import core.AbstractBoardNode;
 import core.AbstractCard;
 import core.AbstractDeck;
@@ -18,7 +17,7 @@ import core.AbstractPlayer;
 import core.AbstractReferee;
 import core.AbstractRole;
 import core.Color;
-import core.IPlayerList;
+import core.IRule;
 import pandemicBase.Board;
 import pandemicBase.BoardNode;
 import pandemicBase.CityCard;
@@ -31,6 +30,7 @@ import pandemicBase.EpidemicCard;
 import pandemicBase.InfectionCard;
 import pandemicBase.InfectionDeck;
 import pandemicBase.InfectionDiscardPile;
+import pandemicBase.InfectionEpidemic;
 import pandemicBase.InfectionGamePhase;
 import pandemicBase.InfectionTrack;
 import pandemicBase.OutbreakTrack;
@@ -39,7 +39,11 @@ import pandemicBase.PlayerDeck;
 import pandemicBase.PlayerHand;
 import pandemicBase.PlayerList;
 import pandemicBaseRoles.Medic;
+import pandemicBaseRoles.OperationsExpert;
+import pandemicBaseRoles.QuarantineSpecialist;
 import pandemicBaseRoles.Researcher;
+import pandemicBaseRoles.Scientist;
+import rules.RuleThereMustBeEnoughPlayerCards;
 
 
 public class PandemicOriginalReferee extends AbstractReferee {
@@ -49,11 +53,11 @@ public class PandemicOriginalReferee extends AbstractReferee {
 	}
 
 	@Override
-	public void setup() {
+	protected void setup() {
 		setupBoardMVC();
 		setupPlayerAndInfectionDecks();
 		setupPlayers();
-		addEpidemicCardsToPlayerDeck(); // TODO Please look this method 
+		addEpidemicCardToPlayerDeck(); 
 		setupTracks();
 		setupCubesAndMarkers();
 		setupInfection();
@@ -62,76 +66,92 @@ public class PandemicOriginalReferee extends AbstractReferee {
 	}
 
 	@Override
-	public void startGame() {
+	protected void startGame() {
 		endGame = false;
 		while (!(endGame)) {
 			conductPlayersTurn();
+			
 			if(endGame) break;
 			conductGameTurn();
 		}
-		
-		announceWinner("bittiii kazandk"); //burda argüman olarak 114.satýrda bahsettiðim attribute gönderilmeli.
+		determineWinner();
+		announceWinner();
 		
 	}
-	private void determinePlayerOrder(int i) { 
-		//... currentPlayer = blablabla //bunu abstract'a çekebiliriz 
+	protected void determinePlayerOrder(int i) { 
 		currentPlayer = playerList.getPlayer(i);
-	
 	}
 	
-	private void determineCurrentAction() {
+	protected void determineCurrentAction() {
 		setCurrentAction(view.getActionChoiceFromPlayer(this)); 
 	}
-
-	public void conductPlayersTurn() {
+	protected void determineWinner() {
+		if(cureMarkerList.areAllMarkersCured()) {
+			setWinner("PLAYERS WON!!");
+		}
+	}
+	protected void conductPlayersTurn() {
 		
 		int actionCount = 0;
 		for (int i=0; i<numberOfPlayers;i++) {
 			while(actionCount<4) {
-			determinePlayerOrder(i);
-			//actionlarý listele consoledan
-			view.showActionOptions();
-			determineCurrentAction();
-			conductMove();
-			actionCount++;
+				determinePlayerOrder(i);
+				view.showActionOptions();
+				determineCurrentAction();
+				conductMove();
+				actionCount++;
 			}
-			//move yaptýktan sonra kart çekimi
-			for(int j=0; j<2; j++) {
-				view.ShowPlayDeck(this);
-				currentPlayerDrawnCard = view.getDrawnCardFromPlayer(this);
-				playerDeck.drawCardOnTopFromDeck(currentPlayerDrawnCard); //bu fonksiyon deðiþttiiiiii,overload
-				//city kartlarý numaralandýrarak consola bastýr.
-				//drawn kartýn sor i view ile
-				//draw kartý playerden konsol aracýlýðýyla alacaksak :
-				//currentPlayerDrawnCard= consoleView.getDrawnCardFromPlayer();
-				if(currentPlayerDrawnCard instanceof EpidemicCard) {
-					//epidemicCardResolution() diye bir fonksiyon lazým gelir.
-				}
-				else {
-					currentPlayer.getHand().addCardToDeck(currentPlayerDrawnCard); //player handý referee tutmasýn hep playerdan ulaþýyoruz zaten 
-				}
-			
-			}
+			//Draw 2 cards after 4 actions.
+			drawTwoCards();
 		}
-		
 	}
 	
-	private void conductGameTurn() {
+	private void drawTwoCards() {
+		IRule ruleForCardDrawing = new RuleThereMustBeEnoughPlayerCards();
+		for(int j=0; j<2; j++) {
+			if(ruleForCardDrawing.evaluate(this)) {
+				view.showDeck(playerDeck);
+				currentPlayerDrawnCard = view.getChosenCardFromPlayer(this);
+				playerDeck.drawCardOnTopFromDeck(currentPlayerDrawnCard);
+				if(currentPlayerDrawnCard instanceof EpidemicCard) {
+					AbstractInfection infectionEpidemic = new InfectionEpidemic(this);
+					infectionEpidemic.infect();
+					view.showResponseToPlayer("Here is the newly infected cities after epidemic card resolve.");
+					view.showNewlyInfectedNodeList(this);
+				}
+				else {
+					currentPlayer.getHand().addCardToDeck(currentPlayerDrawnCard); 
+					if(currentPlayer.getHand().size() > 7) {
+						view.showResponseToPlayer("Please discard any card from your hand immediately.");
+						view.showDeck(currentPlayer.getHand());
+						AbstractCard card = view.getChosenCardFromPlayer(this);
+						currentPlayer.discardCard(card);
+					}
+				}
+			}
+		}
+	}
+	
+	protected void conductGameTurn() {
 		int numOfCitiesWillBeInfected = ((InfectionTrack) infectionTrack).getNumberOfCitiesWillBeInfected();
 		for (int i = 0; i < numOfCitiesWillBeInfected; i++) {
 			AbstractInfection infectionGamePhase = new InfectionGamePhase(this);
 			infectionGamePhase.infect();
+			view.showResponseToPlayer("Here is the newly infected cities after infection. Don't forget to put related colored cubes to cities.");
+			view.showNewlyInfectedNodeList(this);
 		}
 	}
-	
-	public void announceWinner(String winner) {
+
+	protected void announceWinner() {
 		view.announceWinner(winner);
 	}
-	private void conductMove() {
-		checkAction(currentAction);
+	protected void conductMove() {
+		if(checkAction()) {
+			currentAction.takeAction();
+		}
 		
 	}
-	private boolean checkAction(AbstractAction currentAction) {
+	protected boolean checkAction() {
 		return currentAction.isSatisfied();
 	}
 	
@@ -156,6 +176,7 @@ public class PandemicOriginalReferee extends AbstractReferee {
 		List<AbstractCard> cityCardList = new ArrayList<AbstractCard>(); 
 		List<AbstractCard> infectionCardList = new ArrayList<AbstractCard>(); 
 		for (AbstractBoardNode boardNode : boardNodes) {
+			
 			CityCard cityCard = new CityCard(boardNode.getName(), ((BoardNode)boardNode).getPopulation(),((BoardNode)boardNode).getColor());
 			cityCardList.add(cityCard);
 			InfectionCard infectionCard = new InfectionCard(boardNode.getName(),((BoardNode)boardNode).getColor());
@@ -165,17 +186,13 @@ public class PandemicOriginalReferee extends AbstractReferee {
 		playerDeck = new PlayerDeck(cityCardList);
 		infectionDeck = new InfectionDeck(infectionCardList);
 		infectionDiscardPile = new InfectionDiscardPile();
-		playerDeck.shuffle();
 		infectionDeck.shuffle();
 	}
-	private void addEpidemicCardsToPlayerDeck() {
+	private void addEpidemicCardToPlayerDeck() {
 		numberOfEpidemicCards = gameConfiguration.getNumberOfEpidemicCardsInGame();
-		int indexToAdd = playerDeck.size() % numberOfEpidemicCards;
-		for (int i = 1; i <= numberOfEpidemicCards; i++) {
-			AbstractCard epidemicCard = new EpidemicCard();
-			((PlayerDeck) playerDeck).insertEpidemicCard(indexToAdd,epidemicCard);
-			indexToAdd = indexToAdd * i;
-		}	
+		AbstractCard epidemicCard = new EpidemicCard();
+		((PlayerDeck) playerDeck).insertEpidemicCard(0,epidemicCard);
+			
 	}
 	private void setupTracks() {
 		infectionTrack = new InfectionTrack(gameConfiguration.getValuesOfInfectionRateNumber());
@@ -235,7 +252,7 @@ public class PandemicOriginalReferee extends AbstractReferee {
 			infectedWithOneCubeCityNode.addPieceOnNode(cube);	
 		}
 	}
-	
+
 	private void setupPlayers() {
 		numberOfPlayers = gameConfiguration.getNumberOfPlayers();
 		playerList = new PlayerList();
@@ -243,28 +260,28 @@ public class PandemicOriginalReferee extends AbstractReferee {
 			AbstractPlayer player = new Player(setupPlayerHandDeck(),setupRoles().get(i),i,initialNode);
 			playerList.addPlayer(player);
 		}
-		playerList = sortPlayerListAccordingToMaxPopulation( playerList);
+		sortPlayerListAccordingToMaxPopulation();
 	}
 	
 	
-	private IPlayerList sortPlayerListAccordingToMaxPopulation(IPlayerList playerList){
-		//TODO sort 
-		return playerList;
-		
+	private void sortPlayerListAccordingToMaxPopulation(){
+		Collections.sort(playerList.getPlayers(), (player1, player2) -> player2.getOrder() - player1.getOrder());
 	}
+
 	
 	private AbstractDeck setupPlayerHandDeck() {
 		numberOfCardsPerPlayer = gameConfiguration.getNumberOfCardsPerPlayer();
 		List<AbstractCard> deck = new ArrayList<AbstractCard>();
 		for (int j = 0; j < numberOfCardsPerPlayer; j++) {
-			AbstractCard drawnCard = view.getDrawnCardFromPlayer(this);
+			view.showDeck(playerDeck);
+			AbstractCard drawnCard = view.getChosenCardFromPlayer(this);
 			playerDeck.drawCardOnTopFromDeck(drawnCard); 
 			deck.add(drawnCard);
 		}
 		AbstractHandDeck handDeck = new PlayerHand(deck); 
 		return handDeck;
 	}
-	private List<AbstractRole> setupRoles() {// GAME CONFIG and this will be changed
+	private List<AbstractRole> setupRoles() {
 		List<String> roleNameList = gameConfiguration.getNameOfRoles();
 		List<AbstractRole> roleList = new ArrayList<AbstractRole>();
 		
@@ -277,7 +294,14 @@ public class PandemicOriginalReferee extends AbstractReferee {
 			case "Researcher":
 				role = new Researcher();
 				break;
-			default:
+			case "Scientist":
+				role = new Scientist();
+				break;
+			case "OperationsExpert":
+				role = new OperationsExpert();
+				break;
+			case "QuarantineSpecialist":
+				role = new QuarantineSpecialist();
 				break;
 			}
 			roleList.add(role);
@@ -285,8 +309,5 @@ public class PandemicOriginalReferee extends AbstractReferee {
 		Collections.shuffle(roleList);
 		return roleList;
 	}
-	
-	
 
-	
 }

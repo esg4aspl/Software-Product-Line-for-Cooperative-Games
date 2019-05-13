@@ -9,7 +9,6 @@ import core.AbstractCard;
 import core.AbstractDeck;
 import core.AbstractPlayer;
 import core.AbstractReferee;
-import core.AbstractStackDeck;
 import core.IView;
 
 public class ConsoleView implements IView {
@@ -22,7 +21,7 @@ public class ConsoleView implements IView {
 
 	
 	@Override
-	public void showResponseTo(String message) {
+	public void showResponseToPlayer(String message) {
 		System.out.println(message);
 	}
 
@@ -92,7 +91,7 @@ public class ConsoleView implements IView {
 	}
 
 	@Override
-	public AbstractCard getDrawnCardFromPlayer(AbstractReferee referee) {
+	public AbstractCard getChosenCardFromPlayer(AbstractReferee referee) {
 		while(true) {
 		System.out.println("Enter the number of the card you draw");
 		int input = scanner.nextInt();
@@ -121,16 +120,14 @@ public class ConsoleView implements IView {
 	}
 
 	@Override
-	public void ShowPlayDeck(AbstractReferee referee) {
-		AbstractDeck playDeck = referee.getPlayerDeck();
-		System.out.println(playDeck.toString()); //Abstract deck'te bir toString(); //tüm city cardlarý alfabetik order ? ve sadece 1 tane epidemic card 
-		
+	public void showDeck(AbstractDeck deck) {
+		System.out.println(deck.showDeck()); 
 	}
 
 	@Override
 	public AbstractPlayer whichplayerToShareInformationWith(AbstractReferee referee) {
 		while(true) {
-		System.out.println("Whit which player you will share information ? (Enter the role name)");
+		System.out.println("With which player you will share information ? (Enter the role name)");
 		String input = scanner.nextLine();
 		for(AbstractPlayer player : referee.getPlayerList().getPlayers()) {
 			if(player.getRole().getName().toUpperCase().equals(input.toUpperCase())) {
@@ -154,6 +151,17 @@ public class ConsoleView implements IView {
 				+ "7.Take Knowledgen\n"
 				+ "8.Treat Disease\n";
 		System.out.println(output);
+		
+	}
+
+
+	@Override
+	public void showNewlyInfectedNodeList(AbstractReferee referee) {
+		List<AbstractBoardNode> newlyInfectedNodeList = referee.getNewlyInfectedNodeList();
+		for (AbstractBoardNode node : newlyInfectedNodeList) {
+			System.out.println(node.toString());
+		}
+		
 		
 	}
 

@@ -1,5 +1,7 @@
 package core;
 
+import java.util.List;
+
 public abstract class AbstractReferee {
 	protected AbstractGameConfiguration gameConfiguration;
 	protected int  numberOfPlayers, numberOfCardsPerPlayer,numberOfNodes,numberOfDiseaseCubeTypes,numberOfDiseaseCubesPerType,numberOfEpidemicCards;
@@ -18,15 +20,22 @@ public abstract class AbstractReferee {
 	protected AbstractCard currentPlayerDrawnCard;
 	protected AbstractAction currentAction;
 	protected AbstractBoardNode currentNode;
-	
+	protected List<AbstractBoardNode> newlyInfectedNodeList;
 	protected IView view;
 	
 	protected boolean endGame;
+	protected String winner;
 
 	public AbstractReferee(AbstractGameConfiguration gameConfiguration) {
 		setGameConfiguration(gameConfiguration);
+		setWinner("PLAYERS LOST!");
 	}
 	
+
+	protected void setWinner(String winner) {
+		this.winner = winner;
+	}
+
 
 	public AbstractGameConfiguration getGameConfiguration() {
 		return gameConfiguration;
@@ -150,10 +159,23 @@ public abstract class AbstractReferee {
 	public void setEndGame(boolean endGame) {
 		this.endGame = endGame;
 	}
-
+	public void setNewlyInfectedNodeList(List<AbstractBoardNode> newlyInfectedNodeList) {
+		this.newlyInfectedNodeList = newlyInfectedNodeList;
+	}
+	public List<AbstractBoardNode> getNewlyInfectedNodeList() {
+		return newlyInfectedNodeList;
+	}
 	
-	public abstract void setup();
-	public abstract void startGame();
+	protected abstract void setup();
+	protected abstract void startGame();
+	protected abstract void determinePlayerOrder(int i);
+	protected abstract void determineCurrentAction();
+	protected abstract void determineWinner();
+	protected abstract void conductPlayersTurn();
+	protected abstract void conductGameTurn();
+	protected abstract void conductMove();
+	protected abstract void announceWinner();
+	protected abstract boolean checkAction();
 
 
 	

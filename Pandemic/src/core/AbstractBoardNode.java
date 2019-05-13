@@ -3,7 +3,7 @@ package core;
 import java.util.Set;
 
 public abstract class AbstractBoardNode {
-	private String name;
+	protected String name;
 	public AbstractBoardNode(String name) {
 		setName(name);
 	}

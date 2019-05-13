@@ -39,7 +39,7 @@ public abstract class AbstractDeck {
 	public String showDeck() {
 		String output = "";
 		for (AbstractCard card : deck) {
-			output = card.toString() + " \n";
+			output = output + card.toString() + " \n";
 		}
 		return output;
 	}

@@ -2,20 +2,18 @@ package core;
 
 import java.util.List;
 
-import pandemicBase.BoardNode;
-import pandemicBase.Player;
-
 public interface IView {
 	
 	
 	public AbstractAction getActionChoiceFromPlayer(AbstractReferee referee);
 	public AbstractBoardNode getDestinationNodeFromPlayer(AbstractReferee referee);
-	public AbstractCard getDrawnCardFromPlayer(AbstractReferee referee);
+	public AbstractCard getChosenCardFromPlayer(AbstractReferee referee);
 	public List<AbstractCard> getHandDeckFromPlayer();
 	public AbstractPlayer whichplayerToShareInformationWith(AbstractReferee referee);
-	public void ShowPlayDeck(AbstractReferee referee);
+	public void showDeck(AbstractDeck deck);
 	public void showActionOptions();
-	public void showResponseTo(String message);
+	public void showResponseToPlayer(String message);
 	public void announceWinner(String winner);
+	public void showNewlyInfectedNodeList(AbstractReferee referee);
 
 }
