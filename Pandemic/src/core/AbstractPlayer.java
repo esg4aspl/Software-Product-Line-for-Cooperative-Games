@@ -48,8 +48,8 @@ public abstract class AbstractPlayer {
 	public void addCardToHand(AbstractCard card) { // Add player card to her hand.
 		hand.addCardToDeck(card);
 	}
-	public void discardCard(AbstractCard card) { //Discard card from her hand.
-		 ((AbstractHandDeck)hand).removeCardFromDeck(card); 
+	public AbstractCard discardCard(AbstractCard card) { //Discard card from her hand.
+		 return((AbstractHandDeck)hand).removeCardFromDeck(card); 
 	}
 	
 	public AbstractCard discardCard(String cardName) { 
@@ -69,11 +69,11 @@ public abstract class AbstractPlayer {
 	
 	@Override
 	public String toString() {
-		String handToString = " ";
-		for (int i = 1; i <= hand.getDeck().size(); i++) {
-			handToString = handToString + i + ")" + hand.getDeck().get(i-1);
+		String handToString = "";
+		for (AbstractCard card: hand.getDeck()) {
+			handToString = handToString + card +"\n";
 		}
-		return ID + ".player with role: " + role.getName() 
+		return "Player with role: " + role.getName() 
 				+ " is in " + currentNode.getName() + "\n Cards in hand: " + handToString ;
 		
 	}

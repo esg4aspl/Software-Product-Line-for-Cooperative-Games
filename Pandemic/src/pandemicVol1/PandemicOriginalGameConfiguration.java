@@ -33,7 +33,7 @@ public class PandemicOriginalGameConfiguration extends AbstractGameConfiguration
 
 	@Override
 	public int getNumberOfCardsPerPlayer() {
-		return 4;
+		return 5;
 	}
 
 	@Override
@@ -189,6 +189,11 @@ public class PandemicOriginalGameConfiguration extends AbstractGameConfiguration
 		List<String> roleList = new ArrayList<String>();
 		roleList.add("Medic");
 		roleList.add("Researcher");
+		roleList.add("Scientist");
+		roleList.add("OperationsExpert");
+		roleList.add("QuarantineSpecialist");
+		
+		
 		return roleList;
 	}
 }

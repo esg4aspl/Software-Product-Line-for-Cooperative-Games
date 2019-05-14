@@ -10,4 +10,5 @@ public class Board extends AbstractBoard{
 	public Board(List<AbstractBoardNode> nodeList) {
 		super(nodeList);
 	}
+	
 }

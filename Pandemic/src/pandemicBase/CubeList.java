@@ -45,6 +45,7 @@ public class CubeList implements ICubeList{
 			Cube sampleCube = (Cube) listOfCubesOfSameColor.get(0);
 			Color colorOfSampleCube = sampleCube.getColor();
 			if(colorOfCube.equals(colorOfSampleCube)) {
+				System.out.println("YETERLI CUBE VAR ");
 				return true;
 			}
 		}

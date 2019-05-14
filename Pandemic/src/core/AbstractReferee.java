@@ -1,6 +1,7 @@
 package core;
 
 import java.util.List;
+import java.util.Set;
 
 public abstract class AbstractReferee {
 	protected AbstractGameConfiguration gameConfiguration;
@@ -21,6 +22,7 @@ public abstract class AbstractReferee {
 	protected AbstractAction currentAction;
 	protected AbstractBoardNode currentNode;
 	protected List<AbstractBoardNode> newlyInfectedNodeList;
+	protected Set<Color> usedColorSet;
 	protected IView view;
 	
 	protected boolean endGame;
@@ -166,14 +168,24 @@ public abstract class AbstractReferee {
 		return newlyInfectedNodeList;
 	}
 	
+	public Set<Color> getUsedColorSet() {
+		return usedColorSet;
+	}
+
+
+	public void setUsedColorSet(Set<Color> usedColorSet) {
+		this.usedColorSet = usedColorSet;
+	}
+
+
 	protected abstract void setup();
 	protected abstract void startGame();
 	protected abstract void determinePlayerOrder(int i);
 	protected abstract void determineCurrentAction();
 	protected abstract void determineWinner();
-	protected abstract void conductPlayersTurn();
+	protected abstract void conductPlayerTurn();
 	protected abstract void conductGameTurn();
-	protected abstract void conductMove();
+	protected abstract void conductMove(int actionCount);
 	protected abstract void announceWinner();
 	protected abstract boolean checkAction();
 

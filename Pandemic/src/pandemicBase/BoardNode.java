@@ -43,9 +43,11 @@ public class BoardNode extends AbstractBoardNode{
 		for (AbstractGamePiece piece : piecesOnNode) {
 			if(piece instanceof Cube && ((Cube)piece).getColor().equals(cubeColor)&& numOfCubesToBeRemoved>0) {
 				numOfCubesToBeRemoved--;
-				piecesOnNode.remove(piece);
 				cubesToBeRemoved.add(piece);
 			}
+		}
+		for (AbstractGamePiece cube : cubesToBeRemoved) {
+			piecesOnNode.remove(cube);
 		}
 		return cubesToBeRemoved;
 	}
@@ -126,24 +128,27 @@ public class BoardNode extends AbstractBoardNode{
 		}
 		return colorSet;
 	}
+	public void removePlayer(AbstractPlayer player) {
+		playersOnNode.remove(player);
+	}
 	public String toString() {
 		String cubes = " ";
 		String researchStation = " ";
 		String players = " ";
 		if(doesHaveResearchStation()) {
-			researchStation = "1 RESEARCH STATION ";
+			researchStation = "1 RESEARCH STATION";
 		}
 		else {
 			researchStation = "0 RESEARCH STATION";
 		}
 		for (Color cubeColor : findDistinctColorSet()) {
 			int numOfSameColoredCube = howManyCubesDoesHave(cubeColor);
-			cubes = cubes + numOfSameColoredCube + " CUBES ";
+			cubes = cubes + numOfSameColoredCube + " " + cubeColor + " CUBES ";
 		}
 		for(AbstractPlayer player : playersOnNode) {
 			players = players + "PLAYER WITH ID: " + player.getID();
 		}
-		String output = researchStation + cubes + players + " ON CITY " + name;
+		String output = "CITY " + name + " "+researchStation + cubes + players ;
 		return output;
 	}
 }

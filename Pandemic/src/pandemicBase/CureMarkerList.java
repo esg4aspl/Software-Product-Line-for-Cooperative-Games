@@ -36,5 +36,16 @@ public class CureMarkerList implements ICureMarkerList {
 		}
 		return curedMarkerFlag;
 	}
+
+	@Override
+	public List<AbstractGamePiece> getCuredMarkers() {
+		List<AbstractGamePiece> curedMarkers = new ArrayList<AbstractGamePiece>();
+		for (AbstractGamePiece marker : cureMarkerList) {
+			if(((CureMarker)marker).isCured()) {
+				curedMarkers.add(marker);
+			}
+		}
+		return curedMarkers;
+	}
 	
 }

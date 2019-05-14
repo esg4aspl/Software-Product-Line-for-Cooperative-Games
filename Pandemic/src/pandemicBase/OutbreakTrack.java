@@ -13,8 +13,12 @@ public class OutbreakTrack extends AbstractTrack {
 	}
 	@Override
 	public boolean didMarkerReachedLastSpace() {
-		if(markerIndex == outbreakTrackRange) return true;
+		if(markerIndex >= outbreakTrackRange) {
+			return true;
+		}
 		return false;
 	}
-
+	public String toString() {
+		return "Outbreak marker is in " + markerIndex + ". place \n";
+	}
 }

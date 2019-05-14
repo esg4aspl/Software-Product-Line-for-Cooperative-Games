@@ -27,7 +27,7 @@ public abstract class AbstractAction {
 	}
 	
 	public boolean isSatisfied() {
-		boolean isSatisfied = false;
+		boolean isSatisfied = true;
     	for (IRule rule : getRuleList()) {
 			isSatisfied = isSatisfied && rule.evaluate(referee);
 		}
