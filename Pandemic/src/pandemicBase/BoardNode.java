@@ -136,19 +136,17 @@ public class BoardNode extends AbstractBoardNode{
 		String researchStation = " ";
 		String players = " ";
 		if(doesHaveResearchStation()) {
-			researchStation = "1 RESEARCH STATION";
+			researchStation = "RESEARCH STATION: 1";
 		}
-		else {
-			researchStation = "0 RESEARCH STATION";
-		}
+		
 		for (Color cubeColor : findDistinctColorSet()) {
 			int numOfSameColoredCube = howManyCubesDoesHave(cubeColor);
-			cubes = cubes + numOfSameColoredCube + " " + cubeColor + " CUBES ";
+			cubes = " CUBES: "+ cubes + numOfSameColoredCube + " " + cubeColor + " ";
 		}
 		for(AbstractPlayer player : playersOnNode) {
-			players = players + "PLAYER WITH ID: " + player.getID();
+			players = players + "PLAYER ROLE: " + player.getRole().getName()+ " ";
 		}
-		String output = "CITY " + name + " "+researchStation + cubes + players ;
+		String output = "CITY NAME:" + name + " "+ cubes + researchStation + players ;
 		return output;
 	}
 }

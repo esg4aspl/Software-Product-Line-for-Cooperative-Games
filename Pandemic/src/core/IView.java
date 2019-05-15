@@ -1,14 +1,10 @@
 package core;
 
-import java.util.List;
-
 public interface IView {
 	
 	
 	public AbstractAction getActionChoiceFromPlayer(AbstractReferee referee);
 	public AbstractBoardNode getDestinationNodeFromPlayer(AbstractReferee referee);
-	public AbstractCard getChosenCardFromPlayer(AbstractDeck deck);
-	public List<AbstractCard> getHandDeckFromPlayer();
 	public AbstractPlayer whichplayerToShareInformationWith(AbstractReferee referee);
 	public void showSetUpInformation();
 	public void showDeck(AbstractDeck deck);

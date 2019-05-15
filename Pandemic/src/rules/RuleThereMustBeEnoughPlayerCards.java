@@ -9,10 +9,9 @@ public class RuleThereMustBeEnoughPlayerCards implements IRule {
 	@Override
 	public boolean evaluate(AbstractReferee referee) {
 		AbstractDeck playerDeck = referee.getPlayerDeck();
-		if(playerDeck.size() != 0) {
+		if(playerDeck.size() != 1) {
 			return true;
 		}
-		System.out.println("VALLAHI DE TRUELADIK ENDI ENOUGHCARDS ICINDE");
 		referee.setEndGame(true);
 		return false;
 	}

@@ -74,12 +74,15 @@ public class PandemicOriginalReferee extends AbstractReferee {
 			for (int i=0; i<numberOfPlayers;i++) {
 				determinePlayerOrder(i);
 				view.showResponseToPlayer(playerList.getPlayerStatus());
-				view.showResponseToPlayer("CurrentPlayer: " + currentPlayer.getRole().toString());
-				conductPlayerTurn();	
+				view.showResponseToPlayer("CurrentPlayer: " + currentPlayer.getRole().toString()+"\n");
+				conductPlayerTurn();
 				if(endGame){
 					break;
 				}
 				conductGameTurn();
+				if(endGame){
+					break;
+				}
 			}
 		}
 		determineWinner();

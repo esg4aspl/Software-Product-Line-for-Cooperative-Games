@@ -14,7 +14,6 @@ public class RuleBothOfPlayersMustBeInSameCity implements IRule {
 		AbstractPlayer otherPlayer = ((AbstractActionShareKnowledge)currentAction).getOtherPlayer();
 		AbstractPlayer currentPlayer = referee.getCurrentPlayer();
 		if(currentPlayer.getCurrentNode().equals(otherPlayer.getCurrentNode())) {
-			System.out.println("ÝKÝSÝ AYNI ÞEHÝRDE TRUE");
 			return true;
 		}
 		return false;

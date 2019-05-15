@@ -7,4 +7,5 @@ public interface ICureMarkerList {
 	public AbstractGamePiece getMarkerByColor(Color color);
 	public boolean areAllMarkersCured();
 	public List<AbstractGamePiece> getCuredMarkers();
+	public String showCureMarkerListStatue();
 }

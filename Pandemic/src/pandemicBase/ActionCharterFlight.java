@@ -34,7 +34,7 @@ public class ActionCharterFlight extends AbstractAction {
 		((BoardNode)currentNode).removePlayer(currentPlayer);
 		currentPlayer.setCurrentNode(destinationNode);
 		destinationNode.addPlayersOnTheNode(currentPlayer);
-		currentPlayer.discardCard(destinationNode.getName());
+		currentPlayer.discardCard(currentNode.getName());
 
 		//If disease is cured, Medic removes them automatically by just being there.
 		ICureMarkerList cureMarkerList=referee.getCureMarkerList();

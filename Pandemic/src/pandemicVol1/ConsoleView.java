@@ -12,6 +12,7 @@ import core.AbstractPlayer;
 import core.AbstractReferee;
 import core.AbstractTrack;
 import core.Color;
+import core.ICureMarkerList;
 import core.IView;
 import pandemicBase.ActionBuildResearchStation;
 import pandemicBase.ActionCharterFlight;
@@ -131,11 +132,7 @@ public class ConsoleView implements IView {
 		
 	}
 
-	@Override
-	public List<AbstractCard> getHandDeckFromPlayer() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 
 	@Override
@@ -200,6 +197,8 @@ public class ConsoleView implements IView {
 		}
 		AbstractTrack outbreakTrack = referee.getOutbreakTrack();
 		System.out.println(outbreakTrack.toString());
+		ICureMarkerList cureMarkerList = referee.getCureMarkerList();
+		System.out.println(cureMarkerList.showCureMarkerListStatue());
 
 		
 	}
@@ -224,6 +223,7 @@ public class ConsoleView implements IView {
 
 	@Override
 	public void showSetUpInformation() {
+		System.out.println("***********WHAT IS PANDEMIC?************");
 		System.out.println(
 				"In Pandemic, you and your fellow players are members of a disease control team.\r" + 
 				"You must work together to develop cures and prevent disease outbreaks, before 4 deadly diseases (Blue, Yellow, Black, and Red) contaminate humanity.\r\n" + 
@@ -234,13 +234,29 @@ public class ConsoleView implements IView {
 				"• not enough player cards are left when needed (your team runs out of time).\r\n" + 
 				"Each player has a specific role with special abilities to improve the team’s chances.\r\n" + 
 				"");
-		System.out.println("Each player turn is divided into 3 parts:\r\n" + 
+		System.out.println("***********SETUP************");
+		System.out.println("Please always put releated disease cubes on cities according to board situation.");
+		System.out.println("Set the game’s difficulty level, by using either 4, 5, or 6 Epidemic cards, for\r\n" + 
+				"an Introductory, Standard, or Heroic game. Remove any unused Epidemic\r\n" + 
+				"cards from the game.\r\n" + 
+				"Divide the remaining player cards into face down piles, as equal in size as\r\n" + 
+				"you can, so that the number of piles matches the number of Epidemic cards\r\n" + 
+				"you are using. Shuffle 1 Epidemic card into each pile, face down. Stack these\r\n" + 
+				"piles to form the Player Deck, placing smaller piles on the bottom.\n");
+		
+		System.out.println("************INFECTION************");
+		System.out.println("Infection phase is done by computer. Each city can contain maximum 3 cubes."+
+				"If game tries to put another cube of same colored on the node\r\n"
+				+ "then outbreak will occur which leads you to move outbreak marker forward.\r\n");
+		
+		System.out.println("************HOW TO PLAY************");
+		System.out.println("Each player turn is divided into 2 parts:\r\n" + 
 				"1. Do 4 actions.\r\n" + 
 				"2. Draw 2 Player cards.\r\n" + 
-				"3. Infect cities.\r\n" + 
-				"After a player is done infecting cities, next player plays.\r\n" + 
+				"After a player is done the game infects cities,after game phase next player plays.\r\n" + 
 				"Players should freely give each other advice. \r\n" + 
 				"Let everyone offer opinions and ideas. However, the player whose turn it is decides what to do.\r\n" + 
 				"Your hand is limited with 7 cards.Whenever you have more than 7 cards, discard one of them immediately. \r\n" );
 	}
+	
 }

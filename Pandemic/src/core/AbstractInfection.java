@@ -24,7 +24,6 @@ public abstract class AbstractInfection {
 			else {
 				outbreakTrack.moveMarker();
 				referee.setEndGame(outbreakTrack.didMarkerReachedLastSpace());
-				System.out.println("ABSTRACT INFECTION ICINDE ENDGAME BOYLE SETLENDI" +outbreakTrack.didMarkerReachedLastSpace() );
 				for (AbstractBoardNode neighborNode: cityToBeInfected.getNeighborList()) {
 					infectCity(neighborNode,cubeList,color,outbreakTrack,newlyInfectedNodeList);
 				}
@@ -32,10 +31,10 @@ public abstract class AbstractInfection {
 		}	
 	}
 	protected boolean isSatisfied(AbstractBoardNode cityToBeInfected) {
-		if(new RuleThereMustBeEnoughCubesOfColorOfCityToBeInfected(cityToBeInfected).evaluate(referee) &&
-			new RuleThereMustNotBeMedicIfDiseaseIsCured(cityToBeInfected).evaluate(referee) &&
-			new RuleThereMustNotBeQuarantineSpecialistAtCurrentCityOrNeighbors(cityToBeInfected).evaluate(referee)&&
-			new RuleDiseaseMustBeNotEradicatedYet(cityToBeInfected).evaluate(referee)
+		if((new RuleThereMustBeEnoughCubesOfColorOfCityToBeInfected(cityToBeInfected).evaluate(referee)) &&
+			(new RuleThereMustNotBeMedicIfDiseaseIsCured(cityToBeInfected).evaluate(referee)) &&
+			(new RuleThereMustNotBeQuarantineSpecialistAtCurrentCityOrNeighbors(cityToBeInfected).evaluate(referee))&&
+			(new RuleDiseaseMustBeNotEradicatedYet(cityToBeInfected).evaluate(referee))
 			) {
 			return true;
 		}

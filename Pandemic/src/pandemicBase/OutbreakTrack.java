@@ -19,6 +19,6 @@ public class OutbreakTrack extends AbstractTrack {
 		return false;
 	}
 	public String toString() {
-		return "Outbreak marker is in " + markerIndex + ". place \n";
+		return "OUTBREAK MARKER: " + markerIndex + "\n";
 	}
 }

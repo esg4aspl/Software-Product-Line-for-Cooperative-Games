@@ -31,10 +31,13 @@ public class CubeList implements ICubeList{
 		AbstractGamePiece cube = null;
 		for (List<AbstractGamePiece> listOfCubesOfSameColor : cubeList) {
 			Cube sampleCube = (Cube) listOfCubesOfSameColor.get(0);
-			Color colorOfSampleCube = sampleCube.getColor();
-			if(colorOfCube.equals(colorOfSampleCube)) {
-				cube = listOfCubesOfSameColor.remove(0);
+			if(sampleCube != null) {
+				Color colorOfSampleCube = sampleCube.getColor();
+				if(colorOfCube.equals(colorOfSampleCube)) {
+					cube = listOfCubesOfSameColor.remove(0);
+				}
 			}
+			
 		}
 		return cube;
 		
@@ -43,10 +46,11 @@ public class CubeList implements ICubeList{
 	public boolean areThereEnoughCubesOfSpecificColor(Color colorOfCube) {
 		for (List<AbstractGamePiece> listOfCubesOfSameColor : cubeList) {
 			Cube sampleCube = (Cube) listOfCubesOfSameColor.get(0);
-			Color colorOfSampleCube = sampleCube.getColor();
-			if(colorOfCube.equals(colorOfSampleCube)) {
-				System.out.println("YETERLI CUBE VAR ");
-				return true;
+			if(sampleCube != null) {
+				Color colorOfSampleCube = sampleCube.getColor();
+				if(colorOfCube.equals(colorOfSampleCube)) {
+					return true;
+				}
 			}
 		}
 		return false;
