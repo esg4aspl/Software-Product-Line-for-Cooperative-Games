@@ -14,5 +14,6 @@ public interface IView {
 	public void showNewlyInfectedNodeList(AbstractReferee referee);
 	public void showBoardStatue(AbstractReferee referee);
 	public Color askDiseaseColor(AbstractReferee referee);
+	public AbstractCard getChosenCardFromPlayer(AbstractDeck deck);
 	
 }

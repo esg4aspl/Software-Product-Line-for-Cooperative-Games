@@ -25,11 +25,11 @@ import pandemicBase.ActionTakeKnowledge;
 import pandemicBase.ActionTreatDisease;
 import pandemicBase.BoardNode;
 
-public class ConsoleView implements IView {
+public class PandemicVol1ConsoleView implements IView {
 	
 	private Scanner scanner = null;
 	
-	public ConsoleView() {
+	public PandemicVol1ConsoleView() {
 		scanner = new Scanner(System.in);
 	}
 
@@ -119,21 +119,16 @@ public class ConsoleView implements IView {
 	@Override
 	public AbstractCard getChosenCardFromPlayer(AbstractDeck deck) {
 		while(true) {
-		System.out.println("Enter the number of the card you draw");
-		int input = scanner.nextInt();
-		//AbstractDeck playDeck = referee.getPlayerDeck();
-		for(AbstractCard card : deck.getDeck()) {
-			if(card.getID() == input) {
-				return card;
+			System.out.println("Enter the number of the card you draw");
+			int input = scanner.nextInt();
+			for(AbstractCard card : deck.getDeck()) {
+				if(card.getID() == input) {
+					return card;
+				}
 			}
-		}
-		System.out.println("Invalid card number,try again:");
+			System.out.println("Invalid card number,try again:");
+		}	
 	}
-		
-	}
-
-	
-
 
 	@Override
 	public void announceWinner(String winner) {

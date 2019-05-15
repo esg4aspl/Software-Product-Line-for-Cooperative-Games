@@ -17,9 +17,7 @@ public abstract class AbstractGameConfiguration {
 	public abstract String getInitialBoardNode();
 	//When we getNodes we automatically have cityCard names and InfectionCard names. 
 	public abstract List<AbstractBoardNode> getNodes();
-	public abstract int getNumberOfEpidemicCardsInGame();
 	// We get the name of cards and description, the mapping these informations to objects is referee's job.
-	public abstract List<String> getNameOfEventCards(); 
 	public abstract List<String> getNameOfRoles();
 
 }

@@ -46,10 +46,10 @@ import pandemicBaseRoles.Scientist;
 import rules.RuleThereMustBeEnoughPlayerCards;
 
 
-public class PandemicOriginalReferee extends AbstractReferee {
-	public PandemicOriginalReferee(AbstractGameConfiguration gameConfiguration) {
+public class PandemicVol1Referee extends AbstractReferee {
+	public PandemicVol1Referee(AbstractGameConfiguration gameConfiguration) {
 		super(gameConfiguration);
-		setView(new ConsoleView());
+		setView(new PandemicVol1ConsoleView());
 	}
 
 	@Override
@@ -206,7 +206,6 @@ public class PandemicOriginalReferee extends AbstractReferee {
 		infectionDeck.shuffle();
 	}
 	private void addEpidemicCardToPlayerDeck() {
-		numberOfEpidemicCards = gameConfiguration.getNumberOfEpidemicCardsInGame();
 		AbstractCard epidemicCard = new EpidemicCard();
 		((PlayerDeck) playerDeck).insertEpidemicCard(0,epidemicCard);
 			
