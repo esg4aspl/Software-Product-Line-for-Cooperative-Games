@@ -17,7 +17,7 @@ public class ActionBreakCurse extends ActionTreatDisease {
 		AbstractPlayer currentPlayer = referee.getCurrentPlayer();
 		AbstractBoardNode currentNode = currentPlayer.getCurrentNode();
 		ICubeList cubeList = referee.getCubeList();
-		CurseMarkerList curseMarkerList = ((PandemicKidsReferee)referee).getCurseMarkerList();
+		CurseMarkerList curseMarkerList = ((PandemicKidsReferee)referee).getCureMarkerList();
 		CureMarker cureMarker = (CureMarker) curseMarkerList.getMarkerByColor(diseaseColor);
 		takeActionForNotCuredDisease(currentPlayer,currentNode,cubeList);
 		

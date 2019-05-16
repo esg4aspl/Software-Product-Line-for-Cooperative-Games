@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import View.PandemicOriginalMainFrame;
 import core.AbstractBoardNode;
 import core.AbstractCard;
 import core.AbstractDeck;
@@ -49,7 +50,7 @@ import rules.RuleThereMustBeEnoughPlayerCards;
 public class PandemicVol1Referee extends AbstractReferee {
 	public PandemicVol1Referee(AbstractGameConfiguration gameConfiguration) {
 		super(gameConfiguration);
-		setView(new PandemicVol1ConsoleView());
+		setView(new PandemicOriginalMainFrame());
 	}
 
 	@Override
@@ -103,7 +104,7 @@ public class PandemicVol1Referee extends AbstractReferee {
 	}
 	protected void conductPlayerTurn() {
 		int actionCount = 4;
-		while(actionCount>0) {
+		while(actionCount>0 && (!endGame)) {
 			view.showResponseToPlayer("Remaining actions "+ actionCount + " for:" + currentPlayer.getRole().getName());
 			conductMove(actionCount);
 			view.showResponseToPlayer("After the action you take, board's new statue is this.");
@@ -111,7 +112,9 @@ public class PandemicVol1Referee extends AbstractReferee {
 			actionCount--;
 		}
 		//Draw 2 cards after 4 actions.
+		
 		drawTwoCards();
+		
 	}
 	
 	

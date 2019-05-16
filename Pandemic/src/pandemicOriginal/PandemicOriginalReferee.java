@@ -1,4 +1,4 @@
-package PandemicKids;
+package pandemicOriginal;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,6 +24,7 @@ import pandemicBase.CityCard;
 import pandemicBase.Cube;
 import pandemicBase.CubeList;
 import pandemicBase.CureMarker;
+import pandemicBase.CureMarkerList;
 import pandemicBase.EpidemicCard;
 import pandemicBase.InfectionCard;
 import pandemicBase.InfectionDeck;
@@ -37,14 +38,18 @@ import pandemicBase.PlayerDeck;
 import pandemicBase.PlayerHand;
 import pandemicBase.PlayerList;
 import pandemicBase.ResearchStation;
+import pandemicBaseRoles.Medic;
+import pandemicBaseRoles.OperationsExpert;
+import pandemicBaseRoles.QuarantineSpecialist;
+import pandemicBaseRoles.Researcher;
+import pandemicBaseRoles.Scientist;
 import rules.RuleThereMustBeEnoughPlayerCards;
 
 
-public class PandemicKidsReferee extends AbstractReferee {
-	private CurseMarkerList curseMarkerList;
-	public PandemicKidsReferee(AbstractGameConfiguration gameConfiguration) {
+public class PandemicOriginalReferee extends AbstractReferee {
+	public PandemicOriginalReferee(AbstractGameConfiguration gameConfiguration) {
 		super(gameConfiguration);
-		setView(new PandemicKidsConsoleView());
+		setView(new PandemicOriginalConsoleView());
 	}
 
 	@Override
@@ -92,7 +97,7 @@ public class PandemicKidsReferee extends AbstractReferee {
 		setCurrentAction(view.getActionChoiceFromPlayer(this)); 
 	}
 	protected void determineWinner() {
-		if(curseMarkerList.areAllCurseMarkersEradicated()) {
+		if(cureMarkerList.areAllMarkersCured()) {
 			setWinner("PLAYERS WON!!");
 		}
 	}
@@ -104,37 +109,36 @@ public class PandemicKidsReferee extends AbstractReferee {
 			view.showResponseToPlayer("After the action you take, board's new statue is this.");
 			view.showBoardStatue(this);
 			actionCount--;
-			
 		}
-		//Draw 1 card after 4 actions.
-	
-		drawOneCard();
+		//Draw 2 cards after 4 actions.
+		drawTwoCards();
 	}
 	
 	
-	private void drawOneCard() {
+	private void drawTwoCards() {
 		IRule ruleForCardDrawing = new RuleThereMustBeEnoughPlayerCards();
-		if(ruleForCardDrawing.evaluate(this)) {
-			view.showDeck(playerDeck);
-			currentPlayerDrawnCard = view.getChosenCardFromPlayer(playerDeck);
-			if(currentPlayerDrawnCard instanceof EpidemicCard) {
-				AbstractInfection infectionEpidemic = new InfectionEpidemic(this);
-				infectionEpidemic.infect();
-				view.showResponseToPlayer("Here is the newly infected cities after chaos card resolve.");
-				view.showNewlyInfectedNodeList(this);
-			}
-			else {
-				playerDeck.drawCardOnTopFromDeck(currentPlayerDrawnCard);
-				currentPlayer.getHand().addCardToDeck(currentPlayerDrawnCard); 
-				if(currentPlayer.getHand().size() > 7) {
-					view.showResponseToPlayer("Please discard any card from your hand immediately.");
-					view.showDeck(currentPlayer.getHand());
-					AbstractCard card = view.getChosenCardFromPlayer(currentPlayer.getHand());
-					currentPlayer.discardCard(card);
+		for(int j=0; j<2; j++) {
+			if(ruleForCardDrawing.evaluate(this)) {
+				view.showDeck(playerDeck);
+				currentPlayerDrawnCard = view.getChosenCardFromPlayer(playerDeck);
+				if(currentPlayerDrawnCard instanceof EpidemicCard) {
+					AbstractInfection infectionEpidemic = new InfectionEpidemic(this);
+					infectionEpidemic.infect();
+					view.showResponseToPlayer("Here is the newly infected cities after epidemic card resolve.");
+					view.showNewlyInfectedNodeList(this);
+				}
+				else {
+					playerDeck.drawCardOnTopFromDeck(currentPlayerDrawnCard);
+					currentPlayer.getHand().addCardToDeck(currentPlayerDrawnCard); 
+					if(currentPlayer.getHand().size() > 7) {
+						view.showResponseToPlayer("Please discard any card from your hand immediately.");
+						view.showDeck(currentPlayer.getHand());
+						AbstractCard card = view.getChosenCardFromPlayer(currentPlayer.getHand());
+						currentPlayer.discardCard(card);
+					}
 				}
 			}
 		}
-		
 	}
 	
 	protected void conductGameTurn() {
@@ -144,7 +148,6 @@ public class PandemicKidsReferee extends AbstractReferee {
 			infectionGamePhase.infect();
 			view.showResponseToPlayer("Here is the newly infected cities after infection. Don't forget to put related colored cubes to cities.");
 			view.showNewlyInfectedNodeList(this);
-			
 		}
 	}
 
@@ -181,6 +184,7 @@ public class PandemicKidsReferee extends AbstractReferee {
 				initialNode = boardNode;
 			}
 		}
+		((BoardNode)initialNode).addPieceOnNode(new ResearchStation());
 	}
 	
 	private void setupPlayerAndInfectionDecks() {
@@ -202,8 +206,8 @@ public class PandemicKidsReferee extends AbstractReferee {
 		infectionDeck.shuffle();
 	}
 	private void addEpidemicCardToPlayerDeck() {
-		AbstractCard chaosCard = new ChaosCard();
-		((PlayerDeck) playerDeck).insertEpidemicCard(0,chaosCard);
+		AbstractCard epidemicCard = new EpidemicCard();
+		((PlayerDeck) playerDeck).insertEpidemicCard(0,epidemicCard);
 			
 	}
 	private void setupTracks() {
@@ -218,12 +222,12 @@ public class PandemicKidsReferee extends AbstractReferee {
 		setUsedColorSet(colorSet);
 		numberOfDiseaseCubesPerType = gameConfiguration.getNumberOfDiseaseCubePerCubeType();
 		cubeList = new CubeList();
-		curseMarkerList = new CurseMarkerList();
+		cureMarkerList = new CureMarkerList();
 		for (Color color : colorSet) {
-			curseMarkerList.addCureMarker(new CureMarker(color));
+			cureMarkerList.addCureMarker(new CureMarker(color));
 			List<AbstractGamePiece> sameColorCubeList = new ArrayList<AbstractGamePiece>();
 			for (int j = 0; j < numberOfDiseaseCubesPerType; j++) {
-				AbstractGamePiece cube = new Cube(color);
+				AbstractGamePiece cube = new Cube( color);
 				sameColorCubeList.add(cube);
 			}
 			cubeList.addSameColorCubeList(sameColorCubeList);
@@ -231,39 +235,39 @@ public class PandemicKidsReferee extends AbstractReferee {
 	}
 	private void setupInfection() {
 		//infect cities with 3 cubes
-		
-		AbstractCard infectedWithThreeCubesCityCard= infectionDeck.drawCardOnTopFromDeck();
-		infectionDiscardPile.addCardToDeck(infectedWithThreeCubesCityCard);
-		String cityName = infectedWithThreeCubesCityCard.getName();
-		BoardNode infectedWithThreeCubesCityNode = (BoardNode) board.getBoardNode(cityName);
-		Color cubeColor = infectedWithThreeCubesCityNode.getColor();
-		for (int j = 0; j < 3; j++) {
-			Cube cube = (Cube) cubeList.takeCubeFromCubeList(cubeColor);
-			infectedWithThreeCubesCityNode.addPieceOnNode(cube);
+		for (int i = 0; i < 3; i++) {
+			AbstractCard infectedWithThreeCubesCityCard= infectionDeck.drawCardOnTopFromDeck();
+			infectionDiscardPile.addCardToDeck(infectedWithThreeCubesCityCard);
+			String cityName = infectedWithThreeCubesCityCard.getName();
+			BoardNode infectedWithThreeCubesCityNode = (BoardNode) board.getBoardNode(cityName);
+			Color cubeColor = infectedWithThreeCubesCityNode.getColor();
+			for (int j = 0; j < 3; j++) {
+				Cube cube = (Cube) cubeList.takeCubeFromCubeList(cubeColor);
+				infectedWithThreeCubesCityNode.addPieceOnNode(cube);
+			}
 		}
-		
 		// infect cities with 2 cubes
-		
-		AbstractCard infectedWithTwoCubesCityCard= infectionDeck.drawCardOnTopFromDeck();
-		infectionDiscardPile.addCardToDeck(infectedWithTwoCubesCityCard);
-		String cityName1 = infectedWithTwoCubesCityCard.getName();
-		BoardNode infectedWithTwoCubesCityNode = (BoardNode) board.getBoardNode(cityName1);
-		Color cubeColor1 = infectedWithTwoCubesCityNode.getColor();
-		for (int j = 0; j < 2; j++) {
-			Cube cube = (Cube) cubeList.takeCubeFromCubeList(cubeColor1);
-			infectedWithTwoCubesCityNode.addPieceOnNode(cube);
+		for (int i = 0; i < 3; i++) {
+			AbstractCard infectedWithTwoCubesCityCard= infectionDeck.drawCardOnTopFromDeck();
+			infectionDiscardPile.addCardToDeck(infectedWithTwoCubesCityCard);
+			String cityName = infectedWithTwoCubesCityCard.getName();
+			BoardNode infectedWithTwoCubesCityNode = (BoardNode) board.getBoardNode(cityName);
+			Color cubeColor = infectedWithTwoCubesCityNode.getColor();
+			for (int j = 0; j < 2; j++) {
+				Cube cube = (Cube) cubeList.takeCubeFromCubeList(cubeColor);
+				infectedWithTwoCubesCityNode.addPieceOnNode(cube);
+			}
 		}
-		
 		// infect cities with 1 cube
-		
-		AbstractCard infectedWithOneCubeCityCard= infectionDeck.drawCardOnTopFromDeck();
-		infectionDiscardPile.addCardToDeck(infectedWithOneCubeCityCard);
-		String cityName2 = infectedWithOneCubeCityCard.getName();
-		BoardNode infectedWithOneCubeCityNode = (BoardNode) board.getBoardNode(cityName2);
-		Color cubeColor2 = infectedWithOneCubeCityNode.getColor();
-		Cube cube = (Cube) cubeList.takeCubeFromCubeList(cubeColor2);
-		infectedWithOneCubeCityNode.addPieceOnNode(cube);	
-		
+		for (int i = 0; i < 3; i++) {
+			AbstractCard infectedWithOneCubeCityCard= infectionDeck.drawCardOnTopFromDeck();
+			infectionDiscardPile.addCardToDeck(infectedWithOneCubeCityCard);
+			String cityName = infectedWithOneCubeCityCard.getName();
+			BoardNode infectedWithOneCubeCityNode = (BoardNode) board.getBoardNode(cityName);
+			Color cubeColor = infectedWithOneCubeCityNode.getColor();
+			Cube cube = (Cube) cubeList.takeCubeFromCubeList(cubeColor);
+			infectedWithOneCubeCityNode.addPieceOnNode(cube);	
+		}
 	}
 
 	private void setupPlayers() {
@@ -304,26 +308,26 @@ public class PandemicKidsReferee extends AbstractReferee {
 		AbstractRole role = null;
 		for (String name : roleNameList) {
 			switch (name) {
-			case "Demigod":
-				role = new Demigod();
+			case "Medic":
+				role = new Medic();
 				break;
-			case "Aslan":
-				role = new Aslan();
+			case "Researcher":
+				role = new Researcher();
 				break;
-			case "Wizard":
-				role = new Wizard();
+			case "Scientist":
+				role = new Scientist();
+				break;
+			case "OperationsExpert":
+				role = new OperationsExpert();
+				break;
+			case "QuarantineSpecialist":
+				role = new QuarantineSpecialist();
 				break;
 			}
 			roleList.add(role);
 		}
 		Collections.shuffle(roleList);
 		return roleList;
-	}
-
-	@Override
-	public CurseMarkerList getCureMarkerList() {
-		
-		return curseMarkerList;
 	}
 
 }

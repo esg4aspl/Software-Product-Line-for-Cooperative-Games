@@ -182,7 +182,7 @@ public class PandemicKidsConsoleView implements IView {
 		}
 		AbstractTrack outbreakTrack = referee.getOutbreakTrack();
 		System.out.println(outbreakTrack.toString());
-		ICureMarkerList curseMarkerList = ((PandemicKidsReferee)referee).getCurseMarkerList();
+		ICureMarkerList curseMarkerList = ((PandemicKidsReferee)referee).getCureMarkerList();
 		System.out.println(curseMarkerList.showCureMarkerListStatue());
 
 	}
