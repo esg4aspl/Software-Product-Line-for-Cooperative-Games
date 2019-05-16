@@ -16,7 +16,7 @@ import pandemicBaseRoles.Medic;
 import rules.RuleThereMustBeAtLeastOneCubeAtCurrentCity;
 
 public class ActionTreatDisease extends AbstractAction {
-	Color diseaseColor;
+	protected Color diseaseColor;
 	public ActionTreatDisease(AbstractReferee referee,Color color) {
 		super("TreatDisease","Remove 1 disease cube from the city you are in, placing it in the cube \n" + 
 				"supply next to the board. If this disease color has been cured , remove all cubes of that color from the city you are in." + 
@@ -48,12 +48,12 @@ public class ActionTreatDisease extends AbstractAction {
 	public List<IRule> getRuleList() {
 		return ruleList;
 	}
-	private void addRemovedCubesToCubeList(ICubeList cubeList,List<AbstractGamePiece> cubeToBeRemovedList ) {
+	protected void addRemovedCubesToCubeList(ICubeList cubeList,List<AbstractGamePiece> cubeToBeRemovedList ) {
 		for (AbstractGamePiece cube : cubeToBeRemovedList) {
 			cubeList.addCubeToCubeList(cube);
 		}
 	}
-	private boolean isDiseaseEradicated() {
+	protected boolean isDiseaseEradicated() {
 		AbstractBoard board = referee.getBoard();
 		List<AbstractBoardNode> nodeList = board.getNodeList();
 		for (AbstractBoardNode node : nodeList) {
@@ -63,7 +63,7 @@ public class ActionTreatDisease extends AbstractAction {
 		}
 		return true;
 	}
-	private void takeActionForNotCuredDisease(AbstractPlayer currentPlayer,AbstractBoardNode currentNode,ICubeList cubeList) {
+	protected void takeActionForNotCuredDisease(AbstractPlayer currentPlayer,AbstractBoardNode currentNode,ICubeList cubeList) {
 		List<AbstractGamePiece> cubesToBeRemoved = ((BoardNode)currentNode).removeCubesFromNode(diseaseColor,1);
 		addRemovedCubesToCubeList(cubeList, cubesToBeRemoved);
 		if(currentPlayer.getRole() instanceof Medic) {
@@ -71,7 +71,7 @@ public class ActionTreatDisease extends AbstractAction {
 			addRemovedCubesToCubeList(cubeList, cubesToBeRemoved);
 		}
 	}
-	private void takeActionForCuredDisease(AbstractPlayer currentPlayer,AbstractBoardNode currentNode,ICubeList cubeList) {
+	protected void takeActionForCuredDisease(AbstractPlayer currentPlayer,AbstractBoardNode currentNode,ICubeList cubeList) {
 		List<AbstractGamePiece> cubesToBeRemoved = ((BoardNode)currentNode).removeCubesFromNode(diseaseColor,3);
 		addRemovedCubesToCubeList(cubeList, cubesToBeRemoved);
 	}

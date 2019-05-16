@@ -1,10 +1,11 @@
 package PandemicKids;
-
 public class PandemicKidsApp {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		PandemicKidsGameConfiguration gameConfigurationKids = new PandemicKidsGameConfiguration();
+		PandemicKidsReferee refereeKids = new PandemicKidsReferee(gameConfigurationKids);
+		refereeKids.setup();
+		refereeKids.startGame();
 	}
 
 }

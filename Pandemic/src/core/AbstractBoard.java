@@ -17,7 +17,7 @@ public abstract class AbstractBoard {
 	}
 	public AbstractBoardNode getBoardNode(String name) {
 		for (AbstractBoardNode abstractBoardNode : nodeList) {
-			if(abstractBoardNode.getName().equals(name)) {
+			if(abstractBoardNode.getName().toUpperCase().equals(name.toUpperCase())) {
 				return abstractBoardNode;
 			}
 		}

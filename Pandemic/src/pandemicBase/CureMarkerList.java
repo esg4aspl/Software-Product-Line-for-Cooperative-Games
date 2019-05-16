@@ -8,7 +8,7 @@ import core.Color;
 import core.ICureMarkerList;
 
 public class CureMarkerList implements ICureMarkerList {
-	List<AbstractGamePiece> cureMarkerList;
+	protected List<AbstractGamePiece> cureMarkerList;
 	public CureMarkerList() {
 		cureMarkerList = new ArrayList<AbstractGamePiece>();
 	}
@@ -52,9 +52,14 @@ public class CureMarkerList implements ICureMarkerList {
 	public String showCureMarkerListStatue() {
 		String statue = "";
 		for (AbstractGamePiece piece : cureMarkerList) {
-			statue = statue + "CURE MARKER COLOR: "+((CureMarker)piece).getColor()+ "isCured?: " +((CureMarker)piece).isCured() + "isEradicated?: " + ((CureMarker)piece).isEradicated()  + "\n";
+			statue = statue + "CURE MARKER COLOR: "+((CureMarker)piece).getColor()+ " isCured?: " +((CureMarker)piece).isCured() + " isEradicated?: " + ((CureMarker)piece).isEradicated()  + "\n";
 		}
 		return statue;
+	}
+
+	@Override
+	public List<AbstractGamePiece> getCureMarkerList() {
+		return cureMarkerList;
 	}
 	
 }

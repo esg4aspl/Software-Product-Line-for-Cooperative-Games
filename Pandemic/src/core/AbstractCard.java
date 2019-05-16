@@ -15,6 +15,9 @@ public abstract class AbstractCard {
 	public int getID() {
 		return id;
 	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public String toString() {
 		return "CardID: " + id + " CardName:" + name;
 	}
