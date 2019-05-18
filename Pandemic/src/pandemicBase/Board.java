@@ -11,4 +11,12 @@ public class Board extends AbstractBoard{
 		super(nodeList);
 	}
 	
+	public String toString() {
+		String output = " ";
+		for(AbstractBoardNode node : nodeList) {
+			output = output + node.toString()+ "\n";
+		}
+		return output;
+	}
+	
 }

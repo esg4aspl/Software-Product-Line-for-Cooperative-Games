@@ -69,7 +69,6 @@ public class PandemicVol1Referee extends AbstractReferee {
 	protected void startGame() {
 		endGame = false;
 		while (!(endGame)) {
-			view.showResponseToPlayer("THE BOARD STATUE\n");
 			view.showBoardStatue(this);
 			
 			for (int i=0; i<numberOfPlayers;i++) {
@@ -105,9 +104,8 @@ public class PandemicVol1Referee extends AbstractReferee {
 	protected void conductPlayerTurn() {
 		int actionCount = 4;
 		while(actionCount>0 && (!endGame)) {
-			view.showResponseToPlayer("Remaining actions "+ actionCount + " for:" + currentPlayer.getRole().getName());
+			view.showResponseToPlayer("Remaining actions "+ actionCount + " for: " + currentPlayer.getRole().getName());
 			conductMove(actionCount);
-			view.showResponseToPlayer("After the action you take, board's new statue is this.");
 			view.showBoardStatue(this);
 			actionCount--;
 		}
@@ -122,20 +120,17 @@ public class PandemicVol1Referee extends AbstractReferee {
 		IRule ruleForCardDrawing = new RuleThereMustBeEnoughPlayerCards();
 		for(int j=0; j<2; j++) {
 			if(ruleForCardDrawing.evaluate(this)) {
-				view.showDeck(playerDeck);
 				currentPlayerDrawnCard = view.getChosenCardFromPlayer(playerDeck);
 				if(currentPlayerDrawnCard instanceof EpidemicCard) {
 					AbstractInfection infectionEpidemic = new InfectionEpidemic(this);
 					infectionEpidemic.infect();
-					view.showResponseToPlayer("Here is the newly infected cities after epidemic card resolve.");
 					view.showNewlyInfectedNodeList(this);
 				}
 				else {
 					playerDeck.drawCardOnTopFromDeck(currentPlayerDrawnCard);
 					currentPlayer.getHand().addCardToDeck(currentPlayerDrawnCard); 
 					if(currentPlayer.getHand().size() > 7) {
-						view.showResponseToPlayer("Please discard any card from your hand immediately.");
-						view.showDeck(currentPlayer.getHand());
+						view.showResponseToPlayer("You exceed the hand limit! Please discard any card from your hand immediately.");
 						AbstractCard card = view.getChosenCardFromPlayer(currentPlayer.getHand());
 						currentPlayer.discardCard(card);
 					}
@@ -149,7 +144,6 @@ public class PandemicVol1Referee extends AbstractReferee {
 		for (int i = 0; i < numOfCitiesWillBeInfected; i++) {
 			AbstractInfection infectionGamePhase = new InfectionGamePhase(this);
 			infectionGamePhase.infect();
-			view.showResponseToPlayer("Here is the newly infected cities after infection. Don't forget to put related colored cubes to cities.");
 			view.showNewlyInfectedNodeList(this);
 		}
 	}
@@ -293,9 +287,8 @@ public class PandemicVol1Referee extends AbstractReferee {
 	private AbstractDeck setupPlayerHandDeck(AbstractRole role) {
 		numberOfCardsPerPlayer = gameConfiguration.getNumberOfCardsPerPlayer();
 		List<AbstractCard> deck = new ArrayList<AbstractCard>();
-		view.showResponseToPlayer("PLAYER ROLE:" + role.getName() +" ENTERS HER/HIS HAND DECK!");
+		view.showResponseToPlayer("Player role: " + role.getName() +" enters hand!");
 		for (int j = 0; j < numberOfCardsPerPlayer; j++) {
-			view.showDeck(playerDeck);
 			AbstractCard drawnCard = view.getChosenCardFromPlayer(playerDeck);
 			playerDeck.drawCardOnTopFromDeck(drawnCard); 
 			deck.add(drawnCard);

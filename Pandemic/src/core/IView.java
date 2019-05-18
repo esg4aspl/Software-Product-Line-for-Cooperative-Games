@@ -7,7 +7,6 @@ public interface IView {
 	public AbstractBoardNode getDestinationNodeFromPlayer(AbstractReferee referee);
 	public AbstractPlayer whichplayerToShareInformationWith(AbstractReferee referee);
 	public void showSetUpInformation();
-	public void showDeck(AbstractDeck deck);
 	public void showActionOptions();
 	public void showResponseToPlayer(String message);
 	public void announceWinner(String winner);

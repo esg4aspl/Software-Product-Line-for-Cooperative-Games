@@ -144,7 +144,7 @@ public class BoardNode extends AbstractBoardNode{
 			cubes = " CUBES: "+ cubes + numOfSameColoredCube + " " + cubeColor + " ";
 		}
 		for(AbstractPlayer player : playersOnNode) {
-			players = players + "PLAYER ROLE: " + player.getRole().getName()+ " ";
+			players = players + " PLAYER ROLE: " + player.getRole().getName()+ " ";
 		}
 		String output = "CITY NAME:" + name + " "+ cubes + researchStation + players ;
 		return output;

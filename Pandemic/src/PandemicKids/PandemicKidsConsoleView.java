@@ -137,8 +137,7 @@ public class PandemicKidsConsoleView implements IView {
 		
 	}
 
-	@Override
-	public void showDeck(AbstractDeck deck) {
+	private void showDeck(AbstractDeck deck) {
 		System.out.println(deck.showDeck()); 	
 	}
 
@@ -208,6 +207,7 @@ public class PandemicKidsConsoleView implements IView {
 	@Override
 	public AbstractCard getChosenCardFromPlayer(AbstractDeck deck) {
 		while(true) {
+			showDeck(deck);
 			System.out.println("Enter the number of the card you draw");
 			int input = scanner.nextInt();
 			for(AbstractCard card : deck.getDeck()) {
