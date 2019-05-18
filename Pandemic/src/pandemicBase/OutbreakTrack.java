@@ -11,9 +11,14 @@ public class OutbreakTrack extends AbstractTrack {
 	public int getOutbreakTrackRange() {
 		return outbreakTrackRange;
 	}
-	public boolean doesOutbreakMarkerReachedLastSpace() {
-		if(markerIndex == (outbreakTrackRange-1)) return true;
+	@Override
+	public boolean didMarkerReachedLastSpace() {
+		if(markerIndex >= outbreakTrackRange) {
+			return true;
+		}
 		return false;
 	}
-
+	public String toString() {
+		return "OUTBREAK MARKER: " + markerIndex + "\n";
+	}
 }

@@ -6,7 +6,7 @@ import core.AbstractPlayer;
 import core.AbstractReferee;
 import core.IRule;
 
-public class RuleThereMustBeCityCardMatchesCurrentCity implements IRule {
+public class RuleThereMustBeCityCardMatchesCurrentCityForCurrentPlayer implements IRule {
 
 	@Override
 	public boolean evaluate(AbstractReferee referee) {

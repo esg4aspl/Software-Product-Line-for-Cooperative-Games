@@ -12,7 +12,7 @@ public class AbstractHandDeck extends AbstractDeck {
 	}
 	
 	public AbstractCard removeCardFromDeck(AbstractCard c) {
-		this.getDeck().remove(c);
+		deck.remove(c);
 		return c;
 	}
 	

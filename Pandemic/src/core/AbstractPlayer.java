@@ -4,8 +4,8 @@ public abstract class AbstractPlayer {
 	private int ID;
 	private AbstractRole role;
 	private AbstractDeck hand;
-	private AbstractBoardNode currentNode;
-	
+	private AbstractBoardNode currentNode;	
+	protected int order;
 	
 	public AbstractPlayer(AbstractDeck deck,AbstractRole role, int id,
 		AbstractBoardNode currentNode) {
@@ -13,6 +13,7 @@ public abstract class AbstractPlayer {
 		setRole(role);
 		setID(id);
 		setCurrentNode(currentNode);
+		setOrder();
 	}
 	
 	public AbstractDeck getHand() {
@@ -48,7 +49,7 @@ public abstract class AbstractPlayer {
 		hand.addCardToDeck(card);
 	}
 	public AbstractCard discardCard(AbstractCard card) { //Discard card from her hand.
-		return ((AbstractHandDeck)hand).removeCardFromDeck(card); 
+		 return((AbstractHandDeck)hand).removeCardFromDeck(card); 
 	}
 	
 	public AbstractCard discardCard(String cardName) { 
@@ -59,14 +60,20 @@ public abstract class AbstractPlayer {
 		}
 		return null;
 	}
+	public int getOrder() {
+		return order;
+	}
+	protected abstract void setOrder();
+	
+	
 	
 	@Override
 	public String toString() {
-		String handToString = " ";
-		for (int i = 1; i <= hand.getDeck().size(); i++) {
-			handToString = handToString + i + ")" + hand.getDeck().get(i-1);
+		String handToString = "";
+		for (AbstractCard card: hand.getDeck()) {
+			handToString = handToString + card +"\n";
 		}
-		return ID + ".player with role: " + role.getName() 
+		return "Player with role: " + role.getName() 
 				+ " is in " + currentNode.getName() + "\n Cards in hand: " + handToString ;
 		
 	}

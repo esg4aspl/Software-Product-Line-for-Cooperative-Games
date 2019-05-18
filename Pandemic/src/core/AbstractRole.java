@@ -15,6 +15,13 @@ public abstract class AbstractRole {
 		this.ruleList = new ArrayList<IRule>();
 		  
 	}
+	protected void setName(String name) {
+		this.name = name ;
+	}
+	protected void setText(String text) {
+		this.text = text ;
+	}
+	
 	protected void addRule(IRule rule) {
 		ruleList.add(rule);
 	}

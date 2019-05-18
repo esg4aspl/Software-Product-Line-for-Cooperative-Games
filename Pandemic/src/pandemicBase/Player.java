@@ -15,20 +15,31 @@ public class Player extends AbstractPlayer{
 			 AbstractBoardNode currentNode) {
 		super(deck,role,id,currentNode);
 	}
-	public List<AbstractCard> discardCard(Color color ,int numOfCardsOfSameColor){
-			
-		List<AbstractCard> discardedCardList = new ArrayList<AbstractCard>();
+	public void discardCard(Color color ,int numOfCardsOfSameColor){
+		List<AbstractCard> cardsWillBeDiscarded = new ArrayList<AbstractCard>();
 		for (AbstractCard card : getHand().getDeck()) {
 			if(((CityCard)card).getColor().equals(color)) {
-				discardedCardList.add(discardCard(card));
+				cardsWillBeDiscarded.add(card);
 				numOfCardsOfSameColor--;
 				if(numOfCardsOfSameColor == 0) {
 					break;
 				}
-			}
-			
+			}	
 		}
-		return discardedCardList;
-			
+		for (AbstractCard card : cardsWillBeDiscarded) {
+			discardCard(card);
+		}
 	}
+	@Override
+	protected void setOrder() {
+		int maxPopulation = 0;
+		for (AbstractCard card : getHand().getDeck()) {
+			if(maxPopulation < ((CityCard)card).getPopulation()) {
+				maxPopulation = ((CityCard)card).getPopulation();
+			}
+		
+		}
+		this.order = maxPopulation;
+	}
+	
 }

@@ -8,4 +8,5 @@ public abstract class AbstractTrack {
 	public void moveMarker() {
 		this.markerIndex++;
 	}
+	public abstract boolean didMarkerReachedLastSpace();
 }

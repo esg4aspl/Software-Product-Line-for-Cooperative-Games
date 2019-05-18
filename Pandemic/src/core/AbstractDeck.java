@@ -7,7 +7,7 @@ import java.util.*;
 */
 
 public abstract class AbstractDeck {
-	private List<AbstractCard> deck;
+	protected List<AbstractCard> deck;
 	public AbstractDeck(List<AbstractCard> deck) {
 		createDeck(deck);
 	}
@@ -34,6 +34,14 @@ public abstract class AbstractDeck {
 			}
 		}
 		return false;
+	}
+	
+	public String showDeck() {
+		String output = "";
+		for (AbstractCard card : deck) {
+			output = output + card.toString() + " \n";
+		}
+		return output;
 	}
 	
 }

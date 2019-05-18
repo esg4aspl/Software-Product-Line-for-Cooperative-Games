@@ -12,7 +12,7 @@ import core.Color;
 
 public class BoardNode extends AbstractBoardNode{
 
-	private List<AbstractPlayer> playersOnTheNode;
+	private List<AbstractPlayer> playersOnNode;
 	private Color color;
 	private int population;
 	private Set<AbstractBoardNode> neighborList;
@@ -24,7 +24,7 @@ public class BoardNode extends AbstractBoardNode{
 		this.population = population;
 		neighborList  = new HashSet<AbstractBoardNode>();
 		piecesOnNode = new ArrayList<AbstractGamePiece>();
-		playersOnTheNode = new ArrayList<AbstractPlayer>();
+		playersOnNode = new ArrayList<AbstractPlayer>();
 	}
 	
 	
@@ -43,9 +43,11 @@ public class BoardNode extends AbstractBoardNode{
 		for (AbstractGamePiece piece : piecesOnNode) {
 			if(piece instanceof Cube && ((Cube)piece).getColor().equals(cubeColor)&& numOfCubesToBeRemoved>0) {
 				numOfCubesToBeRemoved--;
-				piecesOnNode.remove(piece);
 				cubesToBeRemoved.add(piece);
 			}
+		}
+		for (AbstractGamePiece cube : cubesToBeRemoved) {
+			piecesOnNode.remove(cube);
 		}
 		return cubesToBeRemoved;
 	}
@@ -67,6 +69,15 @@ public class BoardNode extends AbstractBoardNode{
 		}
 		return false;
 	}
+	public int howManyCubesDoesHave(Color cubeColor) {
+		int count = 0;
+		for(AbstractGamePiece piece: piecesOnNode ) {
+			if(piece instanceof Cube &&((Cube)piece).getColor().equals(cubeColor)) {
+				count ++;
+			}
+		}
+		return count;
+	}
 	
 	public void addNeighbor(AbstractBoardNode node) {
 		neighborList.add(node);
@@ -76,9 +87,6 @@ public class BoardNode extends AbstractBoardNode{
 		return color;
 	}
 
-	public void setColor(Color color) {
-		this.color = color;
-	}
 
 	public int getPopulation() {
 		return population;
@@ -102,13 +110,43 @@ public class BoardNode extends AbstractBoardNode{
 	}
 
 
-	public List<AbstractPlayer> getPlayersOnTheNode() {
-		return playersOnTheNode;
+	public List<AbstractPlayer> getPlayersOnNode() {
+		return playersOnNode;
 	}
 
 
 	public void addPlayersOnTheNode(AbstractPlayer player) {
-		playersOnTheNode.add(player);
+		playersOnNode.add(player);
 	}
-	
+	private Set<Color> findDistinctColorSet(){
+		Set<Color> colorSet = new HashSet<Color>();
+		for (AbstractGamePiece piece : piecesOnNode) {
+			if(piece instanceof Cube) {
+				Color cubeColor = ((Cube)piece).getColor();
+				colorSet.add(cubeColor);
+			}	
+		}
+		return colorSet;
+	}
+	public void removePlayer(AbstractPlayer player) {
+		playersOnNode.remove(player);
+	}
+	public String toString() {
+		String cubes = " ";
+		String researchStation = " ";
+		String players = " ";
+		if(doesHaveResearchStation()) {
+			researchStation = "RESEARCH STATION: 1";
+		}
+		
+		for (Color cubeColor : findDistinctColorSet()) {
+			int numOfSameColoredCube = howManyCubesDoesHave(cubeColor);
+			cubes = " CUBES: "+ cubes + numOfSameColoredCube + " " + cubeColor + " ";
+		}
+		for(AbstractPlayer player : playersOnNode) {
+			players = players + " PLAYER ROLE: " + player.getRole().getName()+ " ";
+		}
+		String output = "CITY NAME:" + name + " "+ cubes + researchStation + players ;
+		return output;
+	}
 }

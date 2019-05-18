@@ -1,4 +1,4 @@
-package pandemicVol1;
+package pandemicOriginal;
 
 public class PandemicOriginalApp {
 

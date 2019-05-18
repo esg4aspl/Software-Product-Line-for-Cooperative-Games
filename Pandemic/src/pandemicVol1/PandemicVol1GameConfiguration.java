@@ -8,7 +8,7 @@ import core.AbstractGameConfiguration;
 import core.Color;
 import pandemicBase.BoardNode;
 
-public class PandemicOriginalGameConfiguration extends AbstractGameConfiguration {
+public class PandemicVol1GameConfiguration extends AbstractGameConfiguration {
 
 	@Override
 	public int getNumberOfDiseaseCubeTypes() {
@@ -18,7 +18,7 @@ public class PandemicOriginalGameConfiguration extends AbstractGameConfiguration
 
 	@Override
 	public int getNumberOfDiseaseCubePerCubeType() {
-		return 10;
+		return 20;
 	}
 
 	@Override
@@ -170,25 +170,18 @@ public class PandemicOriginalGameConfiguration extends AbstractGameConfiguration
 		
 		return nodeList;
 	}
-
-	@Override
-	public int getNumberOfEpidemicCardsInGame() {
-		return 4;
-	}
-
-	@Override
-	public List<String> getNameOfEventCards() {
-		List<String> eventCardList = new ArrayList<String>();
-		String eventAirlift = "Airlift";
-		eventCardList.add(eventAirlift);
-		return eventCardList;
-	}
+	
 
 	@Override
 	public List<String> getNameOfRoles() {
 		List<String> roleList = new ArrayList<String>();
 		roleList.add("Medic");
 		roleList.add("Researcher");
+		roleList.add("Scientist");
+		roleList.add("OperationsExpert");
+		roleList.add("QuarantineSpecialist");
+		
+		
 		return roleList;
 	}
 }
