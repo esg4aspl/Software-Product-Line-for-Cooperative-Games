@@ -1,21 +1,17 @@
-package View;
+package PandemicKids;
 
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.ColorUIResource;
 import javax.swing.plaf.FontUIResource;
@@ -30,25 +26,17 @@ import core.AbstractReferee;
 import core.AbstractTrack;
 import core.Color;
 import core.IView;
-import pandemicBase.ActionBuildResearchStation;
 import pandemicBase.ActionCharterFlight;
 import pandemicBase.ActionDirectFlight;
-import pandemicBase.ActionDiscoverCure;
 import pandemicBase.ActionDriveFerry;
 import pandemicBase.ActionGiveKnowledge;
-import pandemicBase.ActionShuttleFlight;
-import pandemicBase.ActionTakeKnowledge;
-import pandemicBase.ActionTreatDisease;
 import pandemicBase.BoardNode;
 
-public class PandemicOriginalMainFrame extends JFrame implements IView{
+public class PandemicKidsMainFrame extends JFrame implements IView{
 
 	private JPanel contentPane;
-	private JButton[] arrButton;
-	/**
-	 * Create the frame.
-	 */
-	public PandemicOriginalMainFrame(AbstractReferee referee) {
+	
+	public PandemicKidsMainFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 629, 646);
 		contentPane = new JPanel();
@@ -59,7 +47,7 @@ public class PandemicOriginalMainFrame extends JFrame implements IView{
 		JPanel imgholderPanel = new JPanel();
 		
 		imgholderPanel.setBounds(0, 0, 1500, 780);
-		JLabel headerPic = new JLabel(new ImageIcon("PandemicImage.png"));
+		JLabel headerPic = new JLabel(new ImageIcon("gandalf.jpg"));
 		imgholderPanel.add(headerPic);
 		contentPane.add(imgholderPanel);
 		
@@ -74,7 +62,7 @@ public class PandemicOriginalMainFrame extends JFrame implements IView{
 		 UIManager.put("Panel.background",new ColorUIResource(255,255,255));
 		 Font font = new Font("jdIcoMoonFree", Font.PLAIN, 16) ;
 		 UIManager.put("OptionPane.messageFont", new FontUIResource(font)); 
-		 UI.put("OptionPane.okButtonText", " GOT IT! ");
+		 UIManager.put("OptionPane.okButtonText", " GOT IT! ");
 		 
 	}
 
@@ -82,19 +70,18 @@ public class PandemicOriginalMainFrame extends JFrame implements IView{
 	public AbstractAction getActionChoiceFromPlayer(AbstractReferee referee) {
 		AbstractAction action = null;
 		JComboBox comboBox = new JComboBox();
-		String[] actionName = {"Drive/Ferry","Direct Flight","Charter Flight","Shuttle Flight","Treat Disease","Discover Cure","Build Research Station","Take Knowledge","Give Knowledge"};
+		String[] actionName = {"Drive/Ferry","Direct Flight","Charter Flight","Break a curse","Build Research Station","Give Knowledge"};
 		comboBox.setModel(new DefaultComboBoxModel(actionName));
 		comboBox.setSelectedIndex(-1);
 		comboBox.setBounds(12, 98, 410, 41);
 		comboBox.setEditable(true);
-		JOptionPane.showMessageDialog( this, comboBox, "DESIRED ACTION SELECTION", JOptionPane.PLAIN_MESSAGE);
+		JOptionPane.showMessageDialog( this, comboBox, "ACTION SELECTION", JOptionPane.PLAIN_MESSAGE);
 		 
 	
 		int selectedAction= comboBox.getSelectedIndex();
 		if(selectedAction == 0) {
 			AbstractBoardNode destinationNode = getDestinationNodeFromPlayer(referee);
 			action = new ActionDriveFerry(referee, (BoardNode) destinationNode);
-			
 		}
 		else if(selectedAction==1) {
 			AbstractBoardNode destinationNode = getDestinationNodeFromPlayer(referee);
@@ -106,34 +93,14 @@ public class PandemicOriginalMainFrame extends JFrame implements IView{
 			action = new ActionCharterFlight(referee, (BoardNode) destinationNode);
 		}
 		else if(selectedAction==3) {
-			AbstractBoardNode destinationNode = getDestinationNodeFromPlayer(referee);
-			action = new ActionShuttleFlight(referee, (BoardNode) destinationNode);	
+			Color color = askDiseaseColor(referee);
+			action =new ActionBreakCurse(referee, color);
 
 		}
 		else if(selectedAction==4) {
-			Color color = askDiseaseColor(referee);
-			action = new ActionTreatDisease(referee, color);
-			
-		}
-		else if(selectedAction==5) {
-			Color color =askDiseaseColor(referee);
-			action =  new ActionDiscoverCure(referee,color);
-			
-			
-		}
-		else if(selectedAction==6) {
-			action = new ActionBuildResearchStation(referee);
-			
-		}
-		else if(selectedAction==7) {
-			AbstractPlayer giverPlayer = whichplayerToShareInformationWith(referee);
-			AbstractCard card = getChosenCardFromPlayer(giverPlayer.getHand());
-			action =  new ActionTakeKnowledge(referee, giverPlayer, card);
-		}
-		else if(selectedAction==8) {
 			AbstractPlayer takerPlayer = whichplayerToShareInformationWith(referee);
 			AbstractCard card = getChosenCardFromPlayer(referee.getCurrentPlayer().getHand());
-			action =  new ActionGiveKnowledge(referee, takerPlayer, card);
+			action= new ActionGiveKnowledge(referee, takerPlayer, card);		
 		}
 		else {
 			JOptionPane.showMessageDialog( this,"You didn't choose anything. Please try again. ","NULL ERROR", JOptionPane.ERROR_MESSAGE);
@@ -182,23 +149,23 @@ public class PandemicOriginalMainFrame extends JFrame implements IView{
 
 	@Override
 	public void showSetUpInformation() {
-			String textPandemic = "In Pandemic, you and your fellow players are members of a disease control team.\r\n" + 
-			"You must work together to develop cures and prevent disease outbreaks, before 4 deadly diseases (Blue, Yellow, Black, and Red) contaminate humanity.\r\n" + 
-			"Pandemic is a cooperative game. The players all win or lose together.\r\n" + 
-			"The goal is to discover cures for all 4 diseases. The players lose if:\r\n" + 
-			"--> 8 outbreaks occur (a worldwide panic happens),\r\n" + 
-			"--> not enough disease cubes are left when needed (a disease spreads too much), or,\r\n" + 
-			"--> not enough player cards are left when needed (your team runs out of time).\r\n" + 
-			"Each player has a specific role with special abilities to improve the team’s chances.\r\n" + 
-			""	;	
+			String textPandemic = "In PandemicKids, you and your fellow players are members of a curse breakers team.\r\n" + 
+					"You must work together to find magic and resist the spread of curses , before 3 deadly curses (Blue, Yellow, and Red) contaminate humanity.\r\n" + 
+					"Pandemic is a cooperative game. The players all win or lose together.\r\n" + 
+					"The goal is to eradicate of all 3 curses. The players lose if:\r\n" + 
+					"--> 8 spread of curses (a worldwide panic happens),\r\n" + 
+					"--> not enough curses are left when needed (a demons spreads too much), or,\r\n" + 
+					"--> not enough player cards are left when needed (your team runs out of time).\r\n" + 
+					"Each player has a specific role with special abilities to improve the team’s chances.\r\n" + 
+					"" 	;	
 
-			JOptionPane.showMessageDialog(null, textPandemic, "PANDEMIC", JOptionPane.PLAIN_MESSAGE); //plain
+			JOptionPane.showMessageDialog(null, textPandemic, "PANDEMIC KIDS", JOptionPane.PLAIN_MESSAGE); //plain
 			
 			String textSetup = "Please always put releated disease cubes on cities according to board situation.\r\n" +
-					"Set the game’s difficulty level, by using either 4, 5, or 6 Epidemic cards, for " + 
-					"an Introductory, Standard, or Heroic game. Remove any unused Epidemic cards from the game.\r\n" + 
+					"Set the game’s difficulty level, by using either 4, 5, or 6 Chaos cards, for " + 
+					"an Introductory, Standard, or Heroic game. Remove any unused Chaos cards from the game.\r\n" + 
 					"Divide the remaining player cards into face down piles, as equal in size as you can, \r\n"+
-					"so that the number of piles matches the number of Epidemic cards " + 
+					"so that the number of piles matches the number of Chaos cards " + 
 					"you are using. Shuffle 1 Epidemic card into each pile, face down. \r\n"+ 
 					"Stack these piles to form the Player Deck, placing smaller piles on the bottom. ";
 			
@@ -209,11 +176,11 @@ public class PandemicOriginalMainFrame extends JFrame implements IView{
 					"If game tries to put another cube of same colored on the node\r\n"
 					+ "then outbreak will occur which leads you to move outbreak marker forward.\r\n" ;
 			
-			JOptionPane.showMessageDialog(null, textInfection, "INFECTION", JOptionPane.PLAIN_MESSAGE); //plain
+			JOptionPane.showMessageDialog(null, textInfection, "CURSE SPREAD", JOptionPane.PLAIN_MESSAGE); //plain
 			
 			String textHowToPlay = "Each player turn is divided into 2 parts:\r\n" + 
 					"1. Do 4 actions.\r\n" + 
-					"2. Draw 2 Player cards.\r\n" + 
+					"2. Draw 1 Player card.\r\n" + 
 					"After a player is done the game infects cities,after game phase next player plays.\r\n" + 
 					"Players should freely give each other advice. \r\n" + 
 					"Let everyone offer opinions and ideas. However, the player whose turn it is decides what to do.\r\n" + 
@@ -232,12 +199,8 @@ public class PandemicOriginalMainFrame extends JFrame implements IView{
 		String output = "0.Drive or Ferry:\n Move to a city connected by a white line to the one you are in.\n\n"
 				+ "1.Direct Flight:\n Discard a City card to move to the city named on the card.\n\n"
 				+ "2.Charter Flight:\n Discard the City card that matches the city you are in to move to any city.\n\n"
-				+ "3.Shuttle Flight\n Move from a city with a research station to any other city that has a research station.\n\n"
-				+ "4.Treat Disease:\n Remove 1 disease cube from the city you are in, placing it in the cube.\n\n"
-				+ "5.Discover Cure:\n At any research station, discard 5 City cards of the same color from your hand to cure the disease of that color.\n\n"
-				+ "6.Build Research Station:\n\n Discard the City card that matches the city you are in to place a research station there.\n\n"
-				+ "7.Take Knowledge:\n Take the City card that matches the city you are in from another player.The other player must also be in the city with you. Both of you need to agree to do this.\n\n" 
-				+ "8.Give Knowlegde:\n Give the City card that matches the city you are in to another player. The other player must also be in the city with you. Both of you need to agree to do this. \n\n";
+				+ "3.Break a curse:\n Remove 1 demon figure from the city you are in, placing it in the cube.\n\n"
+				+ "4.Give Knowlegde:\n Give the City card that matches the city you are in to another player. The other player must also be in the city with you. Both of you need to agree to do this.\n\n";
 	
 		JOptionPane.showMessageDialog(null, output, "ACTION OPTIONS", JOptionPane.PLAIN_MESSAGE);
 	

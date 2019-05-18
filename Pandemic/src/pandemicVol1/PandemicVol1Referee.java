@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import View.PandemicOriginalMainFrame;
 import core.AbstractBoardNode;
 import core.AbstractCard;
 import core.AbstractDeck;
@@ -50,7 +49,7 @@ import rules.RuleThereMustBeEnoughPlayerCards;
 public class PandemicVol1Referee extends AbstractReferee {
 	public PandemicVol1Referee(AbstractGameConfiguration gameConfiguration) {
 		super(gameConfiguration);
-		setView(new PandemicOriginalMainFrame(this));
+		setView(new PandemicVol1ConsoleView());
 	}
 
 	@Override

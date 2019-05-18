@@ -44,7 +44,7 @@ public class PandemicKidsReferee extends AbstractReferee {
 	private CurseMarkerList curseMarkerList;
 	public PandemicKidsReferee(AbstractGameConfiguration gameConfiguration) {
 		super(gameConfiguration);
-		setView(new PandemicKidsConsoleView());
+		setView(new PandemicKidsMainFrame());
 	}
 
 	@Override

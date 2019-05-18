@@ -49,7 +49,7 @@ import rules.RuleThereMustBeEnoughPlayerCards;
 public class PandemicOriginalReferee extends AbstractReferee {
 	public PandemicOriginalReferee(AbstractGameConfiguration gameConfiguration) {
 		super(gameConfiguration);
-		setView(new PandemicOriginalConsoleView());
+		setView(new PandemicOriginalMainFrame());
 	}
 
 	@Override

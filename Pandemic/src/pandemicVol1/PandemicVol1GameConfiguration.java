@@ -18,7 +18,7 @@ public class PandemicVol1GameConfiguration extends AbstractGameConfiguration {
 
 	@Override
 	public int getNumberOfDiseaseCubePerCubeType() {
-		return 10;
+		return 20;
 	}
 
 	@Override

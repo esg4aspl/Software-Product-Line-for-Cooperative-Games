@@ -1,8 +1,5 @@
 package pandemicVol1;
 
-import java.awt.EventQueue;
-
-import View.PandemicOriginalMainFrame;
 
 public class PandemicVol1App {
 
