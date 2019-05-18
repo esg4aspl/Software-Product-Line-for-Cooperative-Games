@@ -28,7 +28,7 @@ public class PandemicVol1GameConfiguration extends AbstractGameConfiguration {
 
 	@Override
 	public int getNumberOfPlayers() {
-		return 3;
+		return 2;
 	}
 
 	@Override

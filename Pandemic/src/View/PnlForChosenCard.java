@@ -20,19 +20,19 @@ import javax.swing.JButton;
 
 public class PnlForChosenCard extends JPanel {
 	List<AbstractCard> cardList;
-	JComboBox<?> comboBox;
+	JComboBox<?> cardBox;
 	AbstractCard card; 
 	public PnlForChosenCard(List<AbstractCard> cardList) {
 		this.cardList = cardList;
 		
 		setLayout(null);
 		
-		comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(cardList.toArray()));
-		comboBox.setBounds(73, 107, 285, 22);
-		comboBox.setBackground(Color.WHITE);
-		comboBox.setForeground(Color.BLUE);
-		this.add(comboBox);
+		cardBox = new JComboBox();
+		cardBox.setModel(new DefaultComboBoxModel(cardList.toArray()));
+		cardBox.setBounds(12, 83, 285, 22);
+		cardBox.setBackground(Color.WHITE);
+		cardBox.setForeground(Color.BLUE);
+		this.add(cardBox);
 		
 		ItemListener itemListener = new ItemListener() {
 		      public void itemStateChanged(ItemEvent itemEvent) {	 
@@ -44,26 +44,26 @@ public class PnlForChosenCard extends JPanel {
 							temp.add(cardList.get(i));
 						}
 					}
-		    		 comboBox.setModel(new DefaultComboBoxModel(temp.toArray()));
+		    		 cardBox.setModel(new DefaultComboBoxModel(temp.toArray()));
 		    	 }
 		      }
 		    };
-		comboBox.addItemListener(itemListener);
+		cardBox.addItemListener(itemListener);
 		
 		
 		
-		JLabel lblNewLabel = new JLabel("CARD SEC");
-		lblNewLabel.setBounds(73, 54, 307, 16);
-		add(lblNewLabel);
+		JLabel lblCardSelectionInfo = new JLabel("CARD SEC");
+		lblCardSelectionInfo.setBounds(12, 54, 285, 16);
+		add(lblCardSelectionInfo);
 		
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.setBounds(72, 142, 97, 25);
-		add(btnNewButton);
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnAdd = new JButton("New button");
+		btnAdd.setBounds(12, 118, 285, 25);
+		add(btnAdd);
+		btnAdd.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				card = (AbstractCard)comboBox.getSelectedItem();
+				card = (AbstractCard)cardBox.getSelectedItem();
 				
 				
 			}

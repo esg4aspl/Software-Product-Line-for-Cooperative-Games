@@ -121,7 +121,7 @@ public class PnlActionChoice extends JPanel {
 		btnGiveKnowledge.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnGiveKnowledge.setBackground(new Color(245, 255, 250));
 		btnGiveKnowledge.setBounds(0, 132, 190, 38);
-		btnGiveKnowledge.addActionListener(new ActionSelectionButtonListener(btnGiveKnowledge));
+		//btnGiveKnowledge.addActionListener(new ActionSelectionButtonListener(btnGiveKnowledge));
 	
 		pnlGiveCard.add(btnGiveKnowledge);
 	}
