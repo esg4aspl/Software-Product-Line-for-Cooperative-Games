@@ -24,8 +24,10 @@ public abstract class AbstractInfection {
 			else {
 				outbreakTrack.moveMarker();
 				referee.setEndGame(outbreakTrack.didMarkerReachedLastSpace());
-				for (AbstractBoardNode neighborNode: cityToBeInfected.getNeighborList()) {
-					infectCity(neighborNode,cubeList,color,outbreakTrack,newlyInfectedNodeList);
+				if(!outbreakTrack.didMarkerReachedLastSpace()) {
+					for (AbstractBoardNode neighborNode: cityToBeInfected.getNeighborList()) {
+						infectCity(neighborNode,cubeList,color,outbreakTrack,newlyInfectedNodeList);
+					}
 				}
 			}
 		}	

@@ -141,12 +141,12 @@ public class BoardNode extends AbstractBoardNode{
 		
 		for (Color cubeColor : findDistinctColorSet()) {
 			int numOfSameColoredCube = howManyCubesDoesHave(cubeColor);
-			cubes = " CUBES: "+ cubes + numOfSameColoredCube + " " + cubeColor + " ";
+			cubes = cubes + numOfSameColoredCube + " " + cubeColor + " ";
 		}
 		for(AbstractPlayer player : playersOnNode) {
-			players = players + " PLAYER ROLE: " + player.getRole().getName()+ " ";
+			players = players +  player.getRole().getName()+ " ";
 		}
-		String output = "CITY NAME:" + name + " "+ cubes + researchStation + players ;
+		String output = name + " "+ cubes + researchStation + players ;
 		return output;
 	}
 }

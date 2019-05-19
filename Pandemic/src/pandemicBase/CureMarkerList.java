@@ -52,7 +52,7 @@ public class CureMarkerList implements ICureMarkerList {
 	public String showCureMarkerListStatue() {
 		String statue = "";
 		for (AbstractGamePiece piece : cureMarkerList) {
-			statue = statue + "CURE MARKER COLOR: "+((CureMarker)piece).getColor()+ " isCured?: " +((CureMarker)piece).isCured() + " isEradicated?: " + ((CureMarker)piece).isEradicated()  + "\n";
+			statue = statue + "Cure Marker List: "+((CureMarker)piece).getColor()+ " isCured?: " +((CureMarker)piece).isCured() + " isEradicated?: " + ((CureMarker)piece).isEradicated()  + "\n";
 		}
 		return statue;
 	}

@@ -13,7 +13,6 @@ public class PandemicOriginalGameConfiguration extends AbstractGameConfiguration
 	@Override
 	public int getNumberOfDiseaseCubeTypes() {
 		return 4;
-
 	}
 
 	@Override
@@ -23,17 +22,17 @@ public class PandemicOriginalGameConfiguration extends AbstractGameConfiguration
 
 	@Override
 	public int getOutbreakRange() {
-		return 9;
+		return 8;
 	}
 
 	@Override
 	public int getNumberOfPlayers() {
-		return 4;
+		return 2;
 	}
 
 	@Override
 	public int getNumberOfCardsPerPlayer() {
-		return 2;
+		return 4;
 	}
 
 	@Override
