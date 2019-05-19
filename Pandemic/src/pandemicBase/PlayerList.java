@@ -3,6 +3,7 @@ package pandemicBase;
 import java.util.ArrayList;
 import java.util.List;
 
+import core.AbstractCard;
 import core.AbstractPlayer;
 import core.IPlayerList;
 
@@ -41,11 +42,15 @@ public class PlayerList implements IPlayerList {
 	@Override
 	public String getPlayerStatus() {
 		String stringToReturn = "";
-		for(AbstractPlayer player : playerList)
-			stringToReturn = stringToReturn + player.toString() + " \n";
-		return stringToReturn;
+		for(AbstractPlayer player : playerList) {
+			String handToString = "";
+			for (AbstractCard card: player.getHand().getDeck()) {
+				handToString = handToString + card +"\n";
+			}
 		
-	
-	}
+			stringToReturn = stringToReturn + player.toString() + "\nCards in hand: " + handToString + " \n";
+		}
+		return stringToReturn;
 
+	}
 }

@@ -2,6 +2,7 @@ package pandemicOriginal;
 
 import java.awt.Dimension;
 import java.awt.Font;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
@@ -11,10 +12,16 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.EtchedBorder;
 import javax.swing.plaf.ColorUIResource;
 import javax.swing.plaf.FontUIResource;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 import core.AbstractAction;
 import core.AbstractBoard;
@@ -165,11 +172,13 @@ public class PandemicOriginalMainFrame extends JFrame implements IView{
 		comboBox.setEditable(true);
 		JOptionPane.showMessageDialog( this, comboBox, "PLAYER SELECTION", JOptionPane.PLAIN_MESSAGE);
 		
-		AbstractPlayer player = (AbstractPlayer) comboBox.getSelectedItem();
-		if(player == null) {
+		int index = comboBox.getSelectedIndex();
+		AbstractPlayer player;
+		if(index == -1) {
 			JOptionPane.showMessageDialog( this,"You didn't choose anything. Please try again. ","NULL ERROR", JOptionPane.ERROR_MESSAGE);
 			player  = whichplayerToShareInformationWith(referee);
 		}
+		player = referee.getPlayerList().getPlayer(index);
 		return player;
 	}
 
@@ -265,11 +274,66 @@ public class PandemicOriginalMainFrame extends JFrame implements IView{
 
 	@Override
 	public void showBoardStatue(AbstractReferee referee) {
-		JOptionPane.showMessageDialog(null, referee.getBoard(), "BOARD STATUE", JOptionPane.PLAIN_MESSAGE); //plain
+		
+		List<AbstractBoardNode> nodeList = referee.getBoard().getNodeList();
+		ArrayList<ArrayList<String>>values = new ArrayList<ArrayList<String>>();
+		
+		for(AbstractBoardNode node : nodeList) {
+			ArrayList<String> subValues = new ArrayList<String>();
+			subValues.add(node.getName());
+			String cubes = ""; 
+			for(Color color: referee.getUsedColorSet()) {
+				if(((BoardNode)node).doesHaveSpecificColoredCube(color)) {
+					int numOfSameColoredCube = ((BoardNode)node).howManyCubesDoesHave(color);
+					 cubes = color + ": "+ numOfSameColoredCube + " " ;
+				}
+			}
+			subValues.add( cubes );
+			subValues.add(  String.valueOf(((BoardNode) node).doesHaveResearchStation()));
+			
+			
+			values.add(subValues);
+		}
+				
+			String[][] array = new String[values.size()][];
+			for (int i = 0; i < values.size(); i++) {
+			    ArrayList<String> row = values.get(i);
+			    array[i] = row.toArray(new String[row.size()]);
+			}
+		
+
+			Object[] cols = {
+					"City Name","Cubes","ResearchStation"
+			};
+			JTable table = new JTable(array, cols);
+			
+			for(int i=0; i<table.getRowCount();i++) {
+				table.setRowHeight(i, 30);
+			}
+			
+			
+			
+			table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);    
+		    TableColumn col0 = table.getColumnModel().getColumn(0);
+		    int width0 = 100;
+		    col0.setPreferredWidth(width0);
+		    
+		    TableColumn col1 = table.getColumnModel().getColumn(1);
+		    int width1 = 250;
+		    col1.setPreferredWidth(width1);
+		    
+		    TableColumn col2 = table.getColumnModel().getColumn(2);
+		    int width2 = 100;
+		    col2.setPreferredWidth(width2);
+			
+			JScrollPane scrollPane = new JScrollPane(table);
+			
+	        JOptionPane.showMessageDialog(null,  new JScrollPane(table), "BOARD STATUE", JOptionPane.PLAIN_MESSAGE); //plain
 	}
 
 	@Override
 	public Color askDiseaseColor(AbstractReferee referee) {
+	
 		JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(referee.getUsedColorSet().toArray()));
 		comboBox.setSelectedIndex(-1);
@@ -291,7 +355,6 @@ public class PandemicOriginalMainFrame extends JFrame implements IView{
 		comboBox.setModel(new DefaultComboBoxModel(deck.getDeck().toArray()));
 		comboBox.setSelectedIndex(-1);
 		comboBox.setBounds(12, 98, 410, 41);
-		comboBox.setEditable(true);
 		String text = "CARD SELECTION";
 		JOptionPane.showMessageDialog( this, comboBox, text, JOptionPane.PLAIN_MESSAGE);
 		

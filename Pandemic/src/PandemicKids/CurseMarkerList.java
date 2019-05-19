@@ -16,7 +16,7 @@ public class CurseMarkerList extends CureMarkerList {
 	public String showCureMarkerListStatue() {
 		String statue = "";
 		for (AbstractGamePiece piece : cureMarkerList) {
-			statue = statue + "CURSE MARKER COLOR: "+((CureMarker)piece).getColor()+ " isEradicated?: " + ((CureMarker)piece).isEradicated()  + "\n";
+			statue = statue + "Curse Marker Color: "+((CureMarker)piece).getColor()+ " isEradicated?: " + ((CureMarker)piece).isEradicated()  + "\n";
 		}
 		return statue;
 	}

@@ -69,12 +69,9 @@ public abstract class AbstractPlayer {
 	
 	@Override
 	public String toString() {
-		String handToString = "";
-		for (AbstractCard card: hand.getDeck()) {
-			handToString = handToString + card +"\n";
-		}
+		
 		return "Player with role: " + role.getName() 
-				+ " is in " + currentNode.getName() + "\n Cards in hand: " + handToString ;
+				+ " is in " + currentNode.getName() + " " ;
 		
 	}
 	

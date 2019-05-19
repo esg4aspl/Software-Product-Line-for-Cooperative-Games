@@ -62,9 +62,8 @@ public class PandemicKidsReferee extends AbstractReferee {
 	@Override
 	protected void startGame() {
 		endGame = false;
+		view.showBoardStatue(this);
 		while (!(endGame)) {
-			view.showBoardStatue(this);
-			
 			for (int i=0; i<numberOfPlayers;i++) {
 				determinePlayerOrder(i);
 				view.showResponseToPlayer(playerList.getPlayerStatus());
@@ -101,6 +100,7 @@ public class PandemicKidsReferee extends AbstractReferee {
 			view.showResponseToPlayer("Remaining actions "+ actionCount + " for:" + currentPlayer.getRole().getName());
 			conductMove(actionCount);
 			view.showBoardStatue(this);
+			view.showResponseToPlayer(curseMarkerList.showCureMarkerListStatue());
 			actionCount--;
 			
 		}

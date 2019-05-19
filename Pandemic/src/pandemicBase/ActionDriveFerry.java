@@ -51,7 +51,7 @@ public class ActionDriveFerry extends AbstractAction {
 	
 	private void removeAllCubesOfSameColorIfDiseaseIsCuredAndCurrentPlayerIsMedic(List<AbstractGamePiece> curedOnes,AbstractPlayer player) {
 		for (AbstractGamePiece marker : curedOnes) {
-			Color cubeColor = ((Cube)marker).getColor();
+			Color cubeColor = ((CureMarker)marker).getColor();
 			if(destinationNode.doesHaveSpecificColoredCube(cubeColor)) {
 				int numOfCubesToBeRemoved = destinationNode.howManyCubesDoesHave(cubeColor);
 				destinationNode.removeCubesFromNode(cubeColor, numOfCubesToBeRemoved);

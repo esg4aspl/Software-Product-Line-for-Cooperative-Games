@@ -67,9 +67,8 @@ public class PandemicOriginalReferee extends AbstractReferee {
 	@Override
 	protected void startGame() {
 		endGame = false;
+		view.showBoardStatue(this);
 		while (!(endGame)) {
-			view.showBoardStatue(this);
-			
 			for (int i=0; i<numberOfPlayers;i++) {
 				determinePlayerOrder(i);
 				view.showResponseToPlayer(playerList.getPlayerStatus());
@@ -106,6 +105,7 @@ public class PandemicOriginalReferee extends AbstractReferee {
 			view.showResponseToPlayer("Remaining actions "+ actionCount + " for: " + currentPlayer.getRole().getName());
 			conductMove(actionCount);
 			view.showBoardStatue(this);
+			view.showResponseToPlayer(cureMarkerList.showCureMarkerListStatue());
 			actionCount--;
 		}
 		//Draw 2 cards after 4 actions.
