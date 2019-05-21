@@ -32,7 +32,7 @@ public class PandemicOriginalGameConfiguration extends AbstractGameConfiguration
 
 	@Override
 	public int getNumberOfCardsPerPlayer() {
-		return 4;
+		return 10;
 	}
 
 	@Override
