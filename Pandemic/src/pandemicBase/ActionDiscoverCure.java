@@ -1,5 +1,6 @@
 package pandemicBase;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import core.AbstractAction;
@@ -47,10 +48,14 @@ public class ActionDiscoverCure extends AbstractAction {
 
 	@Override
 	public List<IRule> getRuleList() {
+		List<IRule> newRuleList = new ArrayList<IRule>();
 		AbstractPlayer player = referee.getCurrentPlayer();
 		if(player.getRole() instanceof Scientist) {
-			player.getRole().getRuleList().add(new RuleDiseaseMustBeNotCuredYet(diseaseColor));
-			return  player.getRole().getRuleList();
+			for(IRule rule:player.getRole().getRuleList()) {
+				newRuleList.add(rule);
+			}
+			newRuleList.add(new RuleDiseaseMustBeNotCuredYet(diseaseColor));
+			return  newRuleList;
 		}
 		return ruleList;
 	}
